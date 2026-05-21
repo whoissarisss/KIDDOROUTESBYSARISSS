@@ -54,7 +54,7 @@
                     <span class="Cajitatitulo">Buses en Ruta</span>
                     <span class="Cajitanumero">4 / 4</span>
                     <div>
-                        <button class="botonCrear" onclick="">+ NUEVA RUTA</button>
+                        <button class="botonCrear" id="btnIrNuevaRuta">+ NUEVA RUTA</button>
                     </div>
                 </div>
                 
@@ -62,7 +62,7 @@
                     <span class="Cajitatitulo">Alumnos Registrados</span>
                     <span class="Cajitanumero">18</span>
                     <div>
-                        <button class="botonCrear">+ NUEVO ESTUDIANTE</button>
+                        <button class="botonCrear" id="btnIrNuevoEstudiante">+ NUEVO ESTUDIANTE</button>
                     </div>
                 </div>
                 <div class="Cajitaestado moradita">
@@ -238,7 +238,9 @@
             <section class="Gestion">
                 
                 <div class="PanelFormularios">
+                    <div id="modalNuevaRuta" class="capa-modal-flotante">
                         <div class="Formulario">
+                            <button type="button" class="btn-cerrar-modal" id="cerrarM1">✕</button>
                             <h3>REGISTRAR NUEVA RUTA</h3>
                             <form id="FormuRuta" class="Formularios">
                                 <div class="GrupoInput">
@@ -260,29 +262,35 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btnFormu btnRosa">CREAR RUTA</button>
-                            </form>
-                            
-                        </div>
-                </div>
-
-                <div class="Formulario">
-                    <h3> NIÑOS SIN RUTA ASIGNADA</h3>
-                    <div class="ListaEstudiantesPendientes">
-                        <div class="FilaEstudiantePendiente">
-                            <span> Thiago Silva</span>
-                            <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
-                        </div>
-                        <div class="FilaEstudiantePendiente">
-                            <span> Isabella Rios</span>
-                            <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
-                        </div>
-                        <div class="FilaEstudiantePendiente">
-                            <span> Samuel Niño</span>
-                            <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
+                            </form> 
                         </div>
                     </div>
                 </div>
-                <div class="Formulario">
+
+                <div id="modalNinosPendientes" class="capa-modal-flotante">
+                    <div class="Formulario">
+                        <button type="button" class="btn-cerrar-modal" id="cerrarM2">✕</button>
+                        <h3> NIÑOS SIN RUTA ASIGNADA</h3>
+                        <div class="ListaEstudiantesPendientes">
+                            <div class="FilaEstudiantePendiente">
+                                <span> Thiago Silva</span>
+                                <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
+                            </div>
+                            <div class="FilaEstudiantePendiente">
+                                <span> Isabella Rios</span>
+                                <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
+                            </div>
+                            <div class="FilaEstudiantePendiente">
+                                <span> Samuel Niño</span>
+                                <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+
+                <div id="modalNuevoEstudiante" class="capa-modal-flotante">
+                    <div class="Formulario">
+                        <button type="button" class="btn-cerrar-modal" id="cerrarM3">✕</button>
                         <h3> REGISTRAR NUEVO ESTUDIANTE</h3>
                         <form id="formuEstudiante" class="Formularios">
                             <div class="GrupoInput">
@@ -291,6 +299,7 @@
                             </div>
                             <button type="submit" class="btnFormu btnAmarillo">INSCRIBIR ESTUDIANTE</button>
                         </form>
+                    </div>
                 </div>
 
                 <div class="TablaHistorial">

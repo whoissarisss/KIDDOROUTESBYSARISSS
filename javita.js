@@ -224,16 +224,16 @@ class RouteCard extends HTMLElement {
         const titulo = this.getAttribute("Titulo") || "Ruta General";
         const conductor = this.getAttribute("Conductor") || "Sin asignar";
         const hora = this.getAttribute("Hora") || "--:--";
-        const clima = this.getAttribute("Clima") || "🌤️ --°C";
+        const clima = this.getAttribute("Clima") || "";
         const claseBus = this.getAttribute("clase-bus") || "bus-1";
         const estudiantesAtributo = this.getAttribute("estudiantes") || "";
 
         const tarjeta = this.shadowRoot.querySelector(".Tarjetaruta");
         if (tarjeta) tarjeta.className = `Tarjetaruta ${claseBus}`;
         this.shadowRoot.querySelector(".Rutainfo h3").textContent = titulo;
-        this.shadowRoot.querySelector(".Conductor").textContent = `👤 Conductor: ${conductor}`;
+        this.shadowRoot.querySelector(".Conductor").textContent = ` CONDUCTOR: ${conductor}`;
         this.shadowRoot.querySelector(".Clima").textContent = clima;
-        this.shadowRoot.querySelector(".class-hora").textContent = `⏰ Salida: ${hora}`;
+        this.shadowRoot.querySelector(".class-hora").textContent = ` SALIDA: ${hora}`;
 
         const contenedorEstudiantes = this.shadowRoot.querySelector(".ListaEstudiantes");
         if (contenedorEstudiantes) {contenedorEstudiantes.innerHTML = "";
@@ -258,7 +258,7 @@ class RouteCard extends HTMLElement {
                     // Evento para editar un estudiante directamente al hacer click sobre su tag
                     btnEstudiante.addEventListener('click', (e) => {
                         if(e.target.className !== "eliminar-estudiante") {
-                            const nuevoNombre = prompt(`🌸 EDITA EL NOMBRE DEL ESTUDIANTE:`);
+                            const nuevoNombre = prompt(` EDITA EL NOMBRE DEL ESTUDIANTE:`);
                             if (nuevoNombre === null) return;
                                 if (nuevoNombre.trim() === "" || !isNaN(nuevoNombre)) {
                                     alert("Error: Debes ingresar un nombre válido.");
@@ -558,6 +558,61 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
         
     }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Capturamos las capas de los modales
+    const modalRuta = document.getElementById("modalNuevaRuta");
+    const modalPendientes = document.getElementById("modalNinosPendientes");
+    const modalEstudiante = document.getElementById("modalNuevoEstudiante");
+
+    // 2. Capturamos los botones para abrir
+    const btnAbrirRuta = document.getElementById("btnIrNuevaRuta");
+    const btnAbrirEstudiante = document.getElementById("btnIrNuevoEstudiante");
+    // Haremos que al dar clic a la palabra "Alumnos Registrados" se abra la lista flotante
+    const contenedorAlumnosContador = document.querySelector(".Cajitaestado.amarilla");
+
+    // 3. Capturamos las "X" para cerrar
+    const btnCerrarM1 = document.getElementById("cerrarM1");
+    const btnCerrarM2 = document.getElementById("cerrarM2");
+    const btnCerrarM3 = document.getElementById("cerrarM3");
+
+    // 🎀 FUNCIONALIDAD MODAL 1: NUEVA RUTA
+    if (btnAbrirRuta && modalRuta) {
+        btnAbrirRuta.addEventListener("click", () => modalRuta.classList.add("activo"));
+    }
+    if (btnCerrarM1) {
+        btnCerrarM1.addEventListener("click", () => modalRuta.classList.remove("activo"));
+    }
+
+    // 🎀 FUNCIONALIDAD MODAL 2: NIÑOS PENDIENTES
+    if (contenedorAlumnosContador && modalPendientes) {
+        contenedorAlumnosContador.style.cursor = "pointer"; // Pone la manito linda
+        contenedorAlumnosContador.addEventListener("click", (e) => {
+            // Evitamos que se abra si le diste directamente al botón de crear estudiante
+            if(e.target.id !== "btnIrNuevoEstudiante" && !e.target.classList.contains("botonCrear")) {
+                modalPendientes.classList.add("activo");
+            }
+        });
+    }
+    if (btnCerrarM2) {
+        btnCerrarM2.addEventListener("click", () => modalPendientes.classList.remove("activo"));
+    }
+
+    // 🎀 FUNCIONALIDAD MODAL 3: NUEVO ESTUDIANTE
+    if (btnAbrirEstudiante && modalEstudiante) {
+        btnAbrirEstudiante.addEventListener("click", () => modalEstudiante.classList.add("activo"));
+    }
+    if (btnCerrarM3) {
+        btnCerrarM3.addEventListener("click", () => modalEstudiante.classList.remove("activo"));
+    }
+
+    // ✿ CERRAR SI HACEN CLIC AFUERA EN LO OSCURO ✿
+    window.addEventListener("click", (e) => {
+        if (e.target === modalRuta) modalRuta.classList.remove("activo");
+        if (e.target === modalPendientes) modalPendientes.classList.remove("activo");
+        if (e.target === modalEstudiante) modalEstudiante.classList.remove("activo");
+    });
 });
 
 

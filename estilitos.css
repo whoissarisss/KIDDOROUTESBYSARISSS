@@ -229,19 +229,83 @@ body {
     font-weight: 700;
     color: var(--text-main);
 }
+.Cajitaestado {
+    position: relative; 
+    min-height: 90px; 
+    height: auto;     
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.Cajitaestado > div {
+    display: flex !important;
+    justify-content: flex-end; 
+    align-items: center;       
+    width: 100%;
+    margin-top: auto;          
+    padding-top: 20px;         
+}
 
-/* ==========================================================================
-   🚌 EL GRID DE LOS 4 BUSES ESTABLES (Enfoque Bento Grid Completo)
-   ========================================================================== */
+.botonCrear {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 60px;       
+    padding: 0 16px;    
+    line-height: 1;     
+    border-radius: 55px; 
+    box-sizing: border-box;
+}
+
+.botonCrear {
+    font-family: "KGPerfectPenmanship", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    gap: 6px;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    position: relative;
+    box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.06), 
+    inset 0 -3px 0px rgba(0, 0, 0, 0.12), 
+    inset 0 3px 4px rgba(255, 255, 255, 0.7);
+}
+.Cajitaestado.rosa .botonCrear {
+    background-color: #fbc4d0; 
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.Cajitaestado.amarilla .botonCrear {
+    background-color: #fdeca6; 
+    color: #6d5b16; 
+}
+.botonCrear:hover {
+    transform: translateY(-2px) scale(1.04); /* Se levanta un poquito de forma juguetona */
+    box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.08), 
+    inset 0 -3px 0px rgba(0, 0, 0, 0.15), 
+    inset 0 4px 6px rgba(255, 255, 255, 0.9);
+}
+.botonCrear:active {
+    transform: translateY(1px) scale(0.98); 
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.05), 
+        inset 0 2px 3px rgba(0, 0, 0, 0.15); 
+}
+
 .Grid-rutas {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Cuadrícula exacta de 2x2 */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 24px;
     flex-grow: 1;
     margin-bottom: 10px;
 }
 
-/* --- DISEÑO DE CADA BUS O TARJETA DE RUTA --- */
 .Tarjetaruta {
     background-color: var(--white-pure);
     border-radius: var(--border-radius-lg);
@@ -255,15 +319,11 @@ body {
     position: relative;
 }
 
-/* Hover sutil para dar el aspecto apachurrable */
-
 .Tarjetaruta:hover {
     transform: translateY(-6px);
-    box-shadow: 0 15px 30px rgba(251, 196, 208, 0.25); /* Sombra rosa suave flotante */
+    box-shadow: 0 15px 30px rgba(251, 196, 208, 0.25); 
     border-color: rgba(251, 196, 208, 0.5);
 }
-
-/* Decorador de color en el borde izquierdo de la tarjeta para identificar el bus */
 .Tarjetaruta::before {
     content: '';
     position: absolute;
@@ -276,7 +336,7 @@ body {
 .Tarjetaruta.bus-1::before { background-color: #ff6b8b; }
 .Tarjetaruta.bus-2::before { background-color: #4ea8de; }
 .Tarjetaruta.bus-3::before { background-color: #ffd166; }
-.Tarjetaruta.bus-4::before { background-color: #06d6a0; }
+.Tarjetaruta.bus-4::before { background-color: #65d9ba; }
 
 /* Encabezado interno del Bus */
 .Tarjetarutaencabezado {
@@ -471,82 +531,66 @@ body {
 }
 
 /* ==========================================================================
-   🚨 RESPONSIVIDAD: PANTALLAS ULTRA GRANDES & BREAKPOINTS
-   ========================================================================== */
-
-/* 0. Monitores de Escritorio Grandes (Pantallas de 1440px o más) 
-   ¡Aquí está el truco! En lugar de estirar 2 buses gigantes, pintamos los 4 en fila */
-   @media (min-width: 1440px) {
-    .Tablerito {
-        max-width: 1600px; /* Ampliamos un poquito el lienzo */
-    }
-    .Grid-rutas {
-        grid-template-columns: repeat(4, 1fr); /* ¡Los 4 buses alineados en una sola fila hermosa! */
-        gap: 20px;
-    }
-    .Cajitaestados {
-        gap: 20px;
-    }
-}
-
-/* 1. Computadoras medianas / Laptops convencionales (Menos de 1200px) */
-@media (max-width: 1200px) {
-    .Tablerito { 
-        grid-template-columns: 80px 1fr; 
-        gap: 16px; 
-    }
-    .Grid-rutas { 
-        grid-template-columns: repeat(2, 1fr); /* Vuelve al cómodo 2x2 */
-        gap: 16px; 
-    }
-    .Tarjetaruta { 
-        padding: 20px; 
-    }
-}
-
-/* 2. Tablets y pantallas medianas (Menos de 768px) */
-@media (max-width: 768px) {
-    .Tablerito { 
-        grid-template-columns: 1fr; 
-        height: auto; 
-    }
-    .Barrita { 
-        display: none; 
-    }
-    .Grid-rutas { 
-        grid-template-columns: 1fr; /* Una sola columna vertical para que no se aplasten */
-    }
-    .Cajitaestados { 
-        grid-template-columns: 1fr; 
-        gap: 12px; 
-    }
-    .Cajitaestado { 
-        height: 100px; 
-    }
-}
-
-/* 3. Celulares inteligentes (Menos de 480px) */
-@media (max-width: 480px) {
-    body { 
-        padding: 12px; 
-    }
-    .Encabezado { 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 15px; 
-        padding: 20px; 
-    }
-    .BarritaBusqueda input { 
-        width: 100%; 
-    }
-    .Rutadatos { 
-        flex-direction: column; 
-        gap: 6px; 
-    }
-}
-/* ==========================================================================
    📊 SECCIÓN GESTIÓN Y TABLA DE HISTORIAL (Inspirado en Pinterest/Intelly)
    ========================================================================== */
+
+
+   .capa-modal-flotante {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(43, 42, 44, 0.5); /* Oscurece el fondo con tu color text-main */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000; /* Vuela por encima de todo el dashboard */
+    
+    /* Ocultos por defecto */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Clase mágica para hacerlos aparecer */
+.capa-modal-flotante.activo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Ajuste tierno para tus formularios cuando estén adentro del modal */
+.capa-modal-flotante .Formulario {
+    background-color: var(--white-pure);
+    padding: 30px;
+    border-radius: var(--border-radius-lg); /* Tus curvas de 28px */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 480px; /* Tamaño ideal de ventanilla */
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.capa-modal-flotante.activo .Formulario {
+    transform: translateY(0);
+}
+
+/* Botón de cerrar (X) para las esquinas */
+.btn-cerrar-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.btn-cerrar-modal:hover {
+    color: var(--pastel-pink);
+}
 
 .Gestion {
     display: grid;
@@ -638,11 +682,11 @@ body {
 .btnAmarillo { background-color: var(--pastel-yellow); }
 .btnAmarillo:hover { background-color: #fce074; transform: translateY(-2px); }
 
-/* --- DISEÑO DE LA TABLA PINTEREST --- */
+
 .TablaHistorial {
     background-color: var(--white-pure);
     border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--pastel-pink);
     padding: 28px;
     display: flex;
     flex-direction: column;
@@ -678,7 +722,7 @@ body {
 
 .FiltroB.activo, .FiltroB:hover {
     background-color: var(--text-main);
-    color: var(--white-pure);
+    color: var(--pastel-pink);
 }
 
 .ContenedorTabla {
@@ -698,25 +742,24 @@ body {
     font-weight: 500;
     font-size: 0.8rem;
     text-transform: uppercase;
-    border-bottom: 1px solid #eef1f0;
+    border-bottom: 1px solid var(--pastel-pink);
 }
 
 .Tablita td {
     padding: 16px;
-    border-bottom: 1px solid #fafbfc;
+    border-bottom: 1px solid var(--pastel-pink);
     color: var(--text-main);
     vertical-align: middle;
 }
 
 .Tablita tbody tr:hover {
-    background-color: #fafbfc;
+    background-color: var(--pastel-purple);
 }
 
-/* Botón de eliminar fila */
 .btnEliminarFila {
     background: none;
     border: none;
-    color: var(--text-muted);
+    color: var(--pastel-pink);
     cursor: pointer;
     font-size: 1.1rem;
     transition: color 0.2s ease;
@@ -751,4 +794,102 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     background-color: #f9afbf;
+}
+
+
+/* 0. Monitores de Escritorio Grandes (Pantallas de 1440px o más) 
+   ¡Aquí está el truco! En lugar de estirar 2 buses gigantes, pintamos los 4 en fila */
+   @media (min-width: 1440px) {
+    .Tablerito {
+        max-width: 1600px; /* Ampliamos un poquito el lienzo */
+    }
+    .Grid-rutas {
+        grid-template-columns: repeat(4, 1fr); /* ¡Los 4 buses alineados en una sola fila hermosa! */
+        gap: 20px;
+    }
+    .Cajitaestados {
+        gap: 20px;
+    }
+}
+
+/* 1. Computadoras medianas / Laptops convencionales (Menos de 1200px) */
+@media (max-width: 1200px) {
+    .Tablerito { 
+        grid-template-columns: 80px 1fr; 
+        gap: 16px; 
+    }
+    .Grid-rutas { 
+        grid-template-columns: repeat(2, 1fr); /* Vuelve al cómodo 2x2 */
+        gap: 16px; 
+    }
+    .Tarjetaruta { 
+        padding: 20px; 
+    }
+}
+
+/* 2. Tablets y pantallas medianas (Menos de 768px) */
+@media (max-width: 768px) {
+    .Tablerito { 
+        grid-template-columns: 1fr; 
+        height: auto; 
+    }
+    .Barrita { 
+        display: none; 
+    }
+    .Grid-rutas { 
+        grid-template-columns: 1fr; /* Una sola columna vertical para que no se aplasten */
+    }
+    .Cajitaestados { 
+        grid-template-columns: 1fr; 
+        gap: 12px; 
+    }
+    .Cajitaestado { 
+        height: 100px; 
+    }
+    .Barrita {
+        display: flex !important;       /* ¡Obligamos a que se muestre! 🎀 */
+        position: fixed;
+        bottom: 0;                      /* La ubicamos abajo del cel para que sea fácil tocar los botones */
+        left: 0;
+        width: 100%;
+        height: 30px;                   /* Una altura cómoda */
+        flex-direction: row;            /* El menú ahora irá horizontal */
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 20px 20px 0 0;  /* Bordes esponjosos arriba */
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
+        z-index: 1000;                  /* Que siempre quede flotando por encima */
+    }
+    .imagen-isotipo {
+        height: 84px;
+    }
+    .Menu-barrita {
+        flex-direction: row !important;
+        gap: 15px;
+    }
+    .Tablerito {
+        padding-bottom: 80px; 
+        grid-template-columns: 1fr !important; /* El diseño pasa a ser de una sola columna */
+    }
+}
+
+/* 3. Celulares inteligentes (Menos de 480px) */
+@media (max-width: 480px) {
+    body { 
+        padding: 12px; 
+    }
+    .Encabezado { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 15px; 
+        padding: 20px; 
+    }
+    .BarritaBusqueda input { 
+        width: 100%; 
+    }
+    .Rutadatos { 
+        flex-direction: column; 
+        gap: 6px; 
+    }
+    
 }
