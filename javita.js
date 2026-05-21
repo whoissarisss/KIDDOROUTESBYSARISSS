@@ -220,7 +220,6 @@ class RouteCard extends HTMLElement {
     }
 
     connectedCallback() {
-        // Captura de atributos esenciales del componente
         const idRuta = this.getAttribute("id-ruta") || "";
         const titulo = this.getAttribute("Titulo") || "Ruta General";
         const conductor = this.getAttribute("Conductor") || "Sin asignar";
@@ -229,20 +228,15 @@ class RouteCard extends HTMLElement {
         const claseBus = this.getAttribute("clase-bus") || "bus-1";
         const estudiantesAtributo = this.getAttribute("estudiantes") || "";
 
-        // Manipulación dinámica del Shadow DOM de la tarjeta
         const tarjeta = this.shadowRoot.querySelector(".Tarjetaruta");
         if (tarjeta) tarjeta.className = `Tarjetaruta ${claseBus}`;
-
         this.shadowRoot.querySelector(".Rutainfo h3").textContent = titulo;
         this.shadowRoot.querySelector(".Conductor").textContent = `👤 Conductor: ${conductor}`;
         this.shadowRoot.querySelector(".Clima").textContent = clima;
         this.shadowRoot.querySelector(".class-hora").textContent = `⏰ Salida: ${hora}`;
 
-        // Renderizado interno de los estudiantes asignados a la ruta
         const contenedorEstudiantes = this.shadowRoot.querySelector(".ListaEstudiantes");
-        if (contenedorEstudiantes) {
-            contenedorEstudiantes.innerHTML = "";
-
+        if (contenedorEstudiantes) {contenedorEstudiantes.innerHTML = "";
             if (estudiantesAtributo.trim() !== "") {
                 const listaAlumnos = estudiantesAtributo.split(",");
                 listaAlumnos.forEach(nombre => {
@@ -251,7 +245,6 @@ class RouteCard extends HTMLElement {
                     btnEstudiante.className = "Estudiantito";
                     btnEstudiante.innerHTML = `${nombre} <span class="eliminar-estudiante">×</span>`;
                     
-                    // 💥 REQUERIMIENTO: Implementación de Evento Personalizado con CustomEvent para eliminar estudiante
                     btnEstudiante.querySelector(".eliminar-estudiante").addEventListener('click', (e) => {
                         e.stopPropagation();
                         const eventoBorrarEstudiante = new CustomEvent('alumnoEliminado', {
@@ -265,14 +258,12 @@ class RouteCard extends HTMLElement {
                     // Evento para editar un estudiante directamente al hacer click sobre su tag
                     btnEstudiante.addEventListener('click', (e) => {
                         if(e.target.className !== "eliminar-estudiante") {
-                            const nuevoNombre = prompt(`🌸 Editar nombre del estudiante:`, nombre.replace(/👧 |👦 /g, ""));
+                            const nuevoNombre = prompt(`🌸 EDITA EL NOMBRE DEL ESTUDIANTE:`);
                             if (nuevoNombre === null) return;
-                            if (nuevoNombre.trim() === "" || !isNaN(nuevoNombre)) {
-                                alert("⚠️ Error: Debe ingresar un nombre válido (no se permiten datos vacíos ni números puros).");
-                                return;
-                            }
-                            const iconoActual = nombre.includes("👧") ? "👧" : "👦";
-                            
+                                if (nuevoNombre.trim() === "" || !isNaN(nuevoNombre)) {
+                                    alert("Error: Debes ingresar un nombre válido.");
+                                    return;
+                                }
                             const eventoEditarEstudiante = new CustomEvent('alumnoEditado', {
                                 detail: { nombreViejo: nombre, nombreNuevo: `${iconoActual} ${nuevoNombre.trim()}`, idRuta: idRuta },
                                 bubbles: true,
@@ -281,17 +272,15 @@ class RouteCard extends HTMLElement {
                             this.dispatchEvent(eventoEditarEstudiante);
                         }
                     });
-
                     contenedorEstudiantes.appendChild(btnEstudiante);
                 });
             }
         }
 
-        // Contador de capacidad en tiempo real
         const totalAlumnos = estudiantesAtributo.trim() !== "" ? estudiantesAtributo.split(",").length : 0;
-        this.shadowRoot.querySelector(".class-capacidad").textContent = `👥 Capacidad: ${totalAlumnos}/10`;
+        this.shadowRoot.querySelector(".class-capacidad").textContent = `CAPACIDAD: ${totalAlumnos}/10`;
 
-        // Eventos de gestión de la ruta completa (Eliminar y Editar)
+        
         this.shadowRoot.querySelector(".btnEliminarRuta").addEventListener('click', () => {
             const eventoEliminarRuta = new CustomEvent('rutaEliminada', {
                 detail: { idRuta: idRuta },
@@ -302,19 +291,19 @@ class RouteCard extends HTMLElement {
         });
 
         this.shadowRoot.querySelector(".botonEditar").addEventListener('click', () => {
-            const nuevoTitulo = prompt("🌸 Ingrese el nuevo nombre de la ruta:", titulo);
+            const nuevoTitulo = prompt("Ingresa el nuevo nombre de la ruta:", titulo);
             if (nuevoTitulo === null) return;
-            const nuevoConductor = prompt("🌸 Ingrese el nuevo conductor:", conductor);
+            const nuevoConductor = prompt("Ingresa el nuevo conductor:", conductor);
             if (nuevoConductor === null) return;
-            const nuevaHora = prompt("🌸 Ingrese la nueva hora de salida (Ej: 06:45 AM):", hora);
+            const nuevaHora = prompt("Ingresa la nueva hora de salida (Ej: 06:45 AM):", hora);
             if (nuevaHora === null) return;
 
             if (!nuevoTitulo.trim() || !nuevoConductor.trim() || !nuevaHora.trim()) {
-                alert("⚠️ Error: Todos los campos son obligatorios para editar la ruta.");
+                alert("Error: Todos los campos son obligatorios para editar la ruta.");
                 return;
             }
             if (!isNaN(nuevoTitulo) || !isNaN(nuevoConductor)) {
-                alert("⚠️ Error: El nombre de la ruta y del conductor no pueden ser números.");
+                alert("Error: El nombre de la ruta y del conductor no pueden ser números.");
                 return;
             }
 
@@ -327,68 +316,92 @@ class RouteCard extends HTMLElement {
         });
     }
 }
-
 customElements.define("route-card", RouteCard);
 
 
-// ==========================================================================
-// 🚀 LÓGICA PRINCIPAL Y CONTROL DE DATOS DEL DOM GLOBAL
-// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    const buscador = document.getElementById("buscador");
+    if (buscador) {
+        buscador.addEventListener("input", () => {
+            const textoUsuario = buscador.value.toLowerCase().trim();
+            const todasLasTarjetas = document.querySelectorAll("bus-card, .Tarjetaruta"); 
+            todasLasTarjetas.forEach(tarjeta => {
+                let tituloHTML = "";
+                if (tarjeta.shadowRoot) {
+                    tituloHTML = tarjeta.shadowRoot.querySelector("h3") ? tarjeta.shadowRoot.querySelector("h3").textContent : "";
+                } else {
+                    tituloHTML = tarjeta.querySelector("h3") ? tarjeta.querySelector("h3").textContent : "";
+                }
+                const titulo = tituloHTML.toLowerCase();
+                if (titulo.includes(textoUsuario)) {
+                    tarjeta.style.display = "block"; // Se queda
+                } else {
+                    tarjeta.style.display = "none";  // Se oculta
+                }
+            });
+        });
+    }
+});
+let textoBusqueda = ""; 
 
-// Base de datos temporal estructurada en memoria primaria
+document.addEventListener("DOMContentLoaded", () => {
+    const buscador = document.getElementById("buscador");
+    
+    if (buscador) {
+        buscador.addEventListener("input", () => {
+            textoBusqueda = buscador.value.toLowerCase().trim();
+            
+            renderizarRutas(); 
+        });
+    }
+});
+
 let misRutas = [
-    { id: "bus-1", titulo: "Ruta Arcoíris 🌈", conductor: "Don Diego", hora: "06:45 AM", estudiantes: ["👧 Sofía", "👦 Mateo"] },
-    { id: "bus-2", titulo: "Ruta Cohete 🚀", conductor: "Sr. Pablo", hora: "07:15 AM", estudiantes: ["👦 Santiago"] }
+    { id: "bus-1", titulo: "Ruta Arcoíris 🌈", conductor: "Don Diego", hora: "06:45 AM", estudiantes: ["Sofía", "Mateo"] },
+    { id: "bus-2", titulo: "Ruta Cohete 🚀", conductor: "Sr. Pablo", hora: "07:15 AM", estudiantes: ["Santiago"] }
 ];
 
-// Variable global para almacenar de forma eficiente la temperatura de la API
-let climaCacheado = "🌤️ 26°C";
 
-// 🌤️ REQUERIMIENTO: Asincronía y consumo de API pública (OpenWeather) con Async/Await y Fetch
+let climaCacheado = "";
+
 async function consultarClimaBucaramanga() {
     try {
-        // Consulta del clima real para Bucaramanga de manera asíncrona
         const respuesta = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Bucaramanga,co&appid=b189cc9df8cf46be6927d6059b85d341&units=metric");
         if (respuesta.ok) {
             const datosClima = await respuesta.json();
             const temperatura = Math.round(datosClima.main.temp);
-            climaCacheado = `☀️ ${temperatura}°C`;
+            climaCacheado = `${temperatura}°C`;
         }
     } catch (error) {
-        console.log("No se pudo conectar a la API del clima, usando valor predeterminado.");
+        console.log("ERROR: NO SE PUEDO CONECTAR LA API.");
     }
 }
 
-// Función centralizada para renderizar los componentes dinámicamente en el DOM real
 function renderizarRutas() {
     const gridRutas = document.getElementById("gridRutas");
     if (!gridRutas) return;
 
-    gridRutas.innerHTML = ""; // Limpieza absoluta de la vista previa
+    gridRutas.innerHTML = "";
 
     misRutas.forEach((ruta, index) => {
         const tarjetaComponente = document.createElement("route-card");
         
-        // Seteo estricto de atributos que leerá el Shadow DOM
         tarjetaComponente.setAttribute("id-ruta", ruta.id);
         tarjetaComponente.setAttribute("titulo", ruta.titulo);
         tarjetaComponente.setAttribute("conductor", ruta.conductor);
         tarjetaComponente.setAttribute("hora", ruta.hora);
         tarjetaComponente.setAttribute("clima", climaCacheado);
-        tarjetaComponente.setAttribute("clase-bus", `bus-${(index % 4) + 1}`); // Rotación cíclica de tus 4 colores estables
+        tarjetaComponente.setAttribute("clase-bus", `bus-${(index % 4) + 1}`);
         tarjetaComponente.setAttribute("estudiantes", ruta.estudiantes.join(","));
 
         gridRutas.appendChild(tarjetaComponente);
     });
-
     actualizarHistorialTabla();
 }
 
-// Función complementaria para renderizar la tabla del Historial en el DOM
 function actualizarHistorialTabla() {
     const tablaContenido = document.getElementById("tablaHistorialContenido");
     if (!tablaContenido) return;
-
     tablaContenido.innerHTML = "";
     const fechaActual = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
@@ -412,11 +425,6 @@ function actualizarHistorialTabla() {
     });
 }
 
-// ==========================================================================
-// 🎯 MANEJO DE EVENTOS PERSONALIZADOS Y VALIDACIONES DE FORMULARIO
-// ==========================================================================
-
-// Escuchador global del CustomEvent 'alumnoEliminado' generado dentro del Web Component
 document.addEventListener('alumnoEliminado', (e) => {
     const { nombreAlumno, idRuta } = e.detail;
     const rutaObjetivo = misRutas.find(r => r.id === idRuta);
@@ -426,7 +434,6 @@ document.addEventListener('alumnoEliminado', (e) => {
     }
 });
 
-// Escuchador global del CustomEvent 'alumnoEditado' generado dentro del Web Component
 document.addEventListener('alumnoEditado', (e) => {
     const { nombreViejo, nombreNuevo, idRuta } = e.detail;
     const rutaObjetivo = misRutas.find(r => r.id === idRuta);
@@ -439,14 +446,12 @@ document.addEventListener('alumnoEditado', (e) => {
     }
 });
 
-// Escuchador global del CustomEvent 'rutaEliminada'
 document.addEventListener('rutaEliminada', (e) => {
     const { idRuta } = e.detail;
     misRutas = misRutas.filter(ruta => ruta.id !== idRuta);
     renderizarRutas();
 });
 
-// Escuchador global del CustomEvent 'rutaEditada'
 document.addEventListener('rutaEditada', (e) => {
     const { idRuta, titulo, conductor, hora } = e.detail;
     const rutaObjetivo = misRutas.find(r => r.id === idRuta);
@@ -458,36 +463,30 @@ document.addEventListener('rutaEditada', (e) => {
     }
 });
 
-// Inicialización de escuchadores de formularios cuando el DOM esté completamente cargado
 document.addEventListener("DOMContentLoaded", async () => {
-    // 🌤️ Ejecutamos la API asíncrona antes del primer renderizado
     await consultarClimaBucaramanga();
     renderizarRutas();
 
-    // 📋 FORMULARIO 1: CREAR NUEVA RUTA
+    
     const FormuRuta = document.getElementById("FormuRuta");
     if (FormuRuta) {
         FormuRuta.addEventListener("submit", (e) => {
             e.preventDefault();
 
-            // Captura estricta basada en tus IDs exactos
             const nombreRuta = document.getElementById("InputNombreRuta").value.trim();
             const conductorRuta = document.getElementById("InputConductorRuta").value.trim();
             const horaRuta = document.getElementById("InputHoraRuta").value;
 
-            // ⚠️ VALIDACIÓN EXIGIDA: Alertar si faltan datos obligatorios
             if (!nombreRuta || !conductorRuta || !horaRuta) {
                 alert("⚠️ Alerta: Debe sí o sí ingresar todos los datos requeridos para la ruta.");
                 return;
             }
 
-            // ⚠️ VALIDACIÓN EXIGIDA: Controlar que no ingresen números puros donde van letras
             if (!isNaN(nombreRuta) || !isNaN(conductorRuta)) {
                 alert("⚠️ Alerta: El nombre de la ruta y del conductor deben ser texto válido, no números puros.");
                 return;
             }
 
-            // Formatear hora a un diseño estético de 12 horas
             let horaFormateada = horaRuta;
             const [hrs, mins] = horaRuta.split(':');
             const h = parseInt(hrs);
@@ -495,7 +494,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             const formato12 = h % 12 || 12;
             horaFormateada = `${formato12}:${mins} ${ampm}`;
 
-            // ... dentro de tu submit de rutas
             misRutas.push({
                 id: `bus-${Date.now()}`,
                 titulo: nombreRuta,
@@ -503,94 +501,136 @@ document.addEventListener("DOMContentLoaded", async () => {
                 hora: horaFormateada,
                 estudiantes: []
             });
+
             guardarEnLocalStorage();
 
             FormuRuta.reset();
             renderizarRutas();
-            });
+        });
     }
 
-    // 📋 FORMULARIO 2: INSCRIBIR NUEVO ESTUDIANTE Y ASIGNAR A RUTA
     const formuEstudiante = document.getElementById("formuEstudiante");
     if (formuEstudiante) {
-        formuEstudiante.addEventListener("submit", (e) => {
-            e.preventDefault();
-
+        formuEstudiante.addEventListener("submit", (e) => {e.preventDefault();
             const nombreEstudiante = document.getElementById("InputNombreEstudiante").value.trim();
             
-            // Evaluamos la etiqueta de género buscando el select del HTML de manera interactiva
-            const selectGenero = document.querySelector("#formuEstudiante select");
-            const genero = selectGenero ? selectGenero.value : "niña";
-
-            // ⚠️ VALIDACIÓN EXIGIDA: Alertar si faltan datos
             if (!nombreEstudiante) {
-                alert("⚠️ Alerta: Debe sí o sí ingresar todos los datos, el nombre del estudiante es obligatorio.");
+                alert("DEBES INGRESAR EL NOMBRE DEL ESTUDIANTE OBLIGATORIAMENTE.");
                 return;
             }
 
             // ⚠️ VALIDACIÓN EXIGIDA: No permitir números puros en el nombre del alumno
             if (!isNaN(nombreEstudiante)) {
-                alert("⚠️ Alerta: El nombre del estudiante no puede ser un número.");
+                alert("EL NOMBRE DEL ESTUDIANTE NO PUEDE SER UN NÚMERO.");
                 return;
             }
 
             if (misRutas.length === 0) {
-                alert("⚠️ Alerta: No hay rutas activas en el sistema. Debe registrar una ruta primero.");
+                alert("NO HAY RUTAS ACTIVAS EN EL SISTEMA, DEBES CREAR UNA RUTA NUEVA.");
                 return;
             }
 
-            // Asignación de emoji representativo e interactivo según tu estética
-            const prefijoEmoji = (genero === "niña" || genero === "option1") ? "👧" : "👦";
-            const nombreCompletoConSticker = `${prefijoEmoji} ${nombreEstudiante}`;
-
-            // Cuadro de diálogo interactivo en pantalla para mapear la asignación
-            let menuOpciones = "🌸 ¿A cuál de las siguientes rutas desea asignar al estudiante?\n\nEscriba el número correspondiente:\n";
+            let menuOpciones = "¿A cuál de las siguientes rutas desea asignar al estudiante?\n\nEscriba el número correspondiente:\n";
             misRutas.forEach((ruta, i) => {
                 menuOpciones += `${i + 1}. ${ruta.titulo}\n`;
             });
 
             const seleccionUsuario = prompt(menuOpciones);
-            if (seleccionUsuario === null) return; // Si cancela el prompt
+            if (seleccionUsuario === null) return; 
 
             const indiceElegido = parseInt(seleccionUsuario) - 1;
 
             if (isNaN(indiceElegido) || indiceElegido < 0 || indiceElegido >= misRutas.length) {
-                alert("❌ Selección no válida. Operación cancelada.");
+                alert("SELECCIÓN NO VALIDA, OPERACIÓN CANCELADA.");
                 return;
             }
 
-            // Validación de límite de asientos por ruta (máximo 10)
             if (misRutas[indiceElegido].estudiantes.length >= 10) {
-                alert("❌ Alerta: Esta ruta ha alcanzado su capacidad máxima permitida (10/10 estudiantes).");
+                alert("ESTA RUTA HA ALCANZADO SU LIMITE MAXIMO DE ESTUDIANTES.");
                 return;
             }
 
-            // Adición del alumno en el arreglo correspondiente de la ruta elegida
-            misRutas[indiceElegido].estudiantes.push(nombreCompletoConSticker);
+            misRutas[indiceElegido].estudiantes.push(nombreEstudiante);
             guardarEnLocalStorage()
 
             formuEstudiante.reset();
-            renderizarRutas(); // Sincronización completa e interactiva con la interfaz
+            renderizarRutas(); 
         });
         
     }
 });
 
+
+const API_KEY = "1ddafd8c6e081646bed43c59c2eeb005"; 
+const CIUDAD = "Bucaramanga"; 
+const IDIOMA = "es"; 
+
+async function obtenerClima() {
+    
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${CIUDAD}&appid=${API_KEY}&units=metric&lang=${IDIOMA}`;
+
+    try {
+        console.log(" SOLICITANDO DATOS DEL CLIMA A OPENWEATHER...");
+        
+        //Hacemos la petición real con fetch y esperamos la respuesta
+        const respuesta = await fetch(url);
+
+        //¡Validación importante! Si la respuesta no es correcta (ej. ciudad no encontrada o API key inválida)
+        if (!respuesta.ok) {
+            throw new Error(`ERROR EN LA PETICIÓN: ${respuesta.status}`);
+        }
+
+        // Convertimos la respuesta de texto plano/JSON a un objeto JS manejable
+        const datosClima = await respuesta.json();
+        
+        console.log("¡DATOS RECIBIDOS CON EXITO!", datosClima);
+
+        // Enviamos los datos listos a una función que se encargue de pintarlos en el HTML
+        renderizarClima(datosClima);
+
+    } catch (error) {
+        console.error("OH NO, OCURRIÓ UN ERROR AL TRAER EL CLIMA:", error);
+        // Aquí podrías poner un mensajito lindo en tu interfaz avisando que el clima está tímido hoy
+    }
+}
+
+function renderizarClima(datos) {
+    const { name, main, weather } = datos;
+    const temperatura = Math.round(main.temp); // Redondeamos para que quede como un número entero lindo (ej: 26)
+    const descripcion = weather[0].description; // Ej: "cielo claro" o "nubes dispersas"
+    const iconoCodigo = weather[0].icon; // Código del sticker/icono que OpenWeather nos regala
+    
+    // URL oficial de OpenWeather para traer el sticker animado del clima
+    const urlIcono = `https://openweathermap.org/img/wn/${iconoCodigo}@2x.png`;
+    // Supongamos que en tu HTML tienes un contenedor para el clima como #seccion-clima
+    const contenedorClima = document.getElementById("seccion-clima");
+
+    if (contenedorClima) {
+        contenedorClima.innerHTML = `
+            <div class="tarjeta-clima-coquette" style="text-align: center; padding: 15px;">
+                <h3 style="margin: 0; font-size: 1.1rem;">☁️ El Clima en ${name}</h3>
+                <img src="${urlIcono}" alt="${descripcion}" style="width: 60px; height: 60px;">
+                <p style="font-size: 1.8rem; font-weight: bold; margin: 5px 0;">${temperatura}°C</p>
+                <p style="text-transform: capitalize; opacity: 0.8; font-size: 0.9rem;">✿ ${descripcion} ✿</p>
+            </div>
+        `;
+    }
+}
+obtenerClima();
+
 function guardarEnLocalStorage() {
-    // Guarda tu variable exacta bajo el nombre "misRutasKids"
     localStorage.setItem("misRutasKids", JSON.stringify(misRutas));
 }
 function cargarDesdeLocalStorage() {
     const datosGuardados = localStorage.getItem("misRutasKids");
     
-    // Si el bloc de notas no está vacío, cargamos esa información en tu variable
     if (datosGuardados) {
         misRutas = JSON.parse(datosGuardados);
     } else {
-        // Si es la primerísima vez que abren la app, dejamos tus 2 rutas por defecto
         misRutas = [
             { id: "bus-1", titulo: "Ruta Arcoíris 🌈", conductor: "Don Diego", hora: "06:45 AM", estudiantes: ["👧 Sofía", "👦 Mateo"] },
             { id: "bus-2", titulo: "Ruta Cohete 🚀", conductor: "Sr. Pablo", hora: "07:15 AM", estudiantes: ["👦 Santiago"] }
         ];
     }
 }
+obtenerClima();
