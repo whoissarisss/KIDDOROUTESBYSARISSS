@@ -1,0 +1,754 @@
+:root {
+    --bg-soft: #f4f7f6;          /* Fondo de pantalla grisáceo suave/crema (como WordPress) */
+    --white-pure: #ffffff;       /* Fondo de las tarjetas y contenedores */
+    --text-main: #2b2a2c;        /* Texto oscuro suave, nada de negro puro agresivo */
+    --text-muted: #8e8d91;       /* Subtítulos y textos secundarios */
+    
+    /* Tonos pastel de tus referencias */
+    --pastel-pink: #fbc4d0;      /* Rosa chicle suave (Activities Today) */
+    --pastel-blue: #c0e6ec;      /* Azul cielo / Menta suave (UX Design) */
+    --pastel-yellow: #fdeca6;    /* Amarillo sol tierno (Learning progress) */
+    --pastel-purple: #dcd3f1;    /* Lila místico suave (Active card) */
+    
+    --border-radius-lg: 28px;    /* Esquinas súper curvas y esponjosas */
+    --border-radius-sm: 18px;    /* Esquinas para elementos internos pequeños */
+    --shadow-soft: 0 10px 25px rgba(160, 175, 185, 0.12); /* Sombreado acolchado e invisible */
+}
+
+@font-face {
+    font-family: 'KGPerfectPenmanship';
+    src: url('fonts/KGPerfectPenmanship.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'LuckiestGuy';
+    src: url('fonts/LuckiestGuy.ttf') format('truetype');
+}
+
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'KGPerfectPenmanship', sans-serif;
+    letter-spacing: 0.3px;
+}
+
+body {
+    background-color: var(--bg-soft);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+/* --- CONTENEDOR PRINCIPAL DEL REPRODUCTOR (DASHBOARD) --- */
+.Tablerito {
+    display: grid;
+    grid-template-columns: 90px 1fr; /* Barra lateral compacta tipo icono + Área de contenido */
+    gap: 24px;
+    width: 100%;
+    max-width: 1400px;
+    height: calc(100vh - 48px);
+}
+
+/* ==========================================================================
+   📟 BARRA LATERAL (Sidebar compacta de iconos - Inspirada en Educación Web)
+   ========================================================================== */
+.Barrita {
+    background-color: var(--white-pure);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    gap: 35px;
+}
+
+.Menu-barrita {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    list-style: none;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+/* Transformamos los iconos del menú lateral en botones reales */
+.menu-item {
+    background: none;         /* Le quita el fondo por defecto del botón */
+    border: none;             /* Le quita el borde cuadrado feo */
+    width: 46px;
+    height: 46px;
+    border-radius: 20px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu-item:hover {
+    background-color: #fff0f3;
+    transform: scale(1.15);
+}
+.sticker-menu {
+    width: 100%; /* Un poquito más grande que los emojis para que se note */
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+}
+.badge-item:hover {
+    background-color: transparent !important;
+    transform: scale(1.1) !important;
+}
+
+.icono-carro{
+    width: 70px; /* Un poquito más grande que los emojis para que se note */
+    height: 100px;
+    object-fit: contain;
+    border-radius: 40px;
+}
+
+.icono-carro:hover {
+    background-color: transparent !important;
+    transform: scale(1.1) !important;
+}
+/* ==========================================================================
+   ☀️ PANEL CENTRAL DE CONTENIDO
+   ========================================================================== */
+.Contenido-principal {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+
+/* --- SECCIÓN SUPERIOR: BIENVENIDA Y ACCIONES RÁPIDAS --- */
+
+.imagen-isotipo {
+    width: 106%;
+    height: 100%;
+    object-fit: contain;
+}
+.imagen-isotipo:hover { 
+    transform: scale(1.1); 
+}
+
+/* --- LOGO HORIZONTAL EN EL ENCABEZADO DE ARRIBA --- */
+.Encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--white-pure);
+    padding: 80px 60px;    /* Un padding bajito y elegante */
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-soft);
+    height: 85px;          /* Altura ideal para la barra del encabezado */
+}
+
+.Logo-Encabezado {
+    display: flex;
+    align-items: center;
+    height: 100%;          /* Ocupa toda la altura disponible de la barra */
+}
+
+.imagen-banner {
+    height: 260px;          /* ✨ ¡EL TRUCO! Forzamos al logo a ser grande y alto */
+    width: auto;           /* Deja que el ancho se calcule solo para que NO se estire feo */
+    object-fit: contain;
+    align-self: center;    /* Centra verticalmente el logo dentro de la barra */
+    padding: 7px;              /* Un poquito de espacio alrededor para que respire */
+    /* 🌟 TRUCO MAGNÍFICO: Si exportaste el logo con fondo blanco, 
+       esta línea de abajo hace que el fondo de la imagen se vuelva invisible 
+       y se fusione hermosamente con tu barra blanca */
+    mix-blend-mode: multiply; 
+}
+
+/* Centramos el buscador perfectamente con el logo */
+.BarritaBusqueda {
+    display: flex;
+    align-items: center;
+}
+
+/* Buscador estético redondo */
+.BarritaBusqueda input {
+    padding: 12px 24px;
+    border-radius: 50px;
+    border: 2px solid #eef1f0;
+    background-color: #fafbfc;
+    width: 600px;
+    outline: none;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    transition: border-color 0.3s ease;
+}
+.BarritaBusqueda input:focus {
+    border-color: var(--pastel-pink);
+}
+
+/* --- SECCIÓN MEDIDORES/KPIs RAPIDOS --- */
+.Cajitaestados {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.Cajitaestado {
+    border-radius: var(--border-radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Fondos variables para las estadísticas rápidas */
+.Cajitaestado.rosa { background-color: var(--pastel-pink); }
+.Cajitaestado.amarilla { background-color: var(--pastel-yellow); }
+.Cajitaestado.moradita { background-color: var(--pastel-purple); }
+
+.Cajitatitulo {
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+}
+
+.Cajitanumero {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* ==========================================================================
+   🚌 EL GRID DE LOS 4 BUSES ESTABLES (Enfoque Bento Grid Completo)
+   ========================================================================== */
+.Grid-rutas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Cuadrícula exacta de 2x2 */
+    gap: 24px;
+    flex-grow: 1;
+    margin-bottom: 10px;
+}
+
+/* --- DISEÑO DE CADA BUS O TARJETA DE RUTA --- */
+.Tarjetaruta {
+    background-color: var(--white-pure);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 2px solid transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+/* Hover sutil para dar el aspecto apachurrable */
+
+.Tarjetaruta:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(251, 196, 208, 0.25); /* Sombra rosa suave flotante */
+    border-color: rgba(251, 196, 208, 0.5);
+}
+
+/* Decorador de color en el borde izquierdo de la tarjeta para identificar el bus */
+.Tarjetaruta::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 35px;
+    bottom: 35px;
+    width: 6px;
+    border-radius: 0 8px 8px 0;
+}
+.Tarjetaruta.bus-1::before { background-color: #ff6b8b; }
+.Tarjetaruta.bus-2::before { background-color: #4ea8de; }
+.Tarjetaruta.bus-3::before { background-color: #ffd166; }
+.Tarjetaruta.bus-4::before { background-color: #06d6a0; }
+
+/* Encabezado interno del Bus */
+.Tarjetarutaencabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.Rutainfo h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.Conductor {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Tag de Clima circular y acolchado (Consumo API) */
+.Clima {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    padding: 8px 14px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Detalles de Horarios y capacidad */
+.Rutadatos {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.Datocajita {
+    background-color: #f5f6f8;
+    padding: 6px 14px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.85rem;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+/* --- SECCIÓN INTERNA: LISTA DE ESTUDIANTES (Asientos) --- */
+.CajitaEstudiantes {
+    background-color: #f9fafb;
+    border-radius: var(--border-radius-sm);
+    padding: 16px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.TituloEstudiantes {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.ListaEstudiantes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Badges de alumnos redondeados e idénticos a los pins */
+.Estudiantito {
+    display: inline-flex;
+    align-items: center;
+    background-color: #fafbfc;
+    border: 1px solid #ebf0ee;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #4a494b;
+    box-shadow: 0 2px 6px rgba(160, 175, 185, 0.04);
+    cursor: pointer;          /* Muestra la manito de clic */
+    transition: all 0.2s ease;
+    outline: none;            /* Quita el borde azul feo por defecto */
+}
+
+.Estudiantito:hover {
+    background-color: #fff0f3;
+    border-color: var(--pastel-pink);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(251, 196, 208, 0.3);
+}
+
+.eliminar-estudiante {
+    margin-left: 8px;          /* Separa la equis del nombre del niño */
+    font-size: 1.1rem;         /* Tamaño ideal para que se note pero sea sutil */
+    font-weight: 600;
+    color: var(--text-muted);  /* Empieza con tu gris suave para no saturar */
+    display: inline-block;
+    transition: all 0.2s ease;
+    padding: 0 2px;
+    border-radius: 50%;
+}
+
+/* Efecto lindo cuando pases el cursor sobre el botón del estudiante */
+.Estudiantito:hover .eliminar-estudiante {
+    color: #ff6b8b;            /* La equis se ilumina en tu tono rosa fuerte */
+    transform: scale(1.2);     /* Se agranda un poquitico de forma interactiva */
+}
+/* Acción de Gestión dentro del bus */
+.Btn-gestionar {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+.botonGestionar {
+    background-color: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+.botonGestionar:hover {
+    color: #ff6b8b;
+    background-color: #fff0f3;
+}
+
+/* ==========================================================================
+   🎒 INTERFAZ DE ASIGNACIÓN DE ALUMNOS (REQUERIMIENTO CONTROL)
+   ========================================================================== */
+
+   .ListaEstudiantesPendientes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.FilaEstudiantePendiente {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background-color: #fafbfc;
+    border: 1px solid #eef1f0;
+    border-radius: 14px;
+    transition: all 0.2s ease;
+}
+
+.FilaEstudiantePendiente:hover {
+    background-color: #fff0f3;
+    border-color: var(--pastel-pink);
+}
+
+.FilaEstudiantePendiente span {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+/* Botón tierno para simular la asignación */
+.btnAsignar {
+    background-color: var(--pastel-blue);
+    border: none;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-family: 'KGPerfectPenmanship', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0369a1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btnAsignar:hover {
+    background-color: #a7dbd8;
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   🚨 RESPONSIVIDAD: PANTALLAS ULTRA GRANDES & BREAKPOINTS
+   ========================================================================== */
+
+/* 0. Monitores de Escritorio Grandes (Pantallas de 1440px o más) 
+   ¡Aquí está el truco! En lugar de estirar 2 buses gigantes, pintamos los 4 en fila */
+   @media (min-width: 1440px) {
+    .Tablerito {
+        max-width: 1600px; /* Ampliamos un poquito el lienzo */
+    }
+    .Grid-rutas {
+        grid-template-columns: repeat(4, 1fr); /* ¡Los 4 buses alineados en una sola fila hermosa! */
+        gap: 20px;
+    }
+    .Cajitaestados {
+        gap: 20px;
+    }
+}
+
+/* 1. Computadoras medianas / Laptops convencionales (Menos de 1200px) */
+@media (max-width: 1200px) {
+    .Tablerito { 
+        grid-template-columns: 80px 1fr; 
+        gap: 16px; 
+    }
+    .Grid-rutas { 
+        grid-template-columns: repeat(2, 1fr); /* Vuelve al cómodo 2x2 */
+        gap: 16px; 
+    }
+    .Tarjetaruta { 
+        padding: 20px; 
+    }
+}
+
+/* 2. Tablets y pantallas medianas (Menos de 768px) */
+@media (max-width: 768px) {
+    .Tablerito { 
+        grid-template-columns: 1fr; 
+        height: auto; 
+    }
+    .Barrita { 
+        display: none; 
+    }
+    .Grid-rutas { 
+        grid-template-columns: 1fr; /* Una sola columna vertical para que no se aplasten */
+    }
+    .Cajitaestados { 
+        grid-template-columns: 1fr; 
+        gap: 12px; 
+    }
+    .Cajitaestado { 
+        height: 100px; 
+    }
+}
+
+/* 3. Celulares inteligentes (Menos de 480px) */
+@media (max-width: 480px) {
+    body { 
+        padding: 12px; 
+    }
+    .Encabezado { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 15px; 
+        padding: 20px; 
+    }
+    .BarritaBusqueda input { 
+        width: 100%; 
+    }
+    .Rutadatos { 
+        flex-direction: column; 
+        gap: 6px; 
+    }
+}
+/* ==========================================================================
+   📊 SECCIÓN GESTIÓN Y TABLA DE HISTORIAL (Inspirado en Pinterest/Intelly)
+   ========================================================================== */
+
+.Gestion {
+    display: grid;
+    grid-template-columns: 380px 1fr; /* Formulario compacto y tabla expandida */
+    gap: 24px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.PanelFormularios {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.Formulario {
+    background-color: var(--white-pure);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 24px;
+}
+
+.Formulario h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: var(--text-main);
+}
+
+.Formularios {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.GrupoInput {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.GrupoInput label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.Formularios input, 
+.Formularios select {
+    padding: 10px 16px;
+    border-radius: 14px;
+    border: 2px solid #eef1f0;
+    background-color: #fafbfc;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.Formularios input:focus,
+.Formularios select:focus {
+    border-color: var(--pastel-pink);
+    background-color: var(--white-pure);
+}
+
+.FilaInputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.btnFormu {
+    border: none;
+    padding: 12px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 5px;
+}
+
+.btnRosa { background-color: var(--pastel-pink); }
+.btnRosa:hover { background-color: #f9afbf; transform: translateY(-2px); }
+
+.btnAmarillo { background-color: var(--pastel-yellow); }
+.btnAmarillo:hover { background-color: #fce074; transform: translateY(-2px); }
+
+/* --- DISEÑO DE LA TABLA PINTEREST --- */
+.TablaHistorial {
+    background-color: var(--white-pure);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.TablaEncabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.TablaEncabezado h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.TablaFiltros {
+    display: flex;
+    gap: 8px;
+}
+
+.FiltroB {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background-color: #f5f6f8;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.FiltroB.activo, .FiltroB:hover {
+    background-color: var(--text-main);
+    color: var(--white-pure);
+}
+
+.ContenedorTabla {
+    overflow-x: auto;
+}
+
+.Tablita {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.Tablita th {
+    padding: 12px 16px;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid #eef1f0;
+}
+
+.Tablita td {
+    padding: 16px;
+    border-bottom: 1px solid #fafbfc;
+    color: var(--text-main);
+    vertical-align: middle;
+}
+
+.Tablita tbody tr:hover {
+    background-color: #fafbfc;
+}
+
+/* Botón de eliminar fila */
+.btnEliminarFila {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+}
+
+.btnEliminarFila:hover {
+    color: #ff6b8b;
+}
+
+/* Responsividad para la nueva sección */
+@media (max-width: 1200px) {
+    .Gestion {
+        grid-template-columns: 1fr;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fafbfc;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--pastel-pink);
+    border-radius: 20px;
+    border: 2px solid #fafbfc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #f9afbf;
+}

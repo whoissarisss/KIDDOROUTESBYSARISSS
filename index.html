@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutas Seguras Kids 🌸 Dashboard</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilitos.css?v=2">
+</head>
+<body>
+
+    <div class="Tablerito">
+        
+        <aside class="Barrita">
+            <button type="button" id="btnLogoHome" class="btn-logo-interactivo" style="background: none; border: none; cursor: pointer; width: 100%; padding: 0 10px;">
+                <img src="img/isotipo.png" alt="kiddo routes" class="imagen-isotipo">
+            </button>
+
+            <nav class="Menu-barrita">
+                <button type="button" class="menu-item badge-item" data-view="ruta-nina">
+                    <img src="img/niñalazo.png" alt="Niña con lazo" class="sticker-menu">
+                </button>
+                <button type="button" class="menu-item badge-item" data-view="ruta-nino">
+                    <img src="img/niño.png" alt="Niño" class="sticker-menu">
+                </button>
+                <button type="button" class="menu-item badge-item" data-view="ruta-rubia">
+                    <img src="img/niñarubia.png" alt="Niña rubia" class="sticker-menu">
+                </button>
+            </nav>
+
+            <div class="Barrita-footer">
+                <button type="button" id="btnVerCarrito" class="menu-item" style="width: 70px; height: 70px; border: none; background: none; padding: 0;">
+                    <img src="img/car.png" alt="carrito" class="icono-carro" style="width: 100%; height: 100%; object-fit: contain;">
+                </button>
+            </div>
+        </aside>
+
+        <main class="Contenido-principal">
+            
+            <header class="Encabezado">
+                <div class="Logo-Encabezado">
+                    <img src="img/logo.png" alt="Kiddo Routes Banner" class="imagen-banner">
+                </div>
+                <div class="BarritaBusqueda">
+                    <input type="text" placeholder="Buscar estudiante o ruta...">
+                </div>
+            </header>
+
+            <section class="Cajitaestados">
+                <div class="Cajitaestado rosa">
+                    <span class="Cajitatitulo">Buses en Ruta</span>
+                    <span class="Cajitanumero">4 / 4</span>
+                    <div>
+                        <button class="botonCrear" onclick="">+ NUEVA RUTA</button>
+                    </div>
+                </div>
+                
+                <div class="Cajitaestado amarilla">
+                    <span class="Cajitatitulo">Alumnos Registrados</span>
+                    <span class="Cajitanumero">18</span>
+                    <div>
+                        <button class="botonCrear">+ NUEVO ESTUDIANTE</button>
+                    </div>
+                </div>
+                <div class="Cajitaestado moradita">
+                    <span class="Cajitatitulo">Clima Promedio</span>
+                    <span class="Cajitanumero">26°C 🌦️</span>
+                </div>
+            </section>
+
+            <section class="Grid-rutas" id="gridRutas">
+                
+                <div class="Tarjetaruta bus-1">
+                    <div class="Tarjetarutaencabezado">
+                        <div class="Rutainfo">
+                            <h3 id="Titulo">Ruta Arcoíris </h3>
+                            <div class="Conductor"> Conductor: Don Diego</div>
+                        </div>
+                        <div class="Clima">☀️ 28°C</div>
+                    </div>
+                    
+                    <div class="Rutadatos">
+                        <span class="Datocajita" id="Hora"> Salida: 06:45 AM</span>
+                        <span class="Datocajita"> Capacidad: 5/10</span>
+                    </div>
+
+                    <div class="CajitaEstudiantes">
+                        <span class="TituloEstudiantes">Alumnos a bordo</span>
+                        <div class="ListaEstudiantes">
+                            <button type="button" class="Estudiantito" data-student-id="sofia">
+                                 Sofía <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="mateo">
+                                 Mateo <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="valentina">
+                                 Valentina <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="lucas">
+                                 Lucas <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="emma">
+                                 Emma <span class="eliminar-estudiante">×</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="Btn-gestionar">
+                        <button class="botonGestionar">ELIMINAR RUTA</button>
+                    </div>
+                </div>
+
+                <div class="Tarjetaruta bus-2">
+                    <div class="Tarjetarutaencabezado">
+                        <div class="Rutainfo">
+                            <h3>Ruta Cohete </h3>
+                            <div class="Conductor"> Conductor: Sr. Pablo</div>
+                        </div>
+                        <div class="Clima">☁️ 24°C</div>
+                    </div>
+                    
+                    <div class="Rutadatos">
+                        <span class="Datocajita"> Salida: 07:15 AM</span>
+                        <span class="Datocajita"> Capacidad: 4/10</span>
+                    </div>
+
+                    <div class="CajitaEstudiantes">
+                        <span class="TituloEstudiantes">Alumnos a bordo</span>
+                        <div class="ListaEstudiantes">
+                            <button type="button" class="Estudiantito" data-student-id="sofia">
+                                 Sofía <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="mateo">
+                                 Mateo <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="valentina">
+                                 Valentina <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="lucas">
+                                 Lucas <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="emma">
+                                 Emma <span class="eliminar-estudiante">×</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="Btn-gestionar">
+                        <button class="botonGestionar">ELIMINAR RUTA</button>
+                    </div>
+                </div>
+
+                <div class="Tarjetaruta bus-3">
+                    <div class="Tarjetarutaencabezado">
+                        <div class="Rutainfo">
+                            <h3>Ruta Estrellita </h3>
+                            <div class="Conductor"> Conductor: Doña Clara</div>
+                        </div>
+                        <div class="Clima">☀️ 27°C</div>
+                    </div>
+                    
+                    <div class="Rutadatos">
+                        <span class="Datocajita"> Salida: 07:30 AM</span>
+                        <span class="Datocajita"> Capacidad: 5/10</span>
+                    </div>
+
+                    <div class="CajitaEstudiantes">
+                        <span class="TituloEstudiantes">ALUMNOS A BORDO</span>
+                        <div class="ListaEstudiantes">
+                            <button type="button" class="Estudiantito" data-student-id="sofia">
+                                 Sofía <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="mateo">
+                                 Mateo <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="valentina">
+                                 Valentina <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="lucas">
+                                 Lucas <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="emma">
+                                 Emma <span class="eliminar-estudiante">×</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="Btn-gestionar">
+                        <button class="botonGestionar">ELIMINAR RUTA</button>
+                    </div>
+                </div>
+
+                <div class="Tarjetaruta bus-4">
+                    <div class="Tarjetarutaencabezado">
+                        <div class="Rutainfo">
+                            <h3>Ruta Girasol </h3>
+                            <div class="Conductor"> Conductor: Tía Rosa</div>
+                        </div>
+                        <div class="Clima">🌦️ 26°C</div>
+                    </div>
+                    
+                    <div class="Rutadatos">
+                        <span class="Datocajita"> Salida: 08:00 AM</span>
+                        <span class="Datocajita"> Capacidad: 4/10</span>
+                    </div>
+
+                    <div class="CajitaEstudiantes">
+                        <span class="TituloEstudiantes">Alumnos a bordo</span>
+                        <div class="ListaEstudiantes">
+                            <button type="button" class="Estudiantito" data-student-id="sofia">
+                                 Sofía <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="mateo">
+                                 Mateo <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="valentina">
+                                 Valentina <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="lucas">
+                                 Lucas <span class="eliminar-estudiante">×</span>
+                            </button>
+                            <button type="button" class="Estudiantito" data-student-id="emma">
+                                 Emma <span class="eliminar-estudiante">×</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="Btn-gestionar">
+                        <button class="botonGestionar">ELIMINAR RUTA</button>
+                    </div>
+                </div>
+
+            </section>
+
+            <section class="Gestion">
+                
+                <div class="PanelFormularios">
+                        <div class="Formulario">
+                            <h3>REGISTRAR NUEVA RUTA</h3>
+                            <form id="FormuRuta" class="Formularios">
+                                <div class="GrupoInput">
+                                    <label for="nombreRuta">Nombre de la Ruta</label>
+                                    <input type="text" id="InputNombreRuta" placeholder="Ej. Ruta Unicornio " required>
+                                </div>
+                                <div class="GrupoInput">
+                                    <label for="conductorRuta">Conductor</label>
+                                    <input type="text" id="InputConductorRuta" placeholder="Ej. Carlos Pérez" required>
+                                </div>
+                                <div class="FilaInputs">
+                                    <div class="GrupoInput">
+                                        <label for="salidaRuta">Hora Salida</label>
+                                        <input type="time" id="InputHoraRuta" required>
+                                    </div>
+                                    <div class="GrupoInput">
+                                        <label for="climaRuta">Clima Inicial</label>
+                                        <input type="text" id="climaRuta" placeholder="Ej. 25°C ☀️">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btnFormu btnRosa">CREAR RUTA</button>
+                            </form>
+                            
+                        </div>
+                </div>
+
+                <div class="Formulario">
+                    <h3> NIÑOS SIN RUTA ASIGNADA</h3>
+                    <div class="ListaEstudiantesPendientes">
+                        <div class="FilaEstudiantePendiente">
+                            <span> Thiago Silva</span>
+                            <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
+                        </div>
+                        <div class="FilaEstudiantePendiente">
+                            <span> Isabella Rios</span>
+                            <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
+                        </div>
+                        <div class="FilaEstudiantePendiente">
+                            <span> Samuel Niño</span>
+                            <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="Formulario">
+                        <h3> REGISTRAR NUEVO ESTUDIANTE</h3>
+                        <form id="formuEstudiante" class="Formularios">
+                            <div class="GrupoInput">
+                                <label for="nombreEstudiante">Nombre del Alumno</label>
+                                <input type="text" id="InputNombreEstudiante" placeholder="Ej. Valentina Gómez" required>
+                            </div>
+                            <button type="submit" class="btnFormu btnAmarillo">INSCRIBIR ESTUDIANTE</button>
+                        </form>
+                </div>
+
+                <div class="TablaHistorial">
+                    <div class="TablaEncabezado">
+                        <h3> HISTORIAL DE OPERACIONES Y ESTADO</h3>
+                        <div class="TablaFiltros">
+                            <span class="FiltroB activo">Todos</span>
+                            <span class="FiltroB">Rutas</span>
+                            <span class="FiltroB">Estudiantes</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ContenedorTabla">
+                        <table class="Tablita">
+                            <thead>
+                                <tr>
+                                    <th>Categoría</th>
+                                    <th>Fecha / Hora</th>
+                                    <th>Detalle Principal</th>
+                                    <th>Asignación / Conductor</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaHistorialContenido">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div> <script src="javita.js" defer></script>
+</body>
+</html>
