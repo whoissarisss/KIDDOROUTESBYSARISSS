@@ -561,6 +561,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+    const btnEntrar = document.getElementById("btnEntrarDashboard");
+    const pantallaBienvenida = document.getElementById("pantallaBienvenida");
+
+    if (btnEntrar && pantallaBienvenida) {
+        btnEntrar.addEventListener("click", () => {
+            // Desliza la pantalla hacia arriba de forma ultra fluida 🚀
+            pantallaBienvenida.style.transform = "translateY(-100vh)";
+            
+            // Esperamos a que termine la animación (800ms) y la ocultamos del todo
+            setTimeout(() => {
+                pantallaBienvenida.style.display = "none";
+            }, 800);
+        });
+    }
+});
+document.addEventListener("DOMContentLoaded", () => {
     // 1. Capturamos las capas de los modales
     const modalRuta = document.getElementById("modalNuevaRuta");
     const modalPendientes = document.getElementById("modalNinosPendientes");
