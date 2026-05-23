@@ -236,7 +236,8 @@ class RouteCard extends HTMLElement {
         this.shadowRoot.querySelector(".class-hora").textContent = ` SALIDA: ${hora}`;
 
         const contenedorEstudiantes = this.shadowRoot.querySelector(".ListaEstudiantes");
-        if (contenedorEstudiantes) {contenedorEstudiantes.innerHTML = "";
+        if (contenedorEstudiantes) {
+            contenedorEstudiantes.innerHTML = "";
             if (estudiantesAtributo.trim() !== "") {
                 const listaAlumnos = estudiantesAtributo.split(",");
                 listaAlumnos.forEach(nombre => {
@@ -244,26 +245,26 @@ class RouteCard extends HTMLElement {
                     btnEstudiante.type = "button";
                     btnEstudiante.className = "Estudiantito";
                     btnEstudiante.innerHTML = `${nombre} <span class="eliminar-estudiante">×</span>`;
-                    
+
                     btnEstudiante.querySelector(".eliminar-estudiante").addEventListener('click', (e) => {
                         e.stopPropagation();
                         const eventoBorrarEstudiante = new CustomEvent('alumnoEliminado', {
                             detail: { nombreAlumno: nombre, idRuta: idRuta },
                             bubbles: true,
-                            composed: true 
+                            composed: true
                         });
                         this.dispatchEvent(eventoBorrarEstudiante);
                     });
 
                     // Evento para editar un estudiante directamente al hacer click sobre su tag
                     btnEstudiante.addEventListener('click', (e) => {
-                        if(e.target.className !== "eliminar-estudiante") {
+                        if (e.target.className !== "eliminar-estudiante") {
                             const nuevoNombre = prompt(` EDITA EL NOMBRE DEL ESTUDIANTE:`);
                             if (nuevoNombre === null) return;
-                                if (nuevoNombre.trim() === "" || !isNaN(nuevoNombre)) {
-                                    alert("Error: Debes ingresar un nombre válido.");
-                                    return;
-                                }
+                            if (nuevoNombre.trim() === "" || !isNaN(nuevoNombre)) {
+                                alert("Error: Debes ingresar un nombre válido.");
+                                return;
+                            }
                             const eventoEditarEstudiante = new CustomEvent('alumnoEditado', {
                                 detail: { nombreViejo: nombre, nombreNuevo: `${iconoActual} ${nuevoNombre.trim()}`, idRuta: idRuta },
                                 bubbles: true,
@@ -280,7 +281,7 @@ class RouteCard extends HTMLElement {
         const totalAlumnos = estudiantesAtributo.trim() !== "" ? estudiantesAtributo.split(",").length : 0;
         this.shadowRoot.querySelector(".class-capacidad").textContent = `CAPACIDAD: ${totalAlumnos}/10`;
 
-        
+
         this.shadowRoot.querySelector(".btnEliminarRuta").addEventListener('click', () => {
             const eventoEliminarRuta = new CustomEvent('rutaEliminada', {
                 detail: { idRuta: idRuta },
@@ -324,7 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (buscador) {
         buscador.addEventListener("input", () => {
             const textoUsuario = buscador.value.toLowerCase().trim();
-            const todasLasTarjetas = document.querySelectorAll("bus-card, .Tarjetaruta"); 
+            const todasLasTarjetas = document.querySelectorAll("bus-card, .Tarjetaruta");
             todasLasTarjetas.forEach(tarjeta => {
                 let tituloHTML = "";
                 if (tarjeta.shadowRoot) {
@@ -342,16 +343,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
-let textoBusqueda = ""; 
+let textoBusqueda = "";
 
 document.addEventListener("DOMContentLoaded", () => {
     const buscador = document.getElementById("buscador");
-    
+
     if (buscador) {
         buscador.addEventListener("input", () => {
             textoBusqueda = buscador.value.toLowerCase().trim();
-            
-            renderizarRutas(); 
+
+            renderizarRutas();
         });
     }
 });
@@ -385,7 +386,7 @@ function renderizarRutas() {
 
     misRutas.forEach((ruta, index) => {
         const tarjetaComponente = document.createElement("route-card");
-        
+
         tarjetaComponente.setAttribute("id-ruta", ruta.id);
         tarjetaComponente.setAttribute("titulo", ruta.titulo);
         tarjetaComponente.setAttribute("conductor", ruta.conductor);
@@ -403,7 +404,7 @@ function actualizarHistorialTabla() {
     const tablaContenido = document.getElementById("tablaHistorialContenido");
     if (!tablaContenido) return;
     tablaContenido.innerHTML = "";
-    const fechaActual = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    const fechaActual = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     misRutas.forEach(ruta => {
         const fila = document.createElement("tr");
@@ -415,7 +416,7 @@ function actualizarHistorialTabla() {
             <td><span class="Estado Activo">Activo (${ruta.estudiantes.length} Alumnos)</span></td>
             <td><button class="btnEliminarFila" data-id="${ruta.id}">🗑️</button></td>
         `;
-        
+
         fila.querySelector(".btnEliminarFila").addEventListener('click', () => {
             misRutas = misRutas.filter(r => r.id !== ruta.id);
             renderizarRutas();
@@ -467,7 +468,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await consultarClimaBucaramanga();
     renderizarRutas();
 
-    
+
     const FormuRuta = document.getElementById("FormuRuta");
     if (FormuRuta) {
         FormuRuta.addEventListener("submit", (e) => {
@@ -511,9 +512,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const formuEstudiante = document.getElementById("formuEstudiante");
     if (formuEstudiante) {
-        formuEstudiante.addEventListener("submit", (e) => {e.preventDefault();
+        formuEstudiante.addEventListener("submit", (e) => {
+            e.preventDefault();
             const nombreEstudiante = document.getElementById("InputNombreEstudiante").value.trim();
-            
+
             if (!nombreEstudiante) {
                 alert("DEBES INGRESAR EL NOMBRE DEL ESTUDIANTE OBLIGATORIAMENTE.");
                 return;
@@ -536,7 +538,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             const seleccionUsuario = prompt(menuOpciones);
-            if (seleccionUsuario === null) return; 
+            if (seleccionUsuario === null) return;
 
             const indiceElegido = parseInt(seleccionUsuario) - 1;
 
@@ -554,9 +556,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             guardarEnLocalStorage()
 
             formuEstudiante.reset();
-            renderizarRutas(); 
+            renderizarRutas();
         });
-        
+
     }
 });
 
@@ -568,7 +570,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btnEntrar.addEventListener("click", () => {
             // Desliza la pantalla hacia arriba de forma ultra fluida 🚀
             pantallaBienvenida.style.transform = "translateY(-100vh)";
-            
+
             // Esperamos a que termine la animación (800ms) y la ocultamos del todo
             setTimeout(() => {
                 pantallaBienvenida.style.display = "none";
@@ -606,7 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
         contenedorAlumnosContador.style.cursor = "pointer"; // Pone la manito linda
         contenedorAlumnosContador.addEventListener("click", (e) => {
             // Evitamos que se abra si le diste directamente al botón de crear estudiante
-            if(e.target.id !== "btnIrNuevoEstudiante" && !e.target.classList.contains("botonCrear")) {
+            if (e.target.id !== "btnIrNuevoEstudiante" && !e.target.classList.contains("botonCrear")) {
                 modalPendientes.classList.add("activo");
             }
         });
@@ -632,17 +634,17 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-const API_KEY = "1ddafd8c6e081646bed43c59c2eeb005"; 
-const CIUDAD = "Bucaramanga"; 
-const IDIOMA = "es"; 
+const API_KEY = "1ddafd8c6e081646bed43c59c2eeb005";
+const CIUDAD = "Bucaramanga";
+const IDIOMA = "es";
 
 async function obtenerClima() {
-    
+
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${CIUDAD}&appid=${API_KEY}&units=metric&lang=${IDIOMA}`;
 
     try {
         console.log(" SOLICITANDO DATOS DEL CLIMA A OPENWEATHER...");
-        
+
         //Hacemos la petición real con fetch y esperamos la respuesta
         const respuesta = await fetch(url);
 
@@ -653,7 +655,7 @@ async function obtenerClima() {
 
         // Convertimos la respuesta de texto plano/JSON a un objeto JS manejable
         const datosClima = await respuesta.json();
-        
+
         console.log("¡DATOS RECIBIDOS CON EXITO!", datosClima);
 
         // Enviamos los datos listos a una función que se encargue de pintarlos en el HTML
@@ -670,7 +672,7 @@ function renderizarClima(datos) {
     const temperatura = Math.round(main.temp); // Redondeamos para que quede como un número entero lindo (ej: 26)
     const descripcion = weather[0].description; // Ej: "cielo claro" o "nubes dispersas"
     const iconoCodigo = weather[0].icon; // Código del sticker/icono que OpenWeather nos regala
-    
+
     // URL oficial de OpenWeather para traer el sticker animado del clima
     const urlIcono = `https://openweathermap.org/img/wn/${iconoCodigo}@2x.png`;
     // Supongamos que en tu HTML tienes un contenedor para el clima como #seccion-clima
@@ -694,7 +696,7 @@ function guardarEnLocalStorage() {
 }
 function cargarDesdeLocalStorage() {
     const datosGuardados = localStorage.getItem("misRutasKids");
-    
+
     if (datosGuardados) {
         misRutas = JSON.parse(datosGuardados);
     } else {

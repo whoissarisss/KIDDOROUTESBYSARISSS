@@ -1,18 +1,29 @@
 :root {
-    --bg-soft: #f4f7f6;          /* Fondo de pantalla grisáceo suave/crema (como WordPress) */
-    --white-pure: #ffffff;       /* Fondo de las tarjetas y contenedores */
-    --text-main: #2b2a2c;        /* Texto oscuro suave, nada de negro puro agresivo */
-    --text-muted: #8e8d91;       /* Subtítulos y textos secundarios */
-    
+    --bg-soft: #f4f7f6;
+    /* Fondo de pantalla grisáceo suave/crema (como WordPress) */
+    --white-pure: #ffffff;
+    /* Fondo de las tarjetas y contenedores */
+    --text-main: #2b2a2c;
+    /* Texto oscuro suave, nada de negro puro agresivo */
+    --text-muted: #8e8d91;
+    /* Subtítulos y textos secundarios */
+
     /* Tonos pastel de tus referencias */
-    --pastel-pink: #fbc4d0;      /* Rosa chicle suave (Activities Today) */
-    --pastel-blue: #c0e6ec;      /* Azul cielo / Menta suave (UX Design) */
-    --pastel-yellow: #fdeca6;    /* Amarillo sol tierno (Learning progress) */
-    --pastel-purple: #dcd3f1;    /* Lila místico suave (Active card) */
-    
-    --border-radius-lg: 28px;    /* Esquinas súper curvas y esponjosas */
-    --border-radius-sm: 18px;    /* Esquinas para elementos internos pequeños */
-    --shadow-soft: 0 10px 25px rgba(160, 175, 185, 0.12); /* Sombreado acolchado e invisible */
+    --pastel-pink: #fbc4d0;
+    /* Rosa chicle suave (Activities Today) */
+    --pastel-blue: #c0e6ec;
+    /* Azul cielo / Menta suave (UX Design) */
+    --pastel-yellow: #fdeca6;
+    /* Amarillo sol tierno (Learning progress) */
+    --pastel-purple: #dcd3f1;
+    /* Lila místico suave (Active card) */
+
+    --border-radius-lg: 28px;
+    /* Esquinas súper curvas y esponjosas */
+    --border-radius-sm: 18px;
+    /* Esquinas para elementos internos pequeños */
+    --shadow-soft: 0 10px 25px rgba(160, 175, 185, 0.12);
+    /* Sombreado acolchado e invisible */
 }
 
 @font-face {
@@ -46,7 +57,8 @@ body {
 
 .Tablerito {
     display: grid;
-    grid-template-columns: 90px 1fr; /* Barra lateral compacta tipo icono + Área de contenido */
+    grid-template-columns: 90px 1fr;
+    /* Barra lateral compacta tipo icono + Área de contenido */
     gap: 24px;
     width: 100%;
     max-width: 1400px;
@@ -60,7 +72,7 @@ body {
     width: 100vw !important;
     height: 100vh !important;
     background: url('img/fondoAbstracto.png') no-repeat center center !important;
-    background-size: cover !important;  
+    background-size: cover !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -79,16 +91,16 @@ body {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 95% !important;      
+    width: 95% !important;
     max-width: 1100px !important;
     text-align: center !important;
     position: relative !important;
 }
 
 .Logo {
-    width: 100% !important;      
-    height: auto !important;     
-    max-height: 70vh !important; 
+    width: 100% !important;
+    height: auto !important;
+    max-height: 70vh !important;
     object-fit: contain !important;
     margin-bottom: 20px !important;
 }
@@ -103,12 +115,13 @@ body {
     border: none;
     border-radius: 17px;
     cursor: pointer;
-    box-shadow: 
+    box-shadow:
         0 6px 15px rgba(0, 0, 0, 0.15),
         inset 0 -4px 0px rgba(0, 0, 0, 0.15),
         inset 0 4px 6px rgba(255, 255, 255, 0.6);
     transition: all 0.9s ease;
 }
+
 .btnEntrar:hover {
     transform: scale(1.05) !important;
 }
@@ -135,8 +148,10 @@ body {
 
 /* Transformamos los iconos del menú lateral en botones reales */
 .menu-item {
-    background: none;         /* Le quita el fondo por defecto del botón */
-    border: none;             /* Le quita el borde cuadrado feo */
+    background: none;
+    /* Le quita el fondo por defecto del botón */
+    border: none;
+    /* Le quita el borde cuadrado feo */
     width: 46px;
     height: 46px;
     border-radius: 20px;
@@ -153,19 +168,23 @@ body {
     background-color: #fff0f3;
     transform: scale(1.15);
 }
+
 .sticker-menu {
-    width: 100%; /* Un poquito más grande que los emojis para que se note */
+    width: 100%;
+    /* Un poquito más grande que los emojis para que se note */
     height: 100%;
     object-fit: contain;
     border-radius: 12px;
 }
+
 .badge-item:hover {
     background-color: transparent !important;
     transform: scale(1.1) !important;
 }
 
-.icono-carro{
-    width: 70px; /* Un poquito más grande que los emojis para que se note */
+.icono-carro {
+    width: 70px;
+    /* Un poquito más grande que los emojis para que se note */
     height: 100px;
     object-fit: contain;
     border-radius: 40px;
@@ -175,6 +194,7 @@ body {
     background-color: transparent !important;
     transform: scale(1.1) !important;
 }
+
 /* ==========================================================================
    ☀️ PANEL CENTRAL DE CONTENIDO
    ========================================================================== */
@@ -194,8 +214,9 @@ body {
     height: 100%;
     object-fit: contain;
 }
-.imagen-isotipo:hover { 
-    transform: scale(1.1); 
+
+.imagen-isotipo:hover {
+    transform: scale(1.1);
 }
 
 /* --- LOGO HORIZONTAL EN EL ENCABEZADO DE ARRIBA --- */
@@ -204,28 +225,35 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: var(--white-pure);
-    padding: 80px 60px;    /* Un padding bajito y elegante */
+    padding: 80px 60px;
+    /* Un padding bajito y elegante */
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-soft);
-    height: 85px;          /* Altura ideal para la barra del encabezado */
+    height: 85px;
+    /* Altura ideal para la barra del encabezado */
 }
 
 .Logo-Encabezado {
     display: flex;
     align-items: center;
-    height: 100%;          /* Ocupa toda la altura disponible de la barra */
+    height: 100%;
+    /* Ocupa toda la altura disponible de la barra */
 }
 
 .imagen-banner {
-    height: 260px;          /* ✨ ¡EL TRUCO! Forzamos al logo a ser grande y alto */
-    width: auto;           /* Deja que el ancho se calcule solo para que NO se estire feo */
+    height: 260px;
+    /* ✨ ¡EL TRUCO! Forzamos al logo a ser grande y alto */
+    width: auto;
+    /* Deja que el ancho se calcule solo para que NO se estire feo */
     object-fit: contain;
-    align-self: center;    /* Centra verticalmente el logo dentro de la barra */
-    padding: 7px;              /* Un poquito de espacio alrededor para que respire */
+    align-self: center;
+    /* Centra verticalmente el logo dentro de la barra */
+    padding: 7px;
+    /* Un poquito de espacio alrededor para que respire */
     /* 🌟 TRUCO MAGNÍFICO: Si exportaste el logo con fondo blanco, 
        esta línea de abajo hace que el fondo de la imagen se vuelva invisible 
        y se fusione hermosamente con tu barra blanca */
-    mix-blend-mode: multiply; 
+    mix-blend-mode: multiply;
 }
 
 /* Centramos el buscador perfectamente con el logo */
@@ -246,6 +274,7 @@ body {
     color: var(--text-main);
     transition: border-color 0.3s ease;
 }
+
 .BarritaBusqueda input:focus {
     border-color: var(--pastel-pink);
 }
@@ -270,9 +299,17 @@ body {
 }
 
 /* Fondos variables para las estadísticas rápidas */
-.Cajitaestado.rosa { background-color: var(--pastel-pink); }
-.Cajitaestado.amarilla { background-color: var(--pastel-yellow); }
-.Cajitaestado.moradita { background-color: var(--pastel-purple); }
+.Cajitaestado.rosa {
+    background-color: var(--pastel-pink);
+}
+
+.Cajitaestado.amarilla {
+    background-color: var(--pastel-yellow);
+}
+
+.Cajitaestado.moradita {
+    background-color: var(--pastel-purple);
+}
 
 .Cajitatitulo {
     font-size: 1rem;
@@ -285,32 +322,34 @@ body {
     font-weight: 700;
     color: var(--text-main);
 }
+
 .Cajitaestado {
-    position: relative; 
-    min-height: 90px; 
-    height: auto;     
+    position: relative;
+    min-height: 90px;
+    height: auto;
     padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.Cajitaestado > div {
+
+.Cajitaestado>div {
     display: flex !important;
-    justify-content: flex-end; 
-    align-items: center;       
+    justify-content: flex-end;
+    align-items: center;
     width: 100%;
-    margin-top: auto;          
-    padding-top: 20px;         
+    margin-top: auto;
+    padding-top: 20px;
 }
 
 .botonCrear {
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    height: 60px;       
-    padding: 0 16px;    
-    line-height: 1;     
-    border-radius: 55px; 
+    height: 60px;
+    padding: 0 16px;
+    line-height: 1;
+    border-radius: 55px;
     box-sizing: border-box;
 }
 
@@ -324,39 +363,44 @@ body {
     border: none;
     cursor: pointer;
     gap: 6px;
-    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    box-shadow: 
-    0 4px 8px rgba(0, 0, 0, 0.06), 
-    inset 0 -3px 0px rgba(0, 0, 0, 0.12), 
-    inset 0 3px 4px rgba(255, 255, 255, 0.7);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.06),
+        inset 0 -3px 0px rgba(0, 0, 0, 0.12),
+        inset 0 3px 4px rgba(255, 255, 255, 0.7);
 }
+
 .Cajitaestado.rosa .botonCrear {
-    background-color: #fbc4d0; 
+    background-color: #fbc4d0;
     color: #fff;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
+
 .Cajitaestado.amarilla .botonCrear {
-    background-color: #fdeca6; 
-    color: #6d5b16; 
+    background-color: #fdeca6;
+    color: #6d5b16;
 }
+
 .botonCrear:hover {
-    transform: translateY(-2px) scale(1.04); /* Se levanta un poquito de forma juguetona */
-    box-shadow: 
-    0 6px 12px rgba(0, 0, 0, 0.08), 
-    inset 0 -3px 0px rgba(0, 0, 0, 0.15), 
-    inset 0 4px 6px rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px) scale(1.04);
+    /* Se levanta un poquito de forma juguetona */
+    box-shadow:
+        0 6px 12px rgba(0, 0, 0, 0.08),
+        inset 0 -3px 0px rgba(0, 0, 0, 0.15),
+        inset 0 4px 6px rgba(255, 255, 255, 0.9);
 }
+
 .botonCrear:active {
-    transform: translateY(1px) scale(0.98); 
-    box-shadow: 
-        0 2px 4px rgba(0, 0, 0, 0.05), 
-        inset 0 2px 3px rgba(0, 0, 0, 0.15); 
+    transform: translateY(1px) scale(0.98);
+    box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.05),
+        inset 0 2px 3px rgba(0, 0, 0, 0.15);
 }
 
 .Grid-rutas {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
     gap: 24px;
     flex-grow: 1;
     margin-bottom: 10px;
@@ -377,9 +421,10 @@ body {
 
 .Tarjetaruta:hover {
     transform: translateY(-6px);
-    box-shadow: 0 15px 30px rgba(251, 196, 208, 0.25); 
+    box-shadow: 0 15px 30px rgba(251, 196, 208, 0.25);
     border-color: rgba(251, 196, 208, 0.5);
 }
+
 .Tarjetaruta::before {
     content: '';
     position: absolute;
@@ -389,10 +434,22 @@ body {
     width: 6px;
     border-radius: 0 8px 8px 0;
 }
-.Tarjetaruta.bus-1::before { background-color: #ff6b8b; }
-.Tarjetaruta.bus-2::before { background-color: #4ea8de; }
-.Tarjetaruta.bus-3::before { background-color: #ffd166; }
-.Tarjetaruta.bus-4::before { background-color: #65d9ba; }
+
+.Tarjetaruta.bus-1::before {
+    background-color: #ff6b8b;
+}
+
+.Tarjetaruta.bus-2::before {
+    background-color: #4ea8de;
+}
+
+.Tarjetaruta.bus-3::before {
+    background-color: #ffd166;
+}
+
+.Tarjetaruta.bus-4::before {
+    background-color: #65d9ba;
+}
 
 /* Encabezado interno del Bus */
 .Tarjetarutaencabezado {
@@ -483,9 +540,11 @@ body {
     font-weight: 500;
     color: #4a494b;
     box-shadow: 0 2px 6px rgba(160, 175, 185, 0.04);
-    cursor: pointer;          /* Muestra la manito de clic */
+    cursor: pointer;
+    /* Muestra la manito de clic */
     transition: all 0.2s ease;
-    outline: none;            /* Quita el borde azul feo por defecto */
+    outline: none;
+    /* Quita el borde azul feo por defecto */
 }
 
 .Estudiantito:hover {
@@ -496,10 +555,13 @@ body {
 }
 
 .eliminar-estudiante {
-    margin-left: 8px;          /* Separa la equis del nombre del niño */
-    font-size: 1.1rem;         /* Tamaño ideal para que se note pero sea sutil */
+    margin-left: 8px;
+    /* Separa la equis del nombre del niño */
+    font-size: 1.1rem;
+    /* Tamaño ideal para que se note pero sea sutil */
     font-weight: 600;
-    color: var(--text-muted);  /* Empieza con tu gris suave para no saturar */
+    color: var(--text-muted);
+    /* Empieza con tu gris suave para no saturar */
     display: inline-block;
     transition: all 0.2s ease;
     padding: 0 2px;
@@ -508,9 +570,12 @@ body {
 
 /* Efecto lindo cuando pases el cursor sobre el botón del estudiante */
 .Estudiantito:hover .eliminar-estudiante {
-    color: #ff6b8b;            /* La equis se ilumina en tu tono rosa fuerte */
-    transform: scale(1.2);     /* Se agranda un poquitico de forma interactiva */
+    color: #ff6b8b;
+    /* La equis se ilumina en tu tono rosa fuerte */
+    transform: scale(1.2);
+    /* Se agranda un poquitico de forma interactiva */
 }
+
 /* Acción de Gestión dentro del bus */
 .Btn-gestionar {
     display: flex;
@@ -530,6 +595,7 @@ body {
     border-radius: 10px;
     transition: all 0.2s ease;
 }
+
 .botonGestionar:hover {
     color: #ff6b8b;
     background-color: #fff0f3;
@@ -539,7 +605,7 @@ body {
    🎒 INTERFAZ DE ASIGNACIÓN DE ALUMNOS (REQUERIMIENTO CONTROL)
    ========================================================================== */
 
-   .ListaEstudiantesPendientes {
+.ListaEstudiantesPendientes {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -591,18 +657,20 @@ body {
    ========================================================================== */
 
 
-   .capa-modal-flotante {
+.capa-modal-flotante {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(43, 42, 44, 0.5); /* Oscurece el fondo con tu color text-main */
+    background-color: rgba(43, 42, 44, 0.5);
+    /* Oscurece el fondo con tu color text-main */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 3000; /* Vuela por encima de todo el dashboard */
-    
+    z-index: 3000;
+    /* Vuela por encima de todo el dashboard */
+
     /* Ocultos por defecto */
     opacity: 0;
     pointer-events: none;
@@ -619,10 +687,12 @@ body {
 .capa-modal-flotante .Formulario {
     background-color: var(--white-pure);
     padding: 30px;
-    border-radius: var(--border-radius-lg); /* Tus curvas de 28px */
+    border-radius: var(--border-radius-lg);
+    /* Tus curvas de 28px */
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
     width: 90%;
-    max-width: 480px; /* Tamaño ideal de ventanilla */
+    max-width: 480px;
+    /* Tamaño ideal de ventanilla */
     position: relative;
     transform: translateY(-20px);
     transition: transform 0.3s ease;
@@ -644,13 +714,15 @@ body {
     cursor: pointer;
     transition: color 0.2s ease;
 }
+
 .btn-cerrar-modal:hover {
     color: var(--pastel-pink);
 }
 
 .Gestion {
     display: grid;
-    grid-template-columns: 380px 1fr; /* Formulario compacto y tabla expandida */
+    grid-template-columns: 380px 1fr;
+    /* Formulario compacto y tabla expandida */
     gap: 24px;
     margin-top: 10px;
     margin-bottom: 30px;
@@ -696,7 +768,7 @@ body {
     letter-spacing: 0.4px;
 }
 
-.Formularios input, 
+.Formularios input,
 .Formularios select {
     padding: 10px 16px;
     border-radius: 14px;
@@ -732,11 +804,23 @@ body {
     margin-top: 5px;
 }
 
-.btnRosa { background-color: var(--pastel-pink); }
-.btnRosa:hover { background-color: #f9afbf; transform: translateY(-2px); }
+.btnRosa {
+    background-color: var(--pastel-pink);
+}
 
-.btnAmarillo { background-color: var(--pastel-yellow); }
-.btnAmarillo:hover { background-color: #fce074; transform: translateY(-2px); }
+.btnRosa:hover {
+    background-color: #f9afbf;
+    transform: translateY(-2px);
+}
+
+.btnAmarillo {
+    background-color: var(--pastel-yellow);
+}
+
+.btnAmarillo:hover {
+    background-color: #fce074;
+    transform: translateY(-2px);
+}
 
 
 .TablaHistorial {
@@ -776,7 +860,8 @@ body {
     transition: all 0.2s ease;
 }
 
-.FiltroB.activo, .FiltroB:hover {
+.FiltroB.activo,
+.FiltroB:hover {
     background-color: var(--text-main);
     color: var(--pastel-pink);
 }
@@ -855,14 +940,18 @@ body {
 
 /* 0. Monitores de Escritorio Grandes (Pantallas de 1440px o más) 
    ¡Aquí está el truco! En lugar de estirar 2 buses gigantes, pintamos los 4 en fila */
-   @media (min-width: 1440px) {
+@media (min-width: 1440px) {
     .Tablerito {
-        max-width: 1600px; /* Ampliamos un poquito el lienzo */
+        max-width: 1600px;
+        /* Ampliamos un poquito el lienzo */
     }
+
     .Grid-rutas {
-        grid-template-columns: repeat(4, 1fr); /* ¡Los 4 buses alineados en una sola fila hermosa! */
+        grid-template-columns: repeat(4, 1fr);
+        /* ¡Los 4 buses alineados en una sola fila hermosa! */
         gap: 20px;
     }
+
     .Cajitaestados {
         gap: 20px;
     }
@@ -870,82 +959,104 @@ body {
 
 /* 1. Computadoras medianas / Laptops convencionales (Menos de 1200px) */
 @media (max-width: 1200px) {
-    .Tablerito { 
-        grid-template-columns: 80px 1fr; 
-        gap: 16px; 
+    .Tablerito {
+        grid-template-columns: 80px 1fr;
+        gap: 16px;
     }
-    .Grid-rutas { 
-        grid-template-columns: repeat(2, 1fr); /* Vuelve al cómodo 2x2 */
-        gap: 16px; 
+
+    .Grid-rutas {
+        grid-template-columns: repeat(2, 1fr);
+        /* Vuelve al cómodo 2x2 */
+        gap: 16px;
     }
-    .Tarjetaruta { 
-        padding: 20px; 
+
+    .Tarjetaruta {
+        padding: 20px;
     }
 }
 
 /* 2. Tablets y pantallas medianas (Menos de 768px) */
 @media (max-width: 768px) {
-    .Tablerito { 
-        grid-template-columns: 1fr; 
-        height: auto; 
+    .Tablerito {
+        grid-template-columns: 1fr;
+        height: auto;
     }
-    .Barrita { 
-        display: none; 
-    }
-    .Grid-rutas { 
-        grid-template-columns: 1fr; /* Una sola columna vertical para que no se aplasten */
-    }
-    .Cajitaestados { 
-        grid-template-columns: 1fr; 
-        gap: 12px; 
-    }
-    .Cajitaestado { 
-        height: 100px; 
-    }
+
     .Barrita {
-        display: flex !important;       /* ¡Obligamos a que se muestre! 🎀 */
+        display: none;
+    }
+
+    .Grid-rutas {
+        grid-template-columns: 1fr;
+        /* Una sola columna vertical para que no se aplasten */
+    }
+
+    .Cajitaestados {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .Cajitaestado {
+        height: 100px;
+    }
+
+    .Barrita {
+        display: flex !important;
+        /* ¡Obligamos a que se muestre! 🎀 */
         position: fixed;
-        bottom: 0;                      /* La ubicamos abajo del cel para que sea fácil tocar los botones */
+        bottom: 0;
+        /* La ubicamos abajo del cel para que sea fácil tocar los botones */
         left: 0;
         width: 100%;
-        height: 30px;                   /* Una altura cómoda */
-        flex-direction: row;            /* El menú ahora irá horizontal */
+        height: 30px;
+        /* Una altura cómoda */
+        flex-direction: row;
+        /* El menú ahora irá horizontal */
         justify-content: space-around;
         align-items: center;
-        border-radius: 20px 20px 0 0;  /* Bordes esponjosos arriba */
-        box-shadow: 0 -4px 15px rgba(0,0,0,0.08);
-        z-index: 1000;                  /* Que siempre quede flotando por encima */
+        border-radius: 20px 20px 0 0;
+        /* Bordes esponjosos arriba */
+        box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+        z-index: 1000;
+        /* Que siempre quede flotando por encima */
     }
+
     .imagen-isotipo {
         height: 84px;
     }
+
     .Menu-barrita {
         flex-direction: row !important;
         gap: 15px;
     }
+
     .Tablerito {
-        padding-bottom: 80px; 
-        grid-template-columns: 1fr !important; /* El diseño pasa a ser de una sola columna */
+        padding-bottom: 80px;
+        grid-template-columns: 1fr !important;
+        /* El diseño pasa a ser de una sola columna */
     }
 }
 
 /* 3. Celulares inteligentes (Menos de 480px) */
 @media (max-width: 480px) {
-    body { 
-        padding: 12px; 
+    body {
+        padding: 12px;
     }
-    .Encabezado { 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 15px; 
-        padding: 20px; 
+
+    .Encabezado {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 20px;
     }
-    .BarritaBusqueda input { 
-        width: 100%; 
+
+    .BarritaBusqueda input {
+        width: 100%;
     }
-    .Rutadatos { 
-        flex-direction: column; 
-        gap: 6px; 
+
+    .Rutadatos {
+        flex-direction: column;
+        gap: 6px;
     }
-    
+
 }
