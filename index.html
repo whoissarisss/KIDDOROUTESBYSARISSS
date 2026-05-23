@@ -4,11 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rutas Seguras Kids 🌸 Dashboard</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <title>Rutas Seguras Kids Dashboard</title>
     <link rel="stylesheet" href="estilitos.css?v=2">
 </head>
 
@@ -51,13 +47,13 @@
                 </div>
             </header>
 
-            <section id="pantallaBienvenida" class="Bienvenida">
+            <section id="pantallaBienvenida" class="HeroBienvenida">
                 <div class="ContenedorResponsivoHero">
-
-                    <img src="img/Logo.png" alt="Kiddo Routes" class="Logo">
-
-                    <button id="btnEntrarDashboard" class="btnEntrar">ENTRAR AL TABLERO</button>
-
+                    <img src="img/Logo.png" alt="Kiddo Routes Logo" class="Logo">
+                    
+                    <button id="btnEntrarDashboard" class="btnEntrar">
+                        ENTRAR AL TABLERO
+                    </button>
                 </div>
             </section>
 
@@ -80,6 +76,14 @@
                 <div class="Cajitaestado moradita">
                     <span class="Cajitatitulo">Clima Promedio</span>
                     <span class="Cajitanumero" id="seccion-clima">26°C 🌦️</span>
+                </div>
+
+                <div class="Cajitaestado azul">
+                    <span class="Cajitatitulo">Alumnos Pendientes</span>
+                    <span class="Cajitanumero">?</span>
+                    <div>
+                        <button class="botonCrear" id="btnPendientes">+ VER ESTUDIANTES PENDIENTES</button>
+                    </div>
                 </div>
             </section>
 
@@ -120,8 +124,11 @@
                         </div>
                     </div>
 
-                    <div class="Btn-gestionar">
+                    <div class="btnEliminarRuta">
                         <button class="botonGestionar">ELIMINAR RUTA</button>
+                    </div>
+                    <div class="botonEditar">
+                        <button class="botonGestionar">EDITAR RUTA</button>
                     </div>
                 </div>
 
@@ -160,8 +167,11 @@
                         </div>
                     </div>
 
-                    <div class="Btn-gestionar">
+                    <div class="btnEliminarRuta">
                         <button class="botonGestionar">ELIMINAR RUTA</button>
+                    </div>
+                    <div class="botonEditar">
+                        <button class="botonGestionar">EDITAR RUTA</button>
                     </div>
                 </div>
 
@@ -200,8 +210,11 @@
                         </div>
                     </div>
 
-                    <div class="Btn-gestionar">
+                    <div class="btnEliminarRuta">
                         <button class="botonGestionar">ELIMINAR RUTA</button>
+                    </div>
+                    <div class="botonEditar">
+                        <button class="botonGestionar">EDITAR RUTA</button>
                     </div>
                 </div>
 
@@ -240,8 +253,11 @@
                         </div>
                     </div>
 
-                    <div class="Btn-gestionar">
+                    <div class="btnEliminarRuta">
                         <button class="botonGestionar">ELIMINAR RUTA</button>
+                    </div>
+                    <div class="botonEditar">
+                        <button class="botonGestionar">EDITAR RUTA</button>
                     </div>
                 </div>
 
@@ -283,21 +299,9 @@
                     <div class="Formulario">
                         <button type="button" class="btn-cerrar-modal" id="cerrarM2">✕</button>
                         <h3> NIÑOS SIN RUTA ASIGNADA</h3>
-                        <div class="ListaEstudiantesPendientes">
-                            <div class="FilaEstudiantePendiente">
-                                <span> Thiago Silva</span>
-                                <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
-                            </div>
-                            <div class="FilaEstudiantePendiente">
-                                <span> Isabella Rios</span>
-                                <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
-                            </div>
-                            <div class="FilaEstudiantePendiente">
-                                <span> Samuel Niño</span>
-                                <button type="button" class="btnAsignar" title="Asignar a una ruta">➕ ASIGNAR</button>
-                            </div>
-                        </div>
+                        <div class="ListaEstudiantesPendientes"></div>
                     </div>
+                    
                 </div>
 
                 <div id="modalNuevoEstudiante" class="capa-modal-flotante">
