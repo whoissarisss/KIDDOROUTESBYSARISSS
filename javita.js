@@ -385,6 +385,7 @@ function renderizarRutas(){
 
     actualizarHistorialTabla();
     actualizarDashboard();
+    renderizarAlumnosRegistrados();
 
 }
 
@@ -448,6 +449,42 @@ function renderizarPendientes(){
     });
 }
 
+function renderizarAlumnosRegistrados(){
+
+    const lista=document.getElementById("listaAlumnosRegistrados");
+    const contador=document.getElementById("contadorAlumnos");
+
+    if(!lista) return;
+    lista.innerHTML="";
+    let todosLosAlumnos=[];
+    misRutas.forEach(ruta=>{
+        ruta.estudiantes.forEach(nombre=>{
+            todosLosAlumnos.push({
+                nombre:nombre,
+                ruta:ruta.titulo
+            });
+
+        });
+    });
+
+    contador.textContent=`${todosLosAlumnos.length} alumnos`;
+    todosLosAlumnos.forEach(alumno=>{
+        const div=document.createElement("div");
+        div.className="AlumnoCard";
+        div.innerHTML=`
+            <div>
+                <div class="NombreAlumno">${alumno.nombre}</div>
+                <small>${alumno.ruta}</small>
+            </div>
+
+            <span class="EstadoAlumno">
+                REGISTRADO
+            </span>
+        `;
+        lista.appendChild(div);
+
+    });
+}
 
 function actualizarHistorialTabla() {
     const tablaContenido = document.getElementById("tablaHistorialContenido");
