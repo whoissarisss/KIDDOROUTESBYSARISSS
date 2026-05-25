@@ -546,7 +546,7 @@ function renderizarClima(datos) {
 
     const urlIcono = `https://openweathermap.org/img/wn/${iconoCodigo}@2x.png`;
     
-    const contenedorClima = document.getElementById(".seccion-clima");
+    const contenedorClima = document.querySelector(".seccion-clima");
 
     if (contenedorClima) {
         contenedorClima.innerHTML = `
@@ -637,10 +637,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log(btnEntrar, pantallaBienvenida);
     if (btnEntrar && pantallaBienvenida) {
         btnEntrar.addEventListener("click", () => {
-            // Desliza la pantalla hacia arriba de forma ultra fluida 🚀
             pantallaBienvenida.style.transform = "translateY(-100vh)";
-
-            // Esperamos a que termine la animación (800ms) y la ocultamos del todo
             setTimeout(() => {
                 pantallaBienvenida.style.display = "none";
             }, 800);
@@ -661,9 +658,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
                 const titulo = tituloHTML.toLowerCase();
                 if (titulo.includes(textoUsuario)) {
-                    tarjeta.style.display = "block"; // Se queda
+                    tarjeta.style.display = "block"; 
                 } else {
-                    tarjeta.style.display = "none";  // Se oculta
+                    tarjeta.style.display = "none";  
                 }
             });
         });

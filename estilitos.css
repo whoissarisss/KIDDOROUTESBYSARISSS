@@ -1,29 +1,15 @@
 :root {
     --bg-soft: #f4f7f6;
-    /* Fondo de pantalla grisáceo suave/crema (como WordPress) */
     --white-pure: #ffffff;
-    /* Fondo de las tarjetas y contenedores */
     --text-main: #2b2a2c;
-    /* Texto oscuro suave, nada de negro puro agresivo */
     --text-muted: #8e8d91;
-    /* Subtítulos y textos secundarios */
-
-    /* Tonos pastel de tus referencias */
     --pastel-pink: #fbc4d0;
-    /* Rosa chicle suave (Activities Today) */
     --pastel-blue: #c0e6ec;
-    /* Azul cielo / Menta suave (UX Design) */
     --pastel-yellow: #fdeca6;
-    /* Amarillo sol tierno (Learning progress) */
     --pastel-purple: #dcd3f1;
-    /* Lila místico suave (Active card) */
-
     --border-radius-lg: 28px;
-    /* Esquinas súper curvas y esponjosas */
     --border-radius-sm: 18px;
-    /* Esquinas para elementos internos pequeños */
     --shadow-soft: 0 10px 25px rgba(160, 175, 185, 0.12);
-    /* Sombreado acolchado e invisible */
 }
 
 @font-face {
@@ -36,86 +22,12 @@
     src: url('fonts/LuckiestGuy.ttf') format('truetype');
 }
 
-
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'KGPerfectPenmanship', sans-serif;
     letter-spacing: 0.3px;
-}
-
-.notificacion-kiddo{
-    position: fixed;
-    top:20px;
-    right:20px;
-    width:clamp(220px,80vw,360px);
-    min-height:60px;
-    padding:15px 20px;
-    background:linear-gradient(90deg, var(--pastel-pink), var(--pastel-purple));
-    border-radius:22px;
-    border:0.9px solid white;
-    color:#141212;
-    font-size:15px;
-    box-shadow:0 8px 30px rgba(0,0,0,.15);
-    z-index:99999;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    transform:translateX(150%);
-    opacity:0;
-    transition:transform .6s ease,opacity .6s ease;
-    word-wrap:break-word;
-    overflow-wrap:break-word;
-}
-
-
-.notificacion-kiddo.mostrar{
-    transform:translateX(0);
-    opacity:1;
-}
-
-
-.notificacion-kiddo::before{
-    content:"🚌✨";
-    font-size:24px;
-    flex-shrink:0;
-}
-
-
-@media(max-width:600px){
-
-    .notificacion-kiddo{
-        width:90%;
-        left:50%;
-        right:auto;
-        transform:translate(-50%,-150%);
-    }
-
-    .notificacion-kiddo.mostrar{
-        transform:translate(-50%,0);
-    }
-
-}
-
-body {
-    background-color: var(--bg-soft);
-    color: var(--text-main);
-    min-height: 100vh;
-    padding: 24px;
-    display: flex;
-    justify-content: center;
-}
-
-.Tablerito {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    /* Barra lateral compacta tipo icono + Área de contenido */
-    gap: 24px;
-    width: 100%;
-    max-width: 1400px;
-    height: calc(100vh - 48px);
 }
 
 .HeroBienvenida {
@@ -179,6 +91,26 @@ body {
     transform: scale(1.05) !important;
 }
 
+
+body {
+    background-color: var(--bg-soft);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.Tablerito {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    /* Barra lateral compacta tipo icono + Área de contenido */
+    gap: 24px;
+    width: 100%;
+    max-width: 1400px;
+    height: calc(100vh - 48px);
+}
+
 .Barrita {
     background-color: var(--white-pure);
     border-radius: var(--border-radius-lg);
@@ -190,6 +122,207 @@ body {
     gap: 35px;
 }
 
+.Encabezado{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:22px;
+    background:white;
+    border-radius:30px;
+    margin-bottom:25px;
+}
+
+.logoBuscador{
+    width:80px !important;
+    height:80px !important;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    border-radius:50%;
+}
+
+.LogoDashboard{
+    width:70px !important;
+    height:70px !important;
+    min-width:70px !important;
+    object-fit:cover !important;
+    border-radius:50%;
+    display:block;
+}
+
+.LogoDashboard img{
+    width:100%;
+    height:100%;
+}
+
+.BarritaBusqueda input{
+    width:100%;
+    height:55px; 
+    border:none;
+    outline:none;
+    padding:0 25px;
+    border-radius:50px;
+    background:#f4f4f4;
+}
+
+.Cajitaestados{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+    margin-top:20px;
+    width: 100%;
+    align-items: stretch;
+}
+
+.Cajitaestado{
+    position:relative;
+    padding:20px;
+    border-radius:30px;
+    min-height: 180px;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
+    transition:.3s;
+}
+
+.Cajitaestado:hover{
+    transform:translateY(-6px);
+}
+
+.circuloIcono{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:rgba(255,255,255,.7);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.circuloIcono img{
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.Cajitatitulo{
+    font-size:.95rem;
+    font-weight:700;
+    margin-top:15px;
+}
+.Cajitanumero{
+    font-size:2rem;
+    font-weight:900;
+    margin-top: auto;
+}
+
+.Grid-rutas {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    flex-grow: 1;
+    margin-bottom: 10px;
+}
+
+.TablaHistorial {
+   width: 100%;
+   min-width: 0;
+   background: white;
+   border-radius: 30px;
+   display:flex;
+   flex-direction: column;
+   gap: 20px;
+   padding: 25px;
+   box-shadow: 0 8px 20px rgba(0,0,0,.06);
+}
+
+.PanelAlumnosRegistrados{
+    width:100%;
+    min-width: 0;
+    background:white;
+    border-radius:30px;
+    padding:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+
+.capa-modal-flotante {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(43, 42, 44, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.capa-modal-flotante.activo {
+    opacity: 1;
+    pointer-events: auto;
+}
+.capa-modal-flotante .Formulario {
+    background-color: var(--white-pure);
+    padding: 30px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 480px;   
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.capa-modal-flotante.activo .Formulario {
+    transform: translateY(0);
+}
+
+.notificacion-kiddo{
+    position: fixed;
+    top:20px;
+    right:20px;
+    width:clamp(220px,80vw,360px);
+    min-height:60px;
+    padding:15px 20px;
+    background:linear-gradient(90deg, var(--pastel-pink), var(--pastel-purple));
+    border-radius:22px;
+    border:0.9px solid white;
+    color:#141212;
+    font-size:15px;
+    box-shadow:0 8px 30px rgba(0,0,0,.15);
+    z-index:99999;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    transform:translateX(150%);
+    opacity:0;
+    transition:transform .6s ease,opacity .6s ease;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
+}
+
+
+.notificacion-kiddo.mostrar{
+    transform:translateX(0);
+    opacity:1;
+}
+
+
+.notificacion-kiddo::before{
+    content:"🚌✨";
+    font-size:24px;
+    flex-shrink:0;
+}
+
 .Menu-barrita {
     display: flex;
     flex-direction: column;
@@ -199,12 +332,10 @@ body {
     justify-content: center;
 }
 
-/* Transformamos los iconos del menú lateral en botones reales */
+
 .menu-item {
     background: none;
-    /* Le quita el fondo por defecto del botón */
     border: none;
-    /* Le quita el borde cuadrado feo */
     width: 46px;
     height: 46px;
     border-radius: 20px;
@@ -254,190 +385,55 @@ body {
     padding-right: 4px;
 }
 
-.imagen-isotipo {
-    width: 106%;
-    height: 100%;
-    object-fit: contain;
+.rosa{
+    background:#f8c9d8;
 }
 
-.imagen-isotipo:hover {
-    transform: scale(1.1);
+.amarilla{
+    background:#f9e59c;
 }
 
-.Encabezado {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--white-pure);
-    padding: 80px 60px;
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-soft);
-    height: 85px;
-    
+.moradita{
+    background:#d8cbf2;
 }
 
-.imagen-banner {
-    height: 260px;
-    width: auto;
-    object-fit: contain;
-    align-self: center;
-    padding: 7px;
-    mix-blend-mode: multiply;
+.azul{
+    background:#bfe6ef;
 }
 
-.BarritaBusqueda {
-    display: flex;
-    align-items: center;
+.verdecito{
+    background:#bcecc7;
 }
 
-.BarritaBusqueda input {
-    padding: 12px 24px;
-    border-radius: 50px;
-    border: 2px solid #eef1f0;
-    background-color: #fafbfc;
-    width: 600px;
-    outline: none;
-    font-size: 0.95rem;
-    color: var(--text-main);
-    transition: border-color 0.3s ease;
+.naranja{
+    background:#ffd4ac;
 }
 
-.BarritaBusqueda input:focus {
-    border-color: var(--pastel-pink);
+.Cajitanumero{
+    font-size:2rem;
+    font-weight:900;
+    color:#2d2d2d;
+    margin:5px 0;
 }
 
-.Cajitaestados {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+.botonCrear{
+    margin-top: 12px;
+    padding:10px 14px;
+    border:none;
+    border-radius:30px;
+    background:rgba(255,255,255,.65);
+    backdrop-filter:blur(10px);
+    font-size:.75rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
 }
 
-.Cajitaestado {
-    border-radius: var(--border-radius-lg);
-    padding: 24px;
-    box-shadow: var(--shadow-soft);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 120px;
-    position: relative;
-    overflow: hidden;
-}
+.botonCrear:hover{
 
-.Cajitaestado.rosa {
-    background-color: var(--pastel-pink);
-}
+transform:scale(1.05);
+background:white;
 
-.Cajitaestado.amarilla {
-    background-color: var(--pastel-yellow);
-}
-
-.Cajitaestado.moradita {
-    background-color: var(--pastel-purple);
-}
-.Cajitaestado.azul {
-    background-color: var(--pastel-blue);
-}
-
-.Cajitatitulo {
-    font-size: 1rem;
-    color: rgba(0, 0, 0, 0.5);
-    font-weight: 500;
-}
-
-.Cajitanumero {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-
-.Cajitaestado {
-    position: relative;
-    min-height: 90px;
-    height: auto;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.Cajitaestado>div {
-    display: flex !important;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    margin-top: auto;
-    padding-top: 20px;
-}
-
-.botonCrear {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    height: 60px;
-    padding: 0 16px;
-    line-height: 1;
-    border-radius: 55px;
-    box-sizing: border-box;
-}
-
-.botonCrear {
-    font-family: "KGPerfectPenmanship", sans-serif;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    gap: 6px;
-    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    box-shadow:
-        0 4px 8px rgba(0, 0, 0, 0.06),
-        inset 0 -3px 0px rgba(0, 0, 0, 0.12),
-        inset 0 3px 4px rgba(255, 255, 255, 0.7);
-}
-
-.Cajitaestado.rosa .botonCrear {
-    background-color: #fbc4d0;
-    color: #fff;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.Cajitaestado.amarilla .botonCrear {
-    background-color: #fdeca6;
-    color: #ffffff;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.Cajitaestado.azul .botonCrear {
-    background-color: rgb(183, 229, 244);
-    color: #ffffff;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.botonCrear:hover {
-    transform: translateY(-2px) scale(1.04);
-    box-shadow:
-        0 6px 12px rgba(0, 0, 0, 0.08),
-        inset 0 -3px 0px rgba(0, 0, 0, 0.15),
-        inset 0 4px 6px rgba(255, 255, 255, 0.9);
-}
-
-.botonCrear:active {
-    transform: translateY(1px) scale(0.98);
-    box-shadow:
-        0 2px 4px rgba(0, 0, 0, 0.05),
-        inset 0 2px 3px rgba(0, 0, 0, 0.15);
-}
-
-.Grid-rutas {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    flex-grow: 1;
-    margin-bottom: 10px;
 }
 
 .Tarjetaruta {
@@ -485,7 +481,7 @@ body {
     background-color: #65d9ba;
 }
 
-/* Encabezado interno del Bus */
+
 .Tarjetarutaencabezado {
     display: flex;
     justify-content: space-between;
@@ -670,42 +666,6 @@ body {
     transform: scale(1.05);
 }
 
-.capa-modal-flotante {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(43, 42, 44, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 3000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-.capa-modal-flotante.activo {
-    opacity: 1;
-    pointer-events: auto;
-}
-.capa-modal-flotante .Formulario {
-    background-color: var(--white-pure);
-    padding: 30px;
-    border-radius: var(--border-radius-lg);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    width: 90%;
-    max-width: 480px;   
-    position: relative;
-    transform: translateY(-20px);
-    transition: transform 0.3s ease;
-}
-
-.capa-modal-flotante.activo .Formulario {
-    transform: translateY(0);
-}
-
 .btn-cerrar-modal {
     position: absolute;
     top: 15px;
@@ -723,21 +683,11 @@ body {
 }
 
 .Gestion{
-    display:flex;
-    align-items: flex-start;
+    display:grid;
+    grid-template-columns: 320px 1fr;
+    align-items: start;
+    width: 100%;
     gap:20px;
-    margin-top: 25px;
-}
-
-.PanelAlumnosRegistrados{
-    flex: 1;
-    background:white;
-    border-radius:30px;
-    padding:25px;
-    box-shadow:0 8px 20px rgba(0,0,0,.06);
-    min-width:320px;
-    max-width:380px;
-    height: fit-content;
 }
 
 .ListaAlumnosRegistrados{
@@ -816,8 +766,7 @@ body {
     letter-spacing: 0.4px;
 }
 
-.Formularios input,
-.Formularios select {
+.Formularios input, .Formularios select {
     padding: 10px 16px;
     border-radius: 14px;
     border: 2px solid #eef1f0;
@@ -828,8 +777,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.Formularios input:focus,
-.Formularios select:focus {
+.Formularios input:focus, .Formularios select:focus {
     border-color: var(--pastel-pink);
     background-color: var(--white-pure);
 }
@@ -870,18 +818,6 @@ body {
     transform: translateY(-2px);
 }
 
-
-.TablaHistorial {
-    background-color: var(--white-pure);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--pastel-pink);
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    flex: 2;
-}
-
 .TablaEncabezado {
     display: flex;
     justify-content: space-between;
@@ -918,6 +854,11 @@ body {
     overflow-x: auto;
 }
 
+.ContenedorTabla{
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 20px;
+}
 .Tablita {
     width: 100%;
     border-collapse: collapse;
@@ -945,6 +886,12 @@ body {
     background-color: var(--pastel-purple);
 }
 
+.Tablita{
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+}
+
 .btnEliminarFila {
     background: none;
     border: none;
@@ -956,12 +903,6 @@ body {
 
 .btnEliminarFila:hover {
     color: #ff6b8b;
-}
-
-@media (max-width: 1200px) {
-    .Gestion {
-        grid-template-columns: 1fr;
-    }
 }
 
 ::-webkit-scrollbar {
@@ -992,18 +933,7 @@ body {
         margin:auto;
     }
 
-    .Grid-rutas{
-        grid-template-columns:repeat(4,1fr);
-        gap:20px;
-    }
-
-    .Cajitaestados{
-        gap:20px;
-    }
-
 }
-
-
 
 @media (max-width:1200px){
 
@@ -1021,8 +951,10 @@ body {
         padding:20px;
     }
 
+    .Gestion {
+        grid-template-columns: 1fr;
+    }
 }
-
 
 @media (max-width:768px){
 
@@ -1035,7 +967,6 @@ body {
         padding-bottom:95px;
     }
 
-
     .Contenido-principal{
         padding:10px;
     }
@@ -1046,14 +977,17 @@ body {
     }
 
     .Cajitaestados{
-        display:grid;
-        grid-template-columns:1fr;
-        gap:12px;
+        grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+        justify-content: center;
     }
 
     .Cajitaestado{
-        min-height:120px;
-        padding:15px;
+        min-height:150px;
+        padding:16px;
+    }
+
+    .Cajitanumero{
+        font-size:1.6rem;
     }
 
     .botonCrear{
@@ -1153,18 +1087,34 @@ body {
     
 
     .Gestion{
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
         
     .TablaHistorial, .PanelAlumnosRegistrados{
         width: 100%;
         max-width: 100%;
     }
-        
-    
-}
-    
 
+    .notificacion-kiddo{
+        width:90%;
+        left:50%;
+        right:auto;
+        transform:translate(-50%,-150%);
+    }
+
+    .notificacion-kiddo.mostrar{
+        transform:translate(-50%,0);
+    }
+
+    .Encabezado{
+        flex-direction: column;
+    }
+
+    .logoBuscador{
+        width: 55px;
+        height: 55px;
+    } 
+}
 
 @media (max-width:480px){
 
@@ -1209,14 +1159,3 @@ body {
 
 }
 
-.ContenedorTabla{
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 20px;
-}
-
-.Tablita{
-    width: 100%;
-    min-width: 850px;
-    border-collapse: collapse;
-}

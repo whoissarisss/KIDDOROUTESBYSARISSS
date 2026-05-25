@@ -19,7 +19,7 @@
         <aside class="Barrita">
             <button type="button" id="btnLogoHome" class="btn-logo-interactivo"
                 style="background: none; border: none; cursor: pointer; width: 100%; padding: 0 10px;">
-                <img src="img/isotipo.png" alt="kiddo routes" class="imagen-isotipo">
+                <img src="" alt="kiddo routes" class="imagen-isotipo">
             </button>
 
             <nav class="Menu-barrita">
@@ -45,11 +45,15 @@
 
         <main class="Contenido-principal">
 
-            <header class="Encabezado">
-                <div class="BarritaBusqueda">
-                    <input type="text" id="buscador" placeholder="Busca el nombre de la ruta...">
+            <div class="Encabezado">
+
+                <div class="LogoBuscador">
+                    <img src="img/isotipo.png" class="LogoDashboard">
                 </div>
-            </header>
+                <div class="BarritaBusqueda">
+                    <input type="text" id="buscador" placeholder=" Busca el nombre de la ruta...">
+                </div>
+            </div>
 
             <section id="pantallaBienvenida" class="HeroBienvenida">
                 <div class="ContenedorResponsivoHero">
@@ -62,307 +66,363 @@
             </section>
 
             <section class="Cajitaestados">
-                <div class="Cajitaestado rosa">
-                    <span class="Cajitatitulo">Buses en Ruta</span>
-                    <span class="Cajitanumero" id="busesRuta">0 / 0</span>
-                    <div>
-                        <button class="botonCrear" id="btnIrNuevaRuta">+ NUEVA RUTA</button>
+                    <div class="Cajitaestado rosa">
+                        <div class="circuloIcono">
+                            <img src="img/rosita.png">
+                        </div>
+                
+                        <div class="ContenidoCajita">
+                            <span class="Cajitatitulo">Buses en Ruta</span>
+                            <span class="Cajitanumero" id="busesRuta">0 / 0</span>
+                            <button class="botonCrear" id="btnIrNuevaRuta">+ NUEVA RUTA</button>
+                        </div>
                     </div>
-                </div>
-
-                <div class="Cajitaestado amarilla">
-                    <span class="Cajitatitulo">Alumnos Registrados</span>
-                    <span class="Cajitanumero" id="totalEstudiantes">0</span>
-                    <div>
-                        <button class="botonCrear" id="btnIrNuevoEstudiante">+ NUEVO ESTUDIANTE</button>
+                
+                
+                    <div class="Cajitaestado amarilla">
+                        <div class="circuloIcono">
+                            <img src="img/amarillo.png">
+                        </div>
+                
+                        <div class="ContenidoCajita">
+                            <span class="Cajitatitulo"> Alumnos Registrados</span>
+                            <span class="Cajitanumero" id="totalEstudiantes">0</span>
+                
+                            <button class="botonCrear" id="btnIrNuevoEstudiante">+ NUEVO ESTUDIANTE</button>
+                        </div>
+                
                     </div>
-                </div>
-                <div class="Cajitaestado moradita">
-                    <span class="Cajitatitulo">Clima Promedio</span>
-                    <span class="Cajitanumero seccion-clima">26°C 🌦️</span>
-                </div>
-
-                <div class="Cajitaestado azul">
-                    <span class="Cajitatitulo">Alumnos Pendientes</span>
-                    <span class="Cajitanumero" id="totalEstudiantesPendientes">?</span>
-                    <div>
-                        <button class="botonCrear" id="btnPendientes">+ VER ESTUDIANTES PENDIENTES</button>
+                
+                
+                    <div class="Cajitaestado moradita">
+                
+                        <div class="circuloIcono">
+                            <img src="img/lila.png">
+                        </div>
+                
+                        <div class="ContenidoCajita">
+                           <span class="Cajitatitulo">Clima Promedio</span>
+                           <span class="Cajitanumero seccion-clima">26°C 🌦️</span>
+                        </div>
+                
                     </div>
-                </div>
+                
+                
+                    <div class="Cajitaestado azul">
+                
+                        <div class="circuloIcono">
+                            <img src="img/azul.png">
+                        </div>
+                
+                        <div class="ContenidoCajita">
+                            <span class="Cajitatitulo">Alumnos Pendientes</span>
+                            <span class="Cajitanumero"id="totalEstudiantesPendientes">0</span>
+                
+                            <button class="botonCrear"id="btnPendientes">+ VER ESTUDIANTES PENDIENTES</button>
+                        </div>
+                
+                    </div>
+                
+                
+                    <div class="Cajitaestado verdecito">
+                
+                        <div class="circuloIcono">
+                            <img src="img/verde.png">
+                        </div>
+                
+                        <div class="ContenidoCajita">
+                            <span class="Cajitatitulo">Rutas Activas</span>
+                            <span class="Cajitanumero" id="totalRutas">0</span>
+                        </div>
+                
+                    </div>
+            
+                    <div class="Cajitaestado naranja">
+                
+                        <div class="circuloIcono">
+                            <img src="img/naranja.png">
+                        </div>
+                
+                        <div class="ContenidoCajita">
+                            <span class="Cajitatitulo">Capacidad Disponible</span>
+                            <span class="Cajitanumero" id="espaciosLibres">0</span>
+                        </div>
+                
+                    </div>
             </section>
 
-            <section class="Grid-rutas" id="gridRutas">
+                <section class="Grid-rutas" id="gridRutas">
 
-                <div class="Tarjetaruta bus-1">
-                    <div class="Tarjetarutaencabezado">
-                        <div class="Rutainfo">
-                            <h3 id="Titulo">Ruta Arcoíris </h3>
-                            <div class="Conductor"> Conductor: Don Diego</div>
-                        </div>
-                        <div class="Clima" class="seccion-clima">☀️ 28°C</div>
-                    </div>
-
-                    <div class="Rutadatos">
-                        <span class="Datocajita" id="Hora"> Salida: 06:45 AM</span>
-                        <span class="Datocajita Capacidad"> Capacidad: 5/10</span>
-                    </div>
-
-                    <div class="CajitaEstudiantes">
-                        <span class="TituloEstudiantes">Alumnos a bordo</span>
-                        <div class="ListaEstudiantes">
-                            <button type="button" class="Estudiantito" data-student-id="sofia">
-                                Sofía <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="mateo">
-                                Mateo <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="valentina">
-                                Valentina <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="lucas">
-                                Lucas <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="emma">
-                                Emma <span class="eliminar-estudiante">×</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="btnEliminarRuta">
-                        <button class="botonGestionar">ELIMINAR RUTA</button>
-                    </div>
-                    <div class="botonEditar">
-                        <button class="botonGestionar">EDITAR RUTA</button>
-                    </div>
-                </div>
-
-                <div class="Tarjetaruta bus-2">
-                    <div class="Tarjetarutaencabezado">
-                        <div class="Rutainfo">
-                            <h3>Ruta Cohete </h3>
-                            <div class="Conductor"> Conductor: Sr. Pablo</div>
-                        </div>
-                        <div class="Clima" class="seccion-clima">☁️ 24°C</div>
-                    </div>
-
-                    <div class="Rutadatos">
-                        <span class="Datocajita"> Salida: 07:15 AM</span>
-                        <span class="Datocajita Capacidad"> Capacidad: 4/10</span>
-                    </div>
-
-                    <div class="CajitaEstudiantes">
-                        <span class="TituloEstudiantes">Alumnos a bordo</span>
-                        <div class="ListaEstudiantes">
-                            <button type="button" class="Estudiantito" data-student-id="sofia">
-                                Sofía <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="mateo">
-                                Mateo <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="valentina">
-                                Valentina <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="lucas">
-                                Lucas <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="emma">
-                                Emma <span class="eliminar-estudiante">×</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="btnEliminarRuta">
-                        <button class="botonGestionar">ELIMINAR RUTA</button>
-                    </div>
-                    <div class="botonEditar">
-                        <button class="botonGestionar">EDITAR RUTA</button>
-                    </div>
-                </div>
-
-                <div class="Tarjetaruta bus-3">
-                    <div class="Tarjetarutaencabezado">
-                        <div class="Rutainfo">
-                            <h3>Ruta Estrellita </h3>
-                            <div class="Conductor"> Conductor: Doña Clara</div>
-                        </div>
-                        <div class="Clima" class="seccion-clima">☀️ 27°C</div>
-                    </div>
-
-                    <div class="Rutadatos">
-                        <span class="Datocajita"> Salida: 07:30 AM</span>
-                        <span class="Datocajita"> Capacidad: 5/10</span>
-                    </div>
-
-                    <div class="CajitaEstudiantes">
-                        <span class="TituloEstudiantes">ALUMNOS A BORDO</span>
-                        <div class="ListaEstudiantes">
-                            <button type="button" class="Estudiantito" data-student-id="sofia">
-                                Sofía <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="mateo">
-                                Mateo <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="valentina">
-                                Valentina <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="lucas">
-                                Lucas <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="emma">
-                                Emma <span class="eliminar-estudiante">×</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="btnEliminarRuta">
-                        <button class="botonGestionar">ELIMINAR RUTA</button>
-                    </div>
-                    <div class="botonEditar">
-                        <button class="botonGestionar">EDITAR RUTA</button>
-                    </div>
-                </div>
-
-                <div class="Tarjetaruta bus-4">
-                    <div class="Tarjetarutaencabezado">
-                        <div class="Rutainfo">
-                            <h3>Ruta Girasol </h3>
-                            <div class="Conductor"> Conductor: Tía Rosa</div>
-                        </div>
-                        <div class="Clima" class="seccion-clima"> 26°C</div>
-                    </div>
-
-                    <div class="Rutadatos">
-                        <span class="Datocajita"> Salida: 08:00 AM</span>
-                        <span class="Datocajita"> Capacidad: 4/10</span>
-                    </div>
-
-                    <div class="CajitaEstudiantes">
-                        <span class="TituloEstudiantes">Alumnos a bordo</span>
-                        <div class="ListaEstudiantes">
-                            <button type="button" class="Estudiantito" data-student-id="sofia">
-                                Sofía <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="mateo">
-                                Mateo <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="valentina">
-                                Valentina <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="lucas">
-                                Lucas <span class="eliminar-estudiante">×</span>
-                            </button>
-                            <button type="button" class="Estudiantito" data-student-id="emma">
-                                Emma <span class="eliminar-estudiante">×</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="btnEliminarRuta">
-                        <button class="botonGestionar">ELIMINAR RUTA</button>
-                    </div>
-                    <div class="botonEditar">
-                        <button class="botonGestionar">EDITAR RUTA</button>
-                    </div>
-                </div>
-
-            </section>
-
-            <section class="Gestion">
-
-                <div class="PanelFormularios">
-                    <div id="modalNuevaRuta" class="capa-modal-flotante">
-                        <div class="Formulario">
-                            <button type="button" class="btn-cerrar-modal" id="cerrarM1">✕</button>
-                            <h3>REGISTRAR NUEVA RUTA</h3>
-                            <form id="FormuRuta" class="Formularios">
-                                <div class="GrupoInput">
-                                    <label for="nombreRuta">Nombre de la Ruta</label>
-                                    <input type="text" id="InputNombreRuta" placeholder="Ej. Ruta Unicornio " required>
+                        <div class="Tarjetaruta bus-1">
+                            <div class="Tarjetarutaencabezado">
+                                <div class="Rutainfo">
+                                    <h3 id="Titulo">Ruta Arcoíris </h3>
+                                    <div class="Conductor"> Conductor: Don Diego</div>
                                 </div>
-                                <div class="GrupoInput">
-                                    <label for="conductorRuta">Conductor</label>
-                                    <input type="text" id="InputConductorRuta" placeholder="Ej. Carlos Pérez" required>
-                                </div>
-                                <div class="FilaInputs">
-                                    <div class="GrupoInput">
-                                        <label for="salidaRuta">Hora Salida</label>
-                                        <input type="time" id="InputHoraRuta" required>
-                                    </div>
-                                    <div class="GrupoInput">
-                                        <label for="climaRuta">Clima Inicial</label>
-                                        <input type="text" class="seccion-clima" placeholder="Ej. 25°C ☀️">
-                                    </div>
-                                </div>
-                                <button type="submit" class="btnFormu btnRosa">CREAR RUTA</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="modalNinosPendientes" class="capa-modal-flotante">
-                    <div class="Formulario">
-                        <button type="button" class="btn-cerrar-modal" id="cerrarM2">✕</button>
-                        <h3> NIÑOS SIN RUTA ASIGNADA</h3>
-                        <div class="ListaEstudiantesPendientes"></div>
-                    </div>
-                    
-                </div>
-
-                <div id="modalNuevoEstudiante" class="capa-modal-flotante">
-                    <div class="Formulario">
-                        <button type="button" class="btn-cerrar-modal" id="cerrarM3">✕</button>
-                        <h3> REGISTRAR NUEVO ESTUDIANTE</h3>
-                        <form id="formuEstudiante" class="Formularios">
-                            <div class="GrupoInput">
-                                <label for="nombreEstudiante">NOMBRE DEL ALUMNO</label>
-                                <input type="text" id="InputNombreEstudiante" placeholder="Ej. Valentina Gómez"
-                                    required>
+                                <div class="Clima" class="seccion-clima">☀️ 28°C</div>
                             </div>
-                            <button type="submit" class="btnFormu btnAmarillo">INSCRIBIR ESTUDIANTE</button>
-                        </form>
-                    </div>
-                </div>
 
-                <div class="PanelAlumnosRegistrados">
-                    <div class="TablaEncabezado">
-                        <h3>ALUMNOS REGISTRADOS</h3>
-                        <span id="contadorAlumnos" class="FiltroB activo">0 alumnos</span>
-                    </div>
-                
-                    <div class="ListaAlumnosRegistrados" id="listaAlumnosRegistrados">
-                
-                    </div>
-                </div>
+                            <div class="Rutadatos">
+                                <span class="Datocajita" id="Hora"> Salida: 06:45 AM</span>
+                                <span class="Datocajita Capacidad"> Capacidad: 5/10</span>
+                            </div>
 
-                <div class="TablaHistorial">
-                    <div class="TablaEncabezado">
-                        <h3> HISTORIAL DE OPERACIONES Y ESTADO</h3>
-                        <div class="TablaFiltros">
-                            <span class="FiltroB activo">Todos</span>
-                            <span class="FiltroB">Rutas</span>
-                            <span class="FiltroB">Estudiantes</span>
+                            <div class="CajitaEstudiantes">
+                                <span class="TituloEstudiantes">Alumnos a bordo</span>
+                                <div class="ListaEstudiantes">
+                                    <button type="button" class="Estudiantito" data-student-id="sofia">
+                                        Sofía <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="mateo">
+                                        Mateo <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="valentina">
+                                        Valentina <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="lucas">
+                                        Lucas <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="emma">
+                                        Emma <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="btnEliminarRuta">
+                                <button class="botonGestionar">ELIMINAR RUTA</button>
+                            </div>
+                            <div class="botonEditar">
+                                <button class="botonGestionar">EDITAR RUTA</button>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="ContenedorTabla">
-                        <table class="Tablita">
-                            <thead>
-                                <tr>
-                                    <th>Categoría</th>
-                                    <th>Fecha / Hora</th>
-                                    <th>Detalle Principal</th>
-                                    <th>Asignación / Conductor</th>
-                                    <th>Estado</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tablaHistorialContenido">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                        <div class="Tarjetaruta bus-2">
+                            <div class="Tarjetarutaencabezado">
+                                <div class="Rutainfo">
+                                    <h3>Ruta Cohete </h3>
+                                    <div class="Conductor"> Conductor: Sr. Pablo</div>
+                                </div>
+                                <div class="Clima" class="seccion-clima">☁️ 24°C</div>
+                            </div>
 
-            </section>
+                            <div class="Rutadatos">
+                                <span class="Datocajita"> Salida: 07:15 AM</span>
+                                <span class="Datocajita Capacidad"> Capacidad: 4/10</span>
+                            </div>
+
+                            <div class="CajitaEstudiantes">
+                                <span class="TituloEstudiantes">Alumnos a bordo</span>
+                                <div class="ListaEstudiantes">
+                                    <button type="button" class="Estudiantito" data-student-id="sofia">
+                                        Sofía <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="mateo">
+                                        Mateo <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="valentina">
+                                        Valentina <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="lucas">
+                                        Lucas <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="emma">
+                                        Emma <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="btnEliminarRuta">
+                                <button class="botonGestionar">ELIMINAR RUTA</button>
+                            </div>
+                            <div class="botonEditar">
+                                <button class="botonGestionar">EDITAR RUTA</button>
+                            </div>
+                        </div>
+
+                        <div class="Tarjetaruta bus-3">
+                            <div class="Tarjetarutaencabezado">
+                                <div class="Rutainfo">
+                                    <h3>Ruta Estrellita </h3>
+                                    <div class="Conductor"> Conductor: Doña Clara</div>
+                                </div>
+                                <div class="Clima" class="seccion-clima">☀️ 27°C</div>
+                            </div>
+
+                            <div class="Rutadatos">
+                                <span class="Datocajita"> Salida: 07:30 AM</span>
+                                <span class="Datocajita"> Capacidad: 5/10</span>
+                            </div>
+
+                            <div class="CajitaEstudiantes">
+                                <span class="TituloEstudiantes">ALUMNOS A BORDO</span>
+                                <div class="ListaEstudiantes">
+                                    <button type="button" class="Estudiantito" data-student-id="sofia">
+                                        Sofía <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="mateo">
+                                        Mateo <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="valentina">
+                                        Valentina <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="lucas">
+                                        Lucas <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="emma">
+                                        Emma <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="btnEliminarRuta">
+                                <button class="botonGestionar">ELIMINAR RUTA</button>
+                            </div>
+                            <div class="botonEditar">
+                                <button class="botonGestionar">EDITAR RUTA</button>
+                            </div>
+                        </div>
+
+                        <div class="Tarjetaruta bus-4">
+                            <div class="Tarjetarutaencabezado">
+                                <div class="Rutainfo">
+                                    <h3>Ruta Girasol </h3>
+                                    <div class="Conductor"> Conductor: Tía Rosa</div>
+                                </div>
+                                <div class="Clima" class="seccion-clima"> 26°C</div>
+                            </div>
+
+                            <div class="Rutadatos">
+                                <span class="Datocajita"> Salida: 08:00 AM</span>
+                                <span class="Datocajita"> Capacidad: 4/10</span>
+                            </div>
+
+                            <div class="CajitaEstudiantes">
+                                <span class="TituloEstudiantes">Alumnos a bordo</span>
+                                <div class="ListaEstudiantes">
+                                    <button type="button" class="Estudiantito" data-student-id="sofia">
+                                        Sofía <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="mateo">
+                                        Mateo <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="valentina">
+                                        Valentina <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="lucas">
+                                        Lucas <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                    <button type="button" class="Estudiantito" data-student-id="emma">
+                                        Emma <span class="eliminar-estudiante">×</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="btnEliminarRuta">
+                                <button class="botonGestionar">ELIMINAR RUTA</button>
+                            </div>
+                            <div class="botonEditar">
+                                <button class="botonGestionar">EDITAR RUTA</button>
+                            </div>
+                        </div>
+
+                </section>
+
+                <section class="Gestion">
+
+                        <div class="PanelFormularios">
+                            <div id="modalNuevaRuta" class="capa-modal-flotante">
+                                <div class="Formulario">
+                                    <button type="button" class="btn-cerrar-modal" id="cerrarM1">✕</button>
+                                    <h3>REGISTRAR NUEVA RUTA</h3>
+                                    <form id="FormuRuta" class="Formularios">
+                                        <div class="GrupoInput">
+                                            <label for="nombreRuta">Nombre de la Ruta</label>
+                                            <input type="text" id="InputNombreRuta" placeholder="Ej. Ruta Unicornio " required>
+                                        </div>
+                                        <div class="GrupoInput">
+                                            <label for="conductorRuta">Conductor</label>
+                                            <input type="text" id="InputConductorRuta" placeholder="Ej. Carlos Pérez" required>
+                                        </div>
+                                        <div class="FilaInputs">
+                                            <div class="GrupoInput">
+                                                <label for="salidaRuta">Hora Salida</label>
+                                                <input type="time" id="InputHoraRuta" required>
+                                            </div>
+                                            <div class="GrupoInput">
+                                                <label for="climaRuta">Clima Inicial</label>
+                                                <input type="text" class="seccion-clima" placeholder="Ej. 25°C ☀️">
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btnFormu btnRosa">CREAR RUTA</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="modalNinosPendientes" class="capa-modal-flotante">
+                            <div class="Formulario">
+                                <button type="button" class="btn-cerrar-modal" id="cerrarM2">✕</button>
+                                <h3> NIÑOS SIN RUTA ASIGNADA</h3>
+                                <div class="ListaEstudiantesPendientes"></div>
+                            </div>
+                            
+                        </div>
+
+                        <div id="modalNuevoEstudiante" class="capa-modal-flotante">
+                            <div class="Formulario">
+                                <button type="button" class="btn-cerrar-modal" id="cerrarM3">✕</button>
+                                <h3> REGISTRAR NUEVO ESTUDIANTE</h3>
+                                <form id="formuEstudiante" class="Formularios">
+                                    <div class="GrupoInput">
+                                        <label for="nombreEstudiante">NOMBRE DEL ALUMNO</label>
+                                        <input type="text" id="InputNombreEstudiante" placeholder="Ej. Valentina Gómez"
+                                            required>
+                                    </div>
+                                    <button type="submit" class="btnFormu btnAmarillo">INSCRIBIR ESTUDIANTE</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="PanelAlumnosRegistrados">
+                            <div class="TablaEncabezado">
+                                <h3>ALUMNOS REGISTRADOS</h3>
+                                <span id="contadorAlumnos" class="FiltroB activo">0 alumnos</span>
+                            </div>
+                        
+                            <div class="ListaAlumnosRegistrados" id="listaAlumnosRegistrados">
+                        
+                            </div>
+                        </div>
+
+                        <div class="TablaHistorial">
+                            <div class="TablaEncabezado">
+                                <h3> HISTORIAL DE OPERACIONES Y ESTADO</h3>
+                                <div class="TablaFiltros">
+                                    <span class="FiltroB activo">Todos</span>
+                                    <span class="FiltroB">Rutas</span>
+                                    <span class="FiltroB">Estudiantes</span>
+                                </div>
+                            </div>
+
+                            <div class="ContenedorTabla">
+                                <table class="Tablita">
+                                    <thead>
+                                        <tr>
+                                            <th>Categoría</th>
+                                            <th>Fecha / Hora</th>
+                                            <th>Detalle Principal</th>
+                                            <th>Asignación / Conductor</th>
+                                            <th>Estado</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaHistorialContenido">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                </section>
         </main>
     </div>
     <script src="javita.js" defer></script>
