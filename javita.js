@@ -212,6 +212,15 @@ template.innerHTML = `
     </div>
 </div>
 `;
+
+let textoBusqueda = "";
+let climaCacheado = "";
+let misRutas = [
+    { id: "bus-1", titulo: "Ruta Arcoíris 🌈", conductor: "Don Diego", hora: "06:45 AM", estudiantes: ["Sofía", "Mateo"] },
+    { id: "bus-2", titulo: "Ruta Cohete 🚀", conductor: "Sr. Pablo", hora: "07:15 AM", estudiantes: ["Santiago"] }
+];
+let estudiantesPendientes = [];
+
 class RouteCard extends HTMLElement {
     constructor() {
         super();
@@ -256,17 +265,16 @@ class RouteCard extends HTMLElement {
                         this.dispatchEvent(eventoBorrarEstudiante);
                     });
 
-                    // Evento para editar un estudiante directamente al hacer click sobre su tag
                     btnEstudiante.addEventListener('click', (e) => {
                         if (e.target.className !== "eliminar-estudiante") {
                             const nuevoNombre = prompt(` EDITA EL NOMBRE DEL ESTUDIANTE:`);
                             if (nuevoNombre === null) return;
                             if (nuevoNombre.trim() === "" || !isNaN(nuevoNombre)) {
-                                alert("Error: Debes ingresar un nombre válido.");
+                                mostrarNotificacion(`DEBES INGRESAR UN NOMBRE VALIDO`);
                                 return;
                             }
                             const eventoEditarEstudiante = new CustomEvent('alumnoEditado', {
-                                detail: { nombreViejo: nombre, nombreNuevo: `${iconoActual} ${nuevoNombre.trim()}`, idRuta: idRuta },
+                                detail: { nombreViejo: nombre, nombreNuevo: nuevoNombre.trim(), idRuta: idRuta },
                                 bubbles: true,
                                 composed: true
                             });
@@ -278,8 +286,16 @@ class RouteCard extends HTMLElement {
             }
         }
 
-        const totalAlumnos = estudiantesAtributo.trim() !== "" ? estudiantesAtributo.split(",").length : 0;
-        this.shadowRoot.querySelector(".class-capacidad").textContent = `CAPACIDAD: ${totalAlumnos}/10`;
+        const totalAlumnos = estudiantesAtributo.trim() === ""? 0: estudiantesAtributo.split(",").length;
+
+        const capacidadCaja =this.shadowRoot.querySelector(".class-capacidad");
+        capacidadCaja.textContent =`CAPACIDAD: ${totalAlumnos}/10`;
+
+        if(totalAlumnos>=10){
+            capacidadCaja.style.background="#ffd6d6";
+            capacidadCaja.style.color="#d62828";
+            capacidadCaja.textContent += " • LLENO";
+        }
 
 
         this.shadowRoot.querySelector(".btnEliminarRuta").addEventListener('click', () => {
@@ -300,11 +316,11 @@ class RouteCard extends HTMLElement {
             if (nuevaHora === null) return;
 
             if (!nuevoTitulo.trim() || !nuevoConductor.trim() || !nuevaHora.trim()) {
-                alert("Error: Todos los campos son obligatorios para editar la ruta.");
+                mostrarNotificacion(`TODOS LOS CAMPOS SON OBLIGARIOS PARA EDITAR LA RUTA`);
                 return;
             }
             if (!isNaN(nuevoTitulo) || !isNaN(nuevoConductor)) {
-                alert("Error: El nombre de la ruta y del conductor no pueden ser números.");
+                mostrarNotificacion(`EL NOMBRE DE LA RUTA Y DEL CONDUCTOR DEBEN SER TEXTO VÁLIDO, NO NÚMEROS.`);
                 return;
             }
 
@@ -319,13 +335,286 @@ class RouteCard extends HTMLElement {
 }
 customElements.define("route-card", RouteCard);
 
+function guardarEnLocalStorage() {
+    localStorage.setItem("misRutasKids", JSON.stringify(misRutas));
+}
 
-document.addEventListener("DOMContentLoaded", () => {
+function cargarDesdeLocalStorage() {
+    const datosGuardados = localStorage.getItem("misRutasKids");
+
+    if (datosGuardados) {
+        misRutas = JSON.parse(datosGuardados);
+    } else {
+        misRutas = [
+            { id: "bus-1", titulo: "Ruta Arcoíris 🌈", conductor: "Don Diego", hora: "06:45 AM", estudiantes: ["👧 Sofía", "👦 Mateo"] },
+            { id: "bus-2", titulo: "Ruta Cohete 🚀", conductor: "Sr. Pablo", hora: "07:15 AM", estudiantes: ["👦 Santiago"] }
+        ];
+    }
+}
+
+function renderizarRutas(){
+
+    const grid=document.getElementById("gridRutas");
+
+    if(!grid)return;
+
+    grid.innerHTML="";
+
+    misRutas.forEach((ruta,index)=>{
+
+        const tarjeta=
+        document.createElement("route-card");
+
+        tarjeta.setAttribute("id-ruta",ruta.id);
+
+        tarjeta.setAttribute("titulo",ruta.titulo);
+
+        tarjeta.setAttribute("conductor",ruta.conductor);
+
+        tarjeta.setAttribute("hora",ruta.hora);
+
+        tarjeta.setAttribute("clima",climaCacheado);
+
+        tarjeta.setAttribute("clase-bus",`bus-${(index%4)+1}`);
+
+        tarjeta.setAttribute("estudiantes",ruta.estudiantes.join(","));
+
+        grid.appendChild(tarjeta);
+
+    });
+
+    actualizarHistorialTabla();
+    actualizarDashboard();
+
+}
+
+function actualizarDashboard(){
+
+    const busesRuta =document.getElementById("busesRuta");
+    const totalEstudiantes =document.getElementById("totalEstudiantes");
+    const totalPendientes =document.getElementById("totalEstudiantesPendientes");
+    const totalRutas =misRutas.length;
+    let estudiantesRegistrados = 0;
+    misRutas.forEach(ruta=>{
+        estudiantesRegistrados +=ruta.estudiantes.length;
+    });
+
+    const pendientes =estudiantesPendientes.length;
+    if(busesRuta){
+        busesRuta.textContent =`${totalRutas}/${totalRutas}`;
+    }
+
+    if(totalEstudiantes){
+        totalEstudiantes.textContent =estudiantesRegistrados;
+    }
+
+    if(totalPendientes){
+        totalPendientes.textContent = pendientes;
+    }
+}
+
+function agregarPendiente(nombre){
+    estudiantesPendientes.push(nombre);
+    guardarPendientes();
+    renderizarPendientes();
+    actualizarDashboard();
+} 
+
+function guardarPendientes(){
+    localStorage.setItem("pendientesKids",JSON.stringify(estudiantesPendientes));
+}
+    
+function cargarPendientes(){
+    const datos=localStorage.getItem("pendientesKids");
+    if(datos){estudiantesPendientes=JSON.parse(datos);}
+}
+    
+function renderizarPendientes(){
+    const listaPendientes=document.querySelector(".ListaEstudiantesPendientes");
+    if(!listaPendientes)return;
+
+    listaPendientes.innerHTML="";
+
+    estudiantesPendientes.forEach(nombre=>{
+    let fila=document.createElement("div");
+
+    fila.className="FilaEstudiantePendiente";
+
+    fila.innerHTML=`
+    <span>${nombre}</span>
+    <button class="btnAsignar">➕ ASIGNAR</button>
+    `;
+    listaPendientes.appendChild(fila);
+    });
+}
+
+
+function actualizarHistorialTabla() {
+    const tablaContenido = document.getElementById("tablaHistorialContenido");
+    if (!tablaContenido) return;
+    tablaContenido.innerHTML = "";
+    const fechaActual = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    misRutas.forEach(ruta => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+            <td><span class="Badge Categoria">Rutas</span></td>
+            <td>${fechaActual}</td>
+            <td><strong>${ruta.titulo}</strong></td>
+            <td>${ruta.conductor}</td>
+            <td><span class="Estado Activo">Activo (${ruta.estudiantes.length} Alumnos)</span></td>
+            <td><button class="btnEliminarFila" data-id="${ruta.id}">X</button></td>
+        `;
+
+        fila.querySelector(".btnEliminarFila").addEventListener('click', () => {
+            misRutas = misRutas.filter(r => r.id !== ruta.id);
+            guardarEnLocalStorage();
+            renderizarRutas();
+        });
+
+        tablaContenido.appendChild(fila);
+    });
+}
+
+const API_KEY = "1ddafd8c6e081646bed43c59c2eeb005";
+const CIUDAD = "Bucaramanga";
+const IDIOMA = "es";
+
+async function obtenerClima() {
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${CIUDAD}&appid=${API_KEY}&units=metric&lang=${IDIOMA}`;
+
+    try {
+        console.log(" SOLICITANDO DATOS DEL CLIMA A OPENWEATHER...");
+        const respuesta = await fetch(url);
+        if (!respuesta.ok) {
+            throw new Error(`ERROR EN LA PETICIÓN: ${respuesta.status}`);
+        }
+        const datosClima = await respuesta.json();
+        console.log("¡DATOS RECIBIDOS CON EXITO!", datosClima);
+        renderizarClima(datosClima);
+    } catch (error) {
+        console.error("OH NO, OCURRIÓ UN ERROR AL TRAER EL CLIMA:", error);
+        
+    }
+}
+
+function renderizarClima(datos) {
+    const { name, main, weather } = datos;
+    const temperatura = Math.round(main.temp); 
+    const descripcion = weather[0].description; 
+    const iconoCodigo = weather[0].icon; 
+
+    climaCacheado=`${temperatura}°C`;
+
+    const urlIcono = `https://openweathermap.org/img/wn/${iconoCodigo}@2x.png`;
+    
+    const contenedorClima = document.getElementById(".seccion-clima");
+
+    if (contenedorClima) {
+        contenedorClima.innerHTML = `
+            <div class="tarjeta-clima-coquette" style="text-align: center; padding: 15px;">
+                <h3 style="margin: 0; font-size: 1.1rem;">☁️ El Clima en ${name}</h3>
+                <img src="${urlIcono}" alt="${descripcion}" style="width: 60px; height: 60px;">
+                <p style="font-size: 1.8rem; font-weight: bold; margin: 5px 0;">${temperatura}°C</p>
+                <p style="text-transform: capitalize; opacity: 0.8; font-size: 0.9rem;">✿ ${descripcion} ✿</p>
+            </div>
+        `;
+    }
+    renderizarRutas(); 
+}
+
+
+document.addEventListener('alumnoEliminado', (e) => {
+    const { nombreAlumno, idRuta } = e.detail;
+    const rutaObjetivo = misRutas.find(r => r.id === idRuta);
+    if (rutaObjetivo) {
+        rutaObjetivo.estudiantes = rutaObjetivo.estudiantes.filter(alumno => alumno !== nombreAlumno);
+        guardarEnLocalStorage();
+        renderizarRutas();
+    }
+});
+
+document.addEventListener('alumnoEditado', (e) => {
+    const { nombreViejo, nombreNuevo, idRuta } = e.detail;
+    const rutaObjetivo = misRutas.find(r => r.id === idRuta);
+    if (rutaObjetivo) {
+        const indice = rutaObjetivo.estudiantes.indexOf(nombreViejo);
+        if (indice !== -1) {
+            rutaObjetivo.estudiantes[indice] = nombreNuevo;
+            guardarEnLocalStorage();
+            renderizarRutas();
+        } 
+    }
+});
+
+document.addEventListener('rutaEliminada', (e) => {
+    const { idRuta } = e.detail;
+    misRutas = misRutas.filter(ruta => ruta.id !== idRuta);
+    guardarEnLocalStorage();
+    renderizarRutas();
+});
+
+document.addEventListener('rutaEditada', (e) => {
+    const { idRuta, titulo, conductor, hora } = e.detail;
+    const rutaObjetivo = misRutas.find(r => r.id === idRuta);
+    if (rutaObjetivo) {
+        rutaObjetivo.titulo = titulo;
+        rutaObjetivo.conductor = conductor;
+        rutaObjetivo.hora = hora;
+        guardarEnLocalStorage();
+        renderizarRutas();
+    }
+});
+
+function mostrarNotificacion(mensaje){
+    const noti=document.getElementById("notificacionKiddo");
+    const texto=document.getElementById("textoNotificacion"); 
+    texto.innerHTML=mensaje;
+    noti.classList.remove("mostrar");
+    setTimeout(()=>{
+        noti.classList.add("mostrar");
+    },100);
+    
+    setTimeout(()=>{
+        noti.classList.remove("mostrar");
+    },6500);
+    
+};
+
+document.addEventListener("DOMContentLoaded", async () => {
+    
+    const listaPendientes=document.querySelector(".ListaEstudiantesPendientes");
+    cargarDesdeLocalStorage();
+    cargarPendientes();
+    renderizarPendientes();
+
+    await obtenerClima();
+    renderizarRutas();
+
+    const formuEstudiante = document.getElementById("formuEstudiante");
+
+    const btnEntrar = document.getElementById("btnEntrarDashboard");
+    const pantallaBienvenida = document.getElementById("pantallaBienvenida");
+
+    console.log(btnEntrar, pantallaBienvenida);
+    if (btnEntrar && pantallaBienvenida) {
+        btnEntrar.addEventListener("click", () => {
+            // Desliza la pantalla hacia arriba de forma ultra fluida 🚀
+            pantallaBienvenida.style.transform = "translateY(-100vh)";
+
+            // Esperamos a que termine la animación (800ms) y la ocultamos del todo
+            setTimeout(() => {
+                pantallaBienvenida.style.display = "none";
+            }, 800);
+        });
+    }
+
     const buscador = document.getElementById("buscador");
     if (buscador) {
         buscador.addEventListener("input", () => {
             const textoUsuario = buscador.value.toLowerCase().trim();
-            const todasLasTarjetas = document.querySelectorAll("bus-card, .Tarjetaruta");
+            const todasLasTarjetas = document.querySelectorAll("route-card");
             todasLasTarjetas.forEach(tarjeta => {
                 let tituloHTML = "";
                 if (tarjeta.shadowRoot) {
@@ -342,132 +631,29 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
-});
-let textoBusqueda = "";
 
-document.addEventListener("DOMContentLoaded", () => {
-    const buscador = document.getElementById("buscador");
+    formuEstudiante.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nombre = document.getElementById("InputNombreEstudiante").value.trim();
 
-    if (buscador) {
-        buscador.addEventListener("input", () => {
-            textoBusqueda = buscador.value.toLowerCase().trim();
-
-            renderizarRutas();
-        });
-    }
-});
-
-let misRutas = [
-    { id: "bus-1", titulo: "Ruta Arcoíris 🌈", conductor: "Don Diego", hora: "06:45 AM", estudiantes: ["Sofía", "Mateo"] },
-    { id: "bus-2", titulo: "Ruta Cohete 🚀", conductor: "Sr. Pablo", hora: "07:15 AM", estudiantes: ["Santiago"] }
-];
-
-
-let climaCacheado = "";
-
-async function consultarClimaBucaramanga() {
-    try {
-        const respuesta = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Bucaramanga,co&appid=b189cc9df8cf46be6927d6059b85d341&units=metric");
-        if (respuesta.ok) {
-            const datosClima = await respuesta.json();
-            const temperatura = Math.round(datosClima.main.temp);
-            climaCacheado = `${temperatura}°C`;
+        if (!nombre) {
+            mostrarNotificacion(`INGRESE UN NOMBRE VÁLIDO.`);
+            return;
         }
-    } catch (error) {
-        console.log("ERROR: NO SE PUEDO CONECTAR LA API.");
-    }
-}
-
-function renderizarRutas() {
-    const gridRutas = document.getElementById("gridRutas");
-    if (!gridRutas) return;
-
-    gridRutas.innerHTML = "";
-
-    misRutas.forEach((ruta, index) => {
-        const tarjetaComponente = document.createElement("route-card");
-
-        tarjetaComponente.setAttribute("id-ruta", ruta.id);
-        tarjetaComponente.setAttribute("titulo", ruta.titulo);
-        tarjetaComponente.setAttribute("conductor", ruta.conductor);
-        tarjetaComponente.setAttribute("hora", ruta.hora);
-        tarjetaComponente.setAttribute("clima", climaCacheado);
-        tarjetaComponente.setAttribute("clase-bus", `bus-${(index % 4) + 1}`);
-        tarjetaComponente.setAttribute("estudiantes", ruta.estudiantes.join(","));
-
-        gridRutas.appendChild(tarjetaComponente);
-    });
-    actualizarHistorialTabla();
-}
-
-function actualizarHistorialTabla() {
-    const tablaContenido = document.getElementById("tablaHistorialContenido");
-    if (!tablaContenido) return;
-    tablaContenido.innerHTML = "";
-    const fechaActual = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-    misRutas.forEach(ruta => {
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-            <td><span class="Badge Categoria">Rutas</span></td>
-            <td>${fechaActual}</td>
-            <td><strong>${ruta.titulo}</strong></td>
-            <td>${ruta.conductor}</td>
-            <td><span class="Estado Activo">Activo (${ruta.estudiantes.length} Alumnos)</span></td>
-            <td><button class="btnEliminarFila" data-id="${ruta.id}">🗑️</button></td>
-        `;
-
-        fila.querySelector(".btnEliminarFila").addEventListener('click', () => {
-            misRutas = misRutas.filter(r => r.id !== ruta.id);
-            renderizarRutas();
-        });
-
-        tablaContenido.appendChild(fila);
-    });
-}
-
-document.addEventListener('alumnoEliminado', (e) => {
-    const { nombreAlumno, idRuta } = e.detail;
-    const rutaObjetivo = misRutas.find(r => r.id === idRuta);
-    if (rutaObjetivo) {
-        rutaObjetivo.estudiantes = rutaObjetivo.estudiantes.filter(alumno => alumno !== nombreAlumno);
-        renderizarRutas();
-    }
-});
-
-document.addEventListener('alumnoEditado', (e) => {
-    const { nombreViejo, nombreNuevo, idRuta } = e.detail;
-    const rutaObjetivo = misRutas.find(r => r.id === idRuta);
-    if (rutaObjetivo) {
-        const indice = rutaObjetivo.estudiantes.indexOf(nombreViejo);
-        if (indice !== -1) {
-            rutaObjetivo.estudiantes[indice] = nombreNuevo;
-            renderizarRutas();
+        if (!isNaN(nombre)) {
+            mostrarNotificacion(`LOS NOMBRES NO PUEDEN SER SOLO NÚMEROS`);
+            return;
         }
-    }
-});
-
-document.addEventListener('rutaEliminada', (e) => {
-    const { idRuta } = e.detail;
-    misRutas = misRutas.filter(ruta => ruta.id !== idRuta);
-    renderizarRutas();
-});
-
-document.addEventListener('rutaEditada', (e) => {
-    const { idRuta, titulo, conductor, hora } = e.detail;
-    const rutaObjetivo = misRutas.find(r => r.id === idRuta);
-    if (rutaObjetivo) {
-        rutaObjetivo.titulo = titulo;
-        rutaObjetivo.conductor = conductor;
-        rutaObjetivo.hora = hora;
-        renderizarRutas();
-    }
-});
-
-document.addEventListener("DOMContentLoaded", async () => {
-    await consultarClimaBucaramanga();
-    renderizarRutas();
-
+    
+        if (/\d/.test(nombre)) {
+            mostrarNotificacion(`EL NOMBRE NO DEBE TENER NÚMEROS, SOLO LETRAS POR FAVOR.`);
+            return;
+        }
+    
+        agregarPendiente(nombre);
+        mostrarNotificacion(`¡ESTUDIANTE AGREGADO EXITOSAMENTE! ${nombre} AHORA HACE PARTE DE KIDDO ROUTES 🚌💖 LISTO PARA UNA NUEVA AVENTURA ESCOLAR.`);
+        formuEstudiante.reset();   
+    });
 
     const FormuRuta = document.getElementById("FormuRuta");
     if (FormuRuta) {
@@ -477,14 +663,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             const nombreRuta = document.getElementById("InputNombreRuta").value.trim();
             const conductorRuta = document.getElementById("InputConductorRuta").value.trim();
             const horaRuta = document.getElementById("InputHoraRuta").value;
-
             if (!nombreRuta || !conductorRuta || !horaRuta) {
-                alert("⚠️ Alerta: Debe sí o sí ingresar todos los datos requeridos para la ruta.");
+                mostrarNotificacion(`TODOS LOS CAMPOS SON OBLIGATORIOS PARA CREAR UNA RUTA.`);
                 return;
             }
 
             if (!isNaN(nombreRuta) || !isNaN(conductorRuta)) {
-                alert("⚠️ Alerta: El nombre de la ruta y del conductor deben ser texto válido, no números puros.");
+                mostrarNotificacion(`EL NOMBRE DE LA RUTA Y DEL CONDUCTOR DEBEN SER TEXTO VÁLIDO, NO NÚMEROS.`);
                 return;
             }
 
@@ -504,206 +689,89 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             guardarEnLocalStorage();
-
+            mostrarNotificacion(`PERFECTO, RUTA CREADA EXITOSAMENTE!`);
             FormuRuta.reset();
             renderizarRutas();
         });
     }
 
-    const formuEstudiante = document.getElementById("formuEstudiante");
-    if (formuEstudiante) {
-        formuEstudiante.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const nombreEstudiante = document.getElementById("InputNombreEstudiante").value.trim();
+    const modalRuta=document.getElementById("modalNuevaRuta");
+    const modalPendientes=document.getElementById("modalNinosPendientes");
+    const modalEstudiante=document.getElementById("modalNuevoEstudiante");
 
-            if (!nombreEstudiante) {
-                alert("DEBES INGRESAR EL NOMBRE DEL ESTUDIANTE OBLIGATORIAMENTE.");
-                return;
-            }
+    const btnAbrirRuta=document.getElementById("btnIrNuevaRuta");
+    const btnAbrirEstudiante=document.getElementById("btnIrNuevoEstudiante");
+    const btnPendientes=document.getElementById("btnPendientes");
 
-            // ⚠️ VALIDACIÓN EXIGIDA: No permitir números puros en el nombre del alumno
-            if (!isNaN(nombreEstudiante)) {
-                alert("EL NOMBRE DEL ESTUDIANTE NO PUEDE SER UN NÚMERO.");
-                return;
-            }
+    const btnCerrarM1=document.getElementById("cerrarM1");
 
-            if (misRutas.length === 0) {
-                alert("NO HAY RUTAS ACTIVAS EN EL SISTEMA, DEBES CREAR UNA RUTA NUEVA.");
-                return;
-            }
+    const btnCerrarM2=document.getElementById("cerrarM2");
 
-            let menuOpciones = "¿A cuál de las siguientes rutas desea asignar al estudiante?\n\nEscriba el número correspondiente:\n";
-            misRutas.forEach((ruta, i) => {
-                menuOpciones += `${i + 1}. ${ruta.titulo}\n`;
-            });
+    const btnCerrarM3=document.getElementById("cerrarM3");
 
-            const seleccionUsuario = prompt(menuOpciones);
-            if (seleccionUsuario === null) return;
-
-            const indiceElegido = parseInt(seleccionUsuario) - 1;
-
-            if (isNaN(indiceElegido) || indiceElegido < 0 || indiceElegido >= misRutas.length) {
-                alert("SELECCIÓN NO VALIDA, OPERACIÓN CANCELADA.");
-                return;
-            }
-
-            if (misRutas[indiceElegido].estudiantes.length >= 10) {
-                alert("ESTA RUTA HA ALCANZADO SU LIMITE MAXIMO DE ESTUDIANTES.");
-                return;
-            }
-
-            misRutas[indiceElegido].estudiantes.push(nombreEstudiante);
-            guardarEnLocalStorage()
-
-            formuEstudiante.reset();
-            renderizarRutas();
-        });
-
-    }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const btnEntrar = document.getElementById("btnEntrarDashboard");
-    const pantallaBienvenida = document.getElementById("pantallaBienvenida");
-
-    if (btnEntrar && pantallaBienvenida) {
-        btnEntrar.addEventListener("click", () => {
-            // Desliza la pantalla hacia arriba de forma ultra fluida 🚀
-            pantallaBienvenida.style.transform = "translateY(-100vh)";
-
-            // Esperamos a que termine la animación (800ms) y la ocultamos del todo
-            setTimeout(() => {
-                pantallaBienvenida.style.display = "none";
-            }, 800);
-        });
-    }
-});
-document.addEventListener("DOMContentLoaded", () => {
-    // 1. Capturamos las capas de los modales
-    const modalRuta = document.getElementById("modalNuevaRuta");
-    const modalPendientes = document.getElementById("modalNinosPendientes");
-    const modalEstudiante = document.getElementById("modalNuevoEstudiante");
-
-    // 2. Capturamos los botones para abrir
-    const btnAbrirRuta = document.getElementById("btnIrNuevaRuta");
-    const btnAbrirEstudiante = document.getElementById("btnIrNuevoEstudiante");
-    // Haremos que al dar clic a la palabra "Alumnos Registrados" se abra la lista flotante
-    const contenedorAlumnosContador = document.querySelector(".Cajitaestado.amarilla");
-
-    // 3. Capturamos las "X" para cerrar
-    const btnCerrarM1 = document.getElementById("cerrarM1");
-    const btnCerrarM2 = document.getElementById("cerrarM2");
-    const btnCerrarM3 = document.getElementById("cerrarM3");
-
-    // 🎀 FUNCIONALIDAD MODAL 1: NUEVA RUTA
-    if (btnAbrirRuta && modalRuta) {
-        btnAbrirRuta.addEventListener("click", () => modalRuta.classList.add("activo"));
-    }
-    if (btnCerrarM1) {
-        btnCerrarM1.addEventListener("click", () => modalRuta.classList.remove("activo"));
+    if(btnAbrirRuta)
+        {btnAbrirRuta.addEventListener("click",()=>modalRuta.classList.add("activo"));
     }
 
-    // 🎀 FUNCIONALIDAD MODAL 2: NIÑOS PENDIENTES
-    if (contenedorAlumnosContador && modalPendientes) {
-        contenedorAlumnosContador.style.cursor = "pointer"; // Pone la manito linda
-        contenedorAlumnosContador.addEventListener("click", (e) => {
-            // Evitamos que se abra si le diste directamente al botón de crear estudiante
-            if (e.target.id !== "btnIrNuevoEstudiante" && !e.target.classList.contains("botonCrear")) {
-                modalPendientes.classList.add("activo");
-            }
-        });
-    }
-    if (btnCerrarM2) {
-        btnCerrarM2.addEventListener("click", () => modalPendientes.classList.remove("activo"));
+    if(btnPendientes){
+        btnPendientes.addEventListener("click",()=>modalPendientes.classList.add("activo"));
     }
 
-    // 🎀 FUNCIONALIDAD MODAL 3: NUEVO ESTUDIANTE
-    if (btnAbrirEstudiante && modalEstudiante) {
-        btnAbrirEstudiante.addEventListener("click", () => modalEstudiante.classList.add("activo"));
+    if(btnAbrirEstudiante){
+        btnAbrirEstudiante.addEventListener("click",()=>modalEstudiante.classList.add("activo"));
     }
-    if (btnCerrarM3) {
-        btnCerrarM3.addEventListener("click", () => modalEstudiante.classList.remove("activo"));
-    }
+    
+    btnCerrarM1?.addEventListener("click",()=>modalRuta.classList.remove("activo"));
+        
+    btnCerrarM2?.addEventListener("click",()=>modalPendientes.classList.remove("activo"));
+        
+    btnCerrarM3?.addEventListener("click",()=>modalEstudiante.classList.remove("activo"));
 
-    // ✿ CERRAR SI HACEN CLIC AFUERA EN LO OSCURO ✿
     window.addEventListener("click", (e) => {
         if (e.target === modalRuta) modalRuta.classList.remove("activo");
         if (e.target === modalPendientes) modalPendientes.classList.remove("activo");
         if (e.target === modalEstudiante) modalEstudiante.classList.remove("activo");
     });
-});
 
+    listaPendientes.addEventListener("click", (e) => {
 
-const API_KEY = "1ddafd8c6e081646bed43c59c2eeb005";
-const CIUDAD = "Bucaramanga";
-const IDIOMA = "es";
-
-async function obtenerClima() {
-
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${CIUDAD}&appid=${API_KEY}&units=metric&lang=${IDIOMA}`;
-
-    try {
-        console.log(" SOLICITANDO DATOS DEL CLIMA A OPENWEATHER...");
-
-        //Hacemos la petición real con fetch y esperamos la respuesta
-        const respuesta = await fetch(url);
-
-        //¡Validación importante! Si la respuesta no es correcta (ej. ciudad no encontrada o API key inválida)
-        if (!respuesta.ok) {
-            throw new Error(`ERROR EN LA PETICIÓN: ${respuesta.status}`);
+        if(!e.target.classList.contains("btnAsignar")) return;
+        const fila=e.target.parentElement;
+        const nombre=fila.querySelector("span").textContent;
+        let mensaje="SELECCIONA UNA RUTA:\n";
+        
+        misRutas.forEach((ruta,index)=>{
+            mensaje+=`${index+1}. ${ruta.titulo} (${ruta.estudiantes.length}/10)\n`;
+        });
+        
+        const opcion=parseInt(prompt(mensaje));
+        if(isNaN(opcion)){
+            mostrarNotificacion("DEBES INGRESAR UN NÚMERO PARA SELECCIONAR LA RUTA");
+            return;
         }
-
-        // Convertimos la respuesta de texto plano/JSON a un objeto JS manejable
-        const datosClima = await respuesta.json();
-
-        console.log("¡DATOS RECIBIDOS CON EXITO!", datosClima);
-
-        // Enviamos los datos listos a una función que se encargue de pintarlos en el HTML
-        renderizarClima(datosClima);
-
-    } catch (error) {
-        console.error("OH NO, OCURRIÓ UN ERROR AL TRAER EL CLIMA:", error);
-        // Aquí podrías poner un mensajito lindo en tu interfaz avisando que el clima está tímido hoy
-    }
-}
-
-function renderizarClima(datos) {
-    const { name, main, weather } = datos;
-    const temperatura = Math.round(main.temp); // Redondeamos para que quede como un número entero lindo (ej: 26)
-    const descripcion = weather[0].description; // Ej: "cielo claro" o "nubes dispersas"
-    const iconoCodigo = weather[0].icon; // Código del sticker/icono que OpenWeather nos regala
-
-    // URL oficial de OpenWeather para traer el sticker animado del clima
-    const urlIcono = `https://openweathermap.org/img/wn/${iconoCodigo}@2x.png`;
-    // Supongamos que en tu HTML tienes un contenedor para el clima como #seccion-clima
-    const contenedorClima = document.getElementById("seccion-clima");
-
-    if (contenedorClima) {
-        contenedorClima.innerHTML = `
-            <div class="tarjeta-clima-coquette" style="text-align: center; padding: 15px;">
-                <h3 style="margin: 0; font-size: 1.1rem;">☁️ El Clima en ${name}</h3>
-                <img src="${urlIcono}" alt="${descripcion}" style="width: 60px; height: 60px;">
-                <p style="font-size: 1.8rem; font-weight: bold; margin: 5px 0;">${temperatura}°C</p>
-                <p style="text-transform: capitalize; opacity: 0.8; font-size: 0.9rem;">✿ ${descripcion} ✿</p>
-            </div>
-        `;
-    }
-}
-obtenerClima();
-
-function guardarEnLocalStorage() {
-    localStorage.setItem("misRutasKids", JSON.stringify(misRutas));
-}
-function cargarDesdeLocalStorage() {
-    const datosGuardados = localStorage.getItem("misRutasKids");
-
-    if (datosGuardados) {
-        misRutas = JSON.parse(datosGuardados);
-    } else {
-        misRutas = [
-            { id: "bus-1", titulo: "Ruta Arcoíris 🌈", conductor: "Don Diego", hora: "06:45 AM", estudiantes: ["👧 Sofía", "👦 Mateo"] },
-            { id: "bus-2", titulo: "Ruta Cohete 🚀", conductor: "Sr. Pablo", hora: "07:15 AM", estudiantes: ["👦 Santiago"] }
-        ];
-    }
-}
-obtenerClima();
+        if(opcion>=1 && opcion<=misRutas.length){
+            const rutaSeleccionada=misRutas[opcion-1];
+            if(rutaSeleccionada.estudiantes.length>=10){
+                mostrarNotificacion(" ESTA RUTA YA ESTÁ LLENA, POR FAVOR SELECCIONA OTRA RUTA DISPONIBLE");
+                return;
+            }
+            rutaSeleccionada.estudiantes.push(nombre);
+            estudiantesPendientes=estudiantesPendientes.filter(n=>n!==nombre);
+        
+            guardarEnLocalStorage();
+            guardarPendientes();
+        
+            renderizarPendientes();
+            renderizarRutas();
+            actualizarDashboard();
+        
+            mostrarNotificacion(` ${nombre} FUE ASIGNADO CORRECTAMENTE`);
+        }
+        else{
+            mostrarNotificacion("SELECCIONA UNA RUTA VÁLIDA");
+        }
+        
+    });
+        
+});
+        

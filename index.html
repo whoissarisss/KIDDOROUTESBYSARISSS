@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="estilitos.css?v=2">
 </head>
 
+<div id="notificacionKiddo" class="notificacion-kiddo">
+    <span id="textoNotificacion"></span>
+</div>
+
 <body>
 
     <div class="Tablerito">
@@ -60,7 +64,7 @@
             <section class="Cajitaestados">
                 <div class="Cajitaestado rosa">
                     <span class="Cajitatitulo">Buses en Ruta</span>
-                    <span class="Cajitanumero">4 / 4</span>
+                    <span class="Cajitanumero" id="busesRuta">0 / 0</span>
                     <div>
                         <button class="botonCrear" id="btnIrNuevaRuta">+ NUEVA RUTA</button>
                     </div>
@@ -68,19 +72,19 @@
 
                 <div class="Cajitaestado amarilla">
                     <span class="Cajitatitulo">Alumnos Registrados</span>
-                    <span class="Cajitanumero">18</span>
+                    <span class="Cajitanumero" id="totalEstudiantes">0</span>
                     <div>
                         <button class="botonCrear" id="btnIrNuevoEstudiante">+ NUEVO ESTUDIANTE</button>
                     </div>
                 </div>
                 <div class="Cajitaestado moradita">
                     <span class="Cajitatitulo">Clima Promedio</span>
-                    <span class="Cajitanumero" id="seccion-clima">26°C 🌦️</span>
+                    <span class="Cajitanumero seccion-clima">26°C 🌦️</span>
                 </div>
 
                 <div class="Cajitaestado azul">
                     <span class="Cajitatitulo">Alumnos Pendientes</span>
-                    <span class="Cajitanumero">?</span>
+                    <span class="Cajitanumero" id="totalEstudiantesPendientes">?</span>
                     <div>
                         <button class="botonCrear" id="btnPendientes">+ VER ESTUDIANTES PENDIENTES</button>
                     </div>
@@ -95,12 +99,12 @@
                             <h3 id="Titulo">Ruta Arcoíris </h3>
                             <div class="Conductor"> Conductor: Don Diego</div>
                         </div>
-                        <div class="Clima" id="seccion-clima">☀️ 28°C</div>
+                        <div class="Clima" class="seccion-clima">☀️ 28°C</div>
                     </div>
 
                     <div class="Rutadatos">
                         <span class="Datocajita" id="Hora"> Salida: 06:45 AM</span>
-                        <span class="Datocajita"> Capacidad: 5/10</span>
+                        <span class="Datocajita Capacidad"> Capacidad: 5/10</span>
                     </div>
 
                     <div class="CajitaEstudiantes">
@@ -138,12 +142,12 @@
                             <h3>Ruta Cohete </h3>
                             <div class="Conductor"> Conductor: Sr. Pablo</div>
                         </div>
-                        <div class="Clima" id="seccion-clima">☁️ 24°C</div>
+                        <div class="Clima" class="seccion-clima">☁️ 24°C</div>
                     </div>
 
                     <div class="Rutadatos">
                         <span class="Datocajita"> Salida: 07:15 AM</span>
-                        <span class="Datocajita"> Capacidad: 4/10</span>
+                        <span class="Datocajita Capacidad"> Capacidad: 4/10</span>
                     </div>
 
                     <div class="CajitaEstudiantes">
@@ -181,7 +185,7 @@
                             <h3>Ruta Estrellita </h3>
                             <div class="Conductor"> Conductor: Doña Clara</div>
                         </div>
-                        <div class="Clima" id="seccion-clima">☀️ 27°C</div>
+                        <div class="Clima" class="seccion-clima">☀️ 27°C</div>
                     </div>
 
                     <div class="Rutadatos">
@@ -224,7 +228,7 @@
                             <h3>Ruta Girasol </h3>
                             <div class="Conductor"> Conductor: Tía Rosa</div>
                         </div>
-                        <div class="Clima" id="seccion-clima"> 26°C</div>
+                        <div class="Clima" class="seccion-clima"> 26°C</div>
                     </div>
 
                     <div class="Rutadatos">
@@ -286,7 +290,7 @@
                                     </div>
                                     <div class="GrupoInput">
                                         <label for="climaRuta">Clima Inicial</label>
-                                        <input type="text" id="seccion-clima" placeholder="Ej. 25°C ☀️">
+                                        <input type="text" class="seccion-clima" placeholder="Ej. 25°C ☀️">
                                     </div>
                                 </div>
                                 <button type="submit" class="btnFormu btnRosa">CREAR RUTA</button>
@@ -310,7 +314,7 @@
                         <h3> REGISTRAR NUEVO ESTUDIANTE</h3>
                         <form id="formuEstudiante" class="Formularios">
                             <div class="GrupoInput">
-                                <label for="nombreEstudiante">Nombre del Alumno</label>
+                                <label for="nombreEstudiante">NOMBRE DEL ALUMNO</label>
                                 <input type="text" id="InputNombreEstudiante" placeholder="Ej. Valentina Gómez"
                                     required>
                             </div>

@@ -46,6 +46,59 @@
     letter-spacing: 0.3px;
 }
 
+.notificacion-kiddo{
+    position: fixed;
+    top:20px;
+    right:20px;
+    width:clamp(220px,80vw,360px);
+    min-height:60px;
+    padding:15px 20px;
+    background:linear-gradient(90deg, var(--pastel-pink), var(--pastel-purple));
+    border-radius:22px;
+    border:0.9px solid white;
+    color:#141212;
+    font-size:15px;
+    box-shadow:0 8px 30px rgba(0,0,0,.15);
+    z-index:99999;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    transform:translateX(150%);
+    opacity:0;
+    transition:transform .6s ease,opacity .6s ease;
+    word-wrap:break-word;
+    overflow-wrap:break-word;
+}
+
+
+.notificacion-kiddo.mostrar{
+    transform:translateX(0);
+    opacity:1;
+}
+
+
+.notificacion-kiddo::before{
+    content:"🚌✨";
+    font-size:24px;
+    flex-shrink:0;
+}
+
+
+@media(max-width:600px){
+
+    .notificacion-kiddo{
+        width:90%;
+        left:50%;
+        right:auto;
+        transform:translate(-50%,-150%);
+    }
+
+    .notificacion-kiddo.mostrar{
+        transform:translate(-50%,0);
+    }
+
+}
+
 body {
     background-color: var(--bg-soft);
     color: var(--text-main);
@@ -171,7 +224,6 @@ body {
 
 .sticker-menu {
     width: 100%;
-    /* Un poquito más grande que los emojis para que se note */
     height: 100%;
     object-fit: contain;
     border-radius: 12px;
@@ -184,7 +236,6 @@ body {
 
 .icono-carro {
     width: 70px;
-    /* Un poquito más grande que los emojis para que se note */
     height: 100px;
     object-fit: contain;
     border-radius: 40px;
@@ -195,9 +246,6 @@ body {
     transform: scale(1.1) !important;
 }
 
-/* ==========================================================================
-   ☀️ PANEL CENTRAL DE CONTENIDO
-   ========================================================================== */
 .Contenido-principal {
     display: flex;
     flex-direction: column;
@@ -205,9 +253,6 @@ body {
     overflow-y: auto;
     padding-right: 4px;
 }
-
-
-/* --- SECCIÓN SUPERIOR: BIENVENIDA Y ACCIONES RÁPIDAS --- */
 
 .imagen-isotipo {
     width: 106%;
@@ -219,50 +264,32 @@ body {
     transform: scale(1.1);
 }
 
-/* --- LOGO HORIZONTAL EN EL ENCABEZADO DE ARRIBA --- */
 .Encabezado {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: var(--white-pure);
     padding: 80px 60px;
-    /* Un padding bajito y elegante */
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-soft);
     height: 85px;
-    /* Altura ideal para la barra del encabezado */
-}
-
-.Logo-Encabezado {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    /* Ocupa toda la altura disponible de la barra */
+    
 }
 
 .imagen-banner {
     height: 260px;
-    /* ✨ ¡EL TRUCO! Forzamos al logo a ser grande y alto */
     width: auto;
-    /* Deja que el ancho se calcule solo para que NO se estire feo */
     object-fit: contain;
     align-self: center;
-    /* Centra verticalmente el logo dentro de la barra */
     padding: 7px;
-    /* Un poquito de espacio alrededor para que respire */
-    /* 🌟 TRUCO MAGNÍFICO: Si exportaste el logo con fondo blanco, 
-       esta línea de abajo hace que el fondo de la imagen se vuelva invisible 
-       y se fusione hermosamente con tu barra blanca */
     mix-blend-mode: multiply;
 }
 
-/* Centramos el buscador perfectamente con el logo */
 .BarritaBusqueda {
     display: flex;
     align-items: center;
 }
 
-/* Buscador estético redondo */
 .BarritaBusqueda input {
     padding: 12px 24px;
     border-radius: 50px;
@@ -279,7 +306,6 @@ body {
     border-color: var(--pastel-pink);
 }
 
-/* --- SECCIÓN MEDIDORES/KPIs RAPIDOS --- */
 .Cajitaestados {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -298,7 +324,6 @@ body {
     overflow: hidden;
 }
 
-/* Fondos variables para las estadísticas rápidas */
 .Cajitaestado.rosa {
     background-color: var(--pastel-pink);
 }
@@ -394,7 +419,6 @@ body {
 
 .botonCrear:hover {
     transform: translateY(-2px) scale(1.04);
-    /* Se levanta un poquito de forma juguetona */
     box-shadow:
         0 6px 12px rgba(0, 0, 0, 0.08),
         inset 0 -3px 0px rgba(0, 0, 0, 0.15),
@@ -484,7 +508,6 @@ body {
     gap: 6px;
 }
 
-/* Tag de Clima circular y acolchado (Consumo API) */
 .Clima {
     background-color: #e0f2fe;
     color: #0369a1;
@@ -497,7 +520,6 @@ body {
     gap: 6px;
 }
 
-/* Detalles de Horarios y capacidad */
 .Rutadatos {
     display: flex;
     gap: 15px;
@@ -513,7 +535,6 @@ body {
     font-weight: 500;
 }
 
-/* --- SECCIÓN INTERNA: LISTA DE ESTUDIANTES (Asientos) --- */
 .CajitaEstudiantes {
     background-color: #f9fafb;
     border-radius: var(--border-radius-sm);
@@ -538,7 +559,6 @@ body {
     gap: 8px;
 }
 
-/* Badges de alumnos redondeados e idénticos a los pins */
 .Estudiantito {
     display: inline-flex;
     align-items: center;
@@ -551,10 +571,8 @@ body {
     color: #4a494b;
     box-shadow: 0 2px 6px rgba(160, 175, 185, 0.04);
     cursor: pointer;
-    /* Muestra la manito de clic */
     transition: all 0.2s ease;
     outline: none;
-    /* Quita el borde azul feo por defecto */
 }
 
 .Estudiantito:hover {
@@ -566,27 +584,21 @@ body {
 
 .eliminar-estudiante {
     margin-left: 8px;
-    /* Separa la equis del nombre del niño */
     font-size: 1.1rem;
-    /* Tamaño ideal para que se note pero sea sutil */
     font-weight: 600;
     color: var(--text-muted);
-    /* Empieza con tu gris suave para no saturar */
     display: inline-block;
     transition: all 0.2s ease;
     padding: 0 2px;
     border-radius: 50%;
 }
 
-/* Efecto lindo cuando pases el cursor sobre el botón del estudiante */
 .Estudiantito:hover .eliminar-estudiante {
     color: #ff6b8b;
-    /* La equis se ilumina en tu tono rosa fuerte */
     transform: scale(1.2);
-    /* Se agranda un poquitico de forma interactiva */
 }
 
-/* Acción de Gestión dentro del bus */
+
 .Btn-gestionar {
     display: flex;
     justify-content: flex-end;
@@ -598,6 +610,7 @@ body {
     background-color: transparent;
     border: none;
     color: var(--text-muted);
+    font-family: KGPerfectPenmanship, sans-serif;
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
@@ -610,10 +623,6 @@ body {
     color: #ff6b8b;
     background-color: #fff0f3;
 }
-
-/* ==========================================================================
-   🎒 INTERFAZ DE ASIGNACIÓN DE ALUMNOS (REQUERIMIENTO CONTROL)
-   ========================================================================== */
 
 .ListaEstudiantesPendientes {
     display: flex;
@@ -643,7 +652,6 @@ body {
     color: var(--text-main);
 }
 
-/* Botón tierno para simular la asignación */
 .btnAsignar {
     background-color: var(--pastel-blue);
     border: none;
@@ -662,10 +670,6 @@ body {
     transform: scale(1.05);
 }
 
-/* ==========================================================================
-   📊 SECCIÓN GESTIÓN Y TABLA DE HISTORIAL (Inspirado en Pinterest/Intelly)
-   ========================================================================== */
-
 .capa-modal-flotante {
     position: fixed;
     top: 0;
@@ -673,35 +677,26 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(43, 42, 44, 0.5);
-    /* Oscurece el fondo con tu color text-main */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 3000;
-    /* Vuela por encima de todo el dashboard */
-
-    /* Ocultos por defecto */
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
 
-/* Clase mágica para hacerlos aparecer */
 .capa-modal-flotante.activo {
     opacity: 1;
     pointer-events: auto;
 }
-
-/* Ajuste tierno para tus formularios cuando estén adentro del modal */
 .capa-modal-flotante .Formulario {
     background-color: var(--white-pure);
     padding: 30px;
     border-radius: var(--border-radius-lg);
-    /* Tus curvas de 28px */
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
     width: 90%;
-    max-width: 480px;
-    /* Tamaño ideal de ventanilla */
+    max-width: 480px;   
     position: relative;
     transform: translateY(-20px);
     transition: transform 0.3s ease;
@@ -711,7 +706,6 @@ body {
     transform: translateY(0);
 }
 
-/* Botón de cerrar (X) para las esquinas */
 .btn-cerrar-modal {
     position: absolute;
     top: 15px;
@@ -731,7 +725,6 @@ body {
 .Gestion {
     display: grid;
     grid-template-columns: 380px 1fr;
-    /* Formulario compacto y tabla expandida */
     gap: 24px;
     margin-top: 10px;
     margin-bottom: 30px;
@@ -869,8 +862,7 @@ body {
     transition: all 0.2s ease;
 }
 
-.FiltroB.activo,
-.FiltroB:hover {
+.FiltroB.activo, .FiltroB:hover {
     background-color: var(--text-main);
     color: var(--pastel-pink);
 }
@@ -919,7 +911,6 @@ body {
     color: #ff6b8b;
 }
 
-/* Responsividad para la nueva sección */
 @media (max-width: 1200px) {
     .Gestion {
         grid-template-columns: 1fr;
@@ -947,125 +938,226 @@ body {
 }
 
 
-/* 0. Monitores de Escritorio Grandes (Pantallas de 1440px o más) 
-   ¡Aquí está el truco! En lugar de estirar 2 buses gigantes, pintamos los 4 en fila */
-@media (min-width: 1440px) {
-    .Tablerito {
-        max-width: 1600px;
-        /* Ampliamos un poquito el lienzo */
+@media (min-width:1440px){
+
+    .Tablerito{
+        max-width:1800px;
+        margin:auto;
     }
 
-    .Grid-rutas {
-        grid-template-columns: repeat(4, 1fr);
-        /* ¡Los 4 buses alineados en una sola fila hermosa! */
-        gap: 20px;
+    .Grid-rutas{
+        grid-template-columns:repeat(4,1fr);
+        gap:20px;
     }
 
-    .Cajitaestados {
-        gap: 20px;
+    .Cajitaestados{
+        gap:20px;
     }
+
 }
 
-/* 1. Computadoras medianas / Laptops convencionales (Menos de 1200px) */
-@media (max-width: 1200px) {
-    .Tablerito {
-        grid-template-columns: 80px 1fr;
-        gap: 16px;
+
+
+@media (max-width:1200px){
+
+    .Tablerito{
+        grid-template-columns:70px 1fr;
+        gap:16px;
     }
 
-    .Grid-rutas {
-        grid-template-columns: repeat(2, 1fr);
-        /* Vuelve al cómodo 2x2 */
-        gap: 16px;
+    .Grid-rutas{
+        grid-template-columns:repeat(2,1fr);
+        gap:16px;
     }
 
-    .Tarjetaruta {
-        padding: 20px;
+    .Tarjetaruta{
+        padding:20px;
     }
+
 }
 
-/* 2. Tablets y pantallas medianas (Menos de 768px) */
-@media (max-width: 768px) {
-    .Tablerito {
-        grid-template-columns: 1fr;
-        height: auto;
+
+@media (max-width:768px){
+
+    html,body{
+        overflow-x:hidden;
     }
 
-    .Barrita {
-        display: none;
+    .Tablerito{
+        grid-template-columns:1fr !important;
+        padding-bottom:95px;
     }
 
-    .Grid-rutas {
-        grid-template-columns: 1fr;
-        /* Una sola columna vertical para que no se aplasten */
+
+    .Contenido-principal{
+        padding:10px;
     }
 
-    .Cajitaestados {
-        grid-template-columns: 1fr;
-        gap: 12px;
+    .Grid-rutas{
+        grid-template-columns:1fr;
+        gap:15px;
     }
 
-    .Cajitaestado {
-        height: 100px;
+    .Cajitaestados{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:12px;
     }
 
-    .Barrita {
-        display: flex !important;
-        /* ¡Obligamos a que se muestre! 🎀 */
-        position: fixed;
-        bottom: 0;
-        /* La ubicamos abajo del cel para que sea fácil tocar los botones */
-        left: 0;
-        width: 100%;
-        height: 30px;
-        /* Una altura cómoda */
-        flex-direction: row;
-        /* El menú ahora irá horizontal */
-        justify-content: space-around;
-        align-items: center;
-        border-radius: 20px 20px 0 0;
-        /* Bordes esponjosos arriba */
-        box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
-        z-index: 1000;
-        /* Que siempre quede flotando por encima */
+    .Cajitaestado{
+        min-height:120px;
+        padding:15px;
     }
 
-    .imagen-isotipo {
-        height: 84px;
+    .botonCrear{
+        width:100%;
+        margin-top:10px;
+        font-size:12px;
+        padding:10px;
     }
 
-    .Menu-barrita {
-        flex-direction: row !important;
-        gap: 15px;
+    .Rutadatos{
+        flex-direction:column;
+        gap:8px;
     }
 
-    .Tablerito {
-        padding-bottom: 80px;
-        grid-template-columns: 1fr !important;
-        /* El diseño pasa a ser de una sola columna */
+    route-card, .Tarjetaruta{
+        width:100%;
+    }
+   
+    .Barrita{
+        display:flex;
+        position:fixed;
+        bottom:0;
+        left:0;
+        width:100%;
+        height:75px;
+        flex-direction:row;
+        justify-content:space-around;
+        align-items:center;
+        padding:8px;
+        border-radius:25px 25px 0 0;
+        background:white;
+        box-shadow:0 -4px 15px rgba(0,0,0,.08);
+        z-index:9999;
+    }
+
+    .Menu-barrita{
+        display:flex;
+        flex-direction:row;
+        gap:15px;
+    }
+
+    .menu-item{
+        width:45px;
+        height:45px;
+    }
+
+    .sticker-menu{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+
+    .imagen-isotipo{
+        height:55px;
+    }
+
+    .icono-carro{
+        width:40px !important;
+        height:40px !important;
+    }
+
+    .TablaHistorial{
+        padding:16px;
+        border-radius:20px;
+        overflow:hidden;
+    }
+    
+    .TablaEncabezado{
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+        align-items:flex-start;
+    }
+    
+    .TablaFiltros{
+        width:100%;
+        display:flex;
+        overflow-x:auto;
+        gap:10px;
+        padding-bottom:6px;
+    }
+    
+    .FiltroB{
+        flex-shrink:0;
+        white-space:nowrap;
+    }
+    
+    .Tablita{
+        min-width:700px;
+        font-size:13px;
+    }
+    
+    .Tablita th, .Tablita td{
+        padding:12px;
+        white-space:nowrap;
     }
 }
+    
 
-/* 3. Celulares inteligentes (Menos de 480px) */
-@media (max-width: 480px) {
-    body {
-        padding: 12px;
+
+@media (max-width:480px){
+
+    body{
+        padding:8px;
     }
 
-    .Encabezado {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-        padding: 20px;
+    .Encabezado{
+        flex-direction:column;
+        align-items:stretch;
+        gap:10px;
+        padding:15px;
     }
 
-    .BarritaBusqueda input {
-        width: 100%;
+    .BarritaBusqueda input{
+        width:100%;
     }
 
-    .Rutadatos {
-        flex-direction: column;
-        gap: 6px;
+    .TablaHistorial{
+        margin-bottom:90px; 
     }
 
+    .TablaEncabezado h3{
+        font-size:15px;
+        line-height:1.4;
+    }
+
+    .Tablita{
+        min-width:650px;
+        font-size:12px;
+    }
+
+    .Estado{
+        font-size:11px;
+        padding:4px 8px;
+    }
+
+    .btnEliminarFila{
+        padding:6px 10px;
+        font-size:12px;
+    }
+
+}
+
+.ContenedorTabla{
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 20px;
+}
+
+.Tablita{
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
 }
