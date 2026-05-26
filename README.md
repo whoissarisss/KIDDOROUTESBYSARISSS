@@ -76,7 +76,6 @@ kiddo-routes/
 ├── javita.js        # Lógica de la app, Web Components y llamadas fetch
 ├── fonts/           # Fuente personalizadas (KGPerfectPenmanship)
 └── img/             # Logos estáticos (isotipos, avatares, fondos)
-
-✨ Diseñado y desarrollado con dedicación, combinando lógica estructurada con una estética visual muy cuidada.
-Desarrollado por: Sara Sofia Ramirez Pedraza
-***
+```
+**✨ Diseñado y desarrollado con dedicación, combinando lógica estructurada con una estética visual muy cuidada.
+Desarrollado por: Sara Sofia Ramirez Pedraza**

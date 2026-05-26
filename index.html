@@ -9,6 +9,7 @@
 </head>
 
 <div id="notificacionKiddo" class="notificacion-kiddo">
+    <img id="iconoNotificacion" src="" alt="Icono" style="width:30px; height: 30px; margin-right: 10px;">
     <span id="textoNotificacion"></span>
 </div>
 
@@ -17,11 +18,6 @@
     <div class="Tablerito">
 
         <aside class="Barrita">
-            <button type="button" id="btnLogoHome" class="btn-logo-interactivo"
-                style="background: none; border: none; cursor: pointer; width: 100%; padding: 0 10px;">
-                <img src="" alt="kiddo routes" class="imagen-isotipo">
-            </button>
-
             <nav class="Menu-barrita">
                 <button type="button" class="menu-item badge-item" data-view="ruta-nina">
                     <img src="img/niñalazo.png" alt="Niña con lazo" class="sticker-menu">
@@ -33,14 +29,6 @@
                     <img src="img/niñarubia.png" alt="Niña rubia" class="sticker-menu">
                 </button>
             </nav>
-
-            <div class="Barrita-footer">
-                <button type="button" id="btnVerCarrito" class="menu-item"
-                    style="width: 70px; height: 70px; border: none; background: none; padding: 0;">
-                    <img src="img/car.png" alt="carrito" class="icono-carro"
-                        style="width: 100%; height: 100%; object-fit: contain;">
-                </button>
-            </div>
         </aside>
 
         <main class="Contenido-principal">
@@ -115,7 +103,7 @@
                         </div>
                 
                         <div class="ContenidoCajita">
-                            <span class="Cajitatitulo">Alumnos Pendientes</span>
+                            <span class="Cajitatitulo">Estudiantes Pendientes</span>
                             <span class="Cajitanumero"id="totalEstudiantesPendientes">0</span>
                 
                             <button class="botonCrear"id="btnPendientes">+ VER ESTUDIANTES PENDIENTES</button>
@@ -249,12 +237,12 @@
                             </div>
 
                             <div class="Rutadatos">
-                                <span class="Datocajita"> Salida: 07:30 AM</span>
-                                <span class="Datocajita"> Capacidad: 5/10</span>
+                                <span class="Datocajita"> SALIDA: 07:30 AM</span>
+                                <span class="Datocajita"> CAPACIDAD: 5/10</span>
                             </div>
 
                             <div class="CajitaEstudiantes">
-                                <span class="TituloEstudiantes">ALUMNOS A BORDO</span>
+                                <span class="TituloEstudiantes">ESTUDIANTES A BORDO</span>
                                 <div class="ListaEstudiantes">
                                     <button type="button" class="Estudiantito" data-student-id="sofia">
                                         Sofía <span class="eliminar-estudiante">×</span>
@@ -362,7 +350,7 @@
                         <div id="modalNinosPendientes" class="capa-modal-flotante">
                             <div class="Formulario">
                                 <button type="button" class="btn-cerrar-modal" id="cerrarM2">✕</button>
-                                <h3> NIÑOS SIN RUTA ASIGNADA</h3>
+                                <h3> ESTUDIANTES SIN RUTA ASIGNADA</h3>
                                 <div class="ListaEstudiantesPendientes"></div>
                             </div>
                             
@@ -388,7 +376,6 @@
                                 <h3>ALUMNOS REGISTRADOS</h3>
                                 <span id="contadorAlumnos" class="FiltroB activo">0 alumnos</span>
                             </div>
-                        
                             <div class="ListaAlumnosRegistrados" id="listaAlumnosRegistrados">
                         
                             </div>

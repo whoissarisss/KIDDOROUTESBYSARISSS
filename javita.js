@@ -43,10 +43,10 @@ template.innerHTML = `
         width: 6px;
         border-radius: 0 8px 8px 0;
     }
-    .Tarjetaruta.bus-1::before { background-color: #ff6b8b; }
-    .Tarjetaruta.bus-2::before { background-color: #4ea8de; }
-    .Tarjetaruta.bus-3::before { background-color: #ffd166; }
-    .Tarjetaruta.bus-4::before { background-color: #06d6a0; }
+    .Tarjetaruta.bus-1::before { background-color: var(--pastel-pink); }
+    .Tarjetaruta.bus-2::before { background-color: var(--pastel-purple); }
+    .Tarjetaruta.bus-3::before { background-color: var(--pastel-blue); }
+    .Tarjetaruta.bus-4::before { background-color: var(--pastel-yellow); }
 
     .Tarjetarutaencabezado {
         display: flex;
@@ -72,8 +72,8 @@ template.innerHTML = `
     }
 
     .Clima {
-        background-color: #e0f2fe;
-        color: #0369a1;
+        background-color: var(--pastel-yellow);
+        color: var(--text-main);
         padding: 8px 14px;
         border-radius: 50px;
         font-size: 0.85rem;
@@ -90,7 +90,7 @@ template.innerHTML = `
     }
 
     .Datocajita {
-        background-color: #f5f6f8;
+        background-color: var(--pastel-blue);
         padding: 6px 14px;
         border-radius: var(--border-radius-sm);
         font-size: 0.85rem;
@@ -99,7 +99,7 @@ template.innerHTML = `
     }
 
     .CajitaEstudiantes {
-        background-color: #f9fafb;
+        background-color: var(--pastel-pink);
         border-radius: var(--border-radius-sm);
         padding: 16px;
         flex-grow: 1;
@@ -125,7 +125,7 @@ template.innerHTML = `
     .Estudiantito {
         display: inline-flex;
         align-items: center;
-        background-color: #fafbfc;
+        background-color: var(--pastel-purple);
         border: 1px solid #ebf0ee;
         padding: 6px 12px;
         border-radius: 50px;
@@ -166,6 +166,7 @@ template.innerHTML = `
 
     .botonGestionar {
         background-color: transparent;
+        font-family: KGPerfectPenmanship, sans-serif;
         border: none;
         color: var(--text-muted);
         font-size: 0.9rem;
@@ -180,11 +181,14 @@ template.innerHTML = `
         background-color: #fff0f3;
     }
     .botonEditar {
-        color: #4ea8de;
+        color: var(--pastel-blue);
     }
     .botonEditar:hover {
         background-color: #e0f2fe;
         color: #0369a1;
+    }
+    .btnEliminarRuta {
+        color: var(--pastel-pink);
     }
 </style>
 <div class="Tarjetaruta">
@@ -202,7 +206,7 @@ template.innerHTML = `
     </div>
 
     <div class="CajitaEstudiantes">
-        <span class="TituloEstudiantes">Alumnos a bordo</span>
+        <span class="TituloEstudiantes">ESTUDIANTES A BORDO</span>
         <div class="ListaEstudiantes"></div>
     </div>
 
@@ -270,7 +274,7 @@ class RouteCard extends HTMLElement {
                             const nuevoNombre = prompt(` EDITA EL NOMBRE DEL ESTUDIANTE:`);
                             if (nuevoNombre === null) return;
                             if (nuevoNombre.trim() === "" || !isNaN(nuevoNombre)) {
-                                mostrarNotificacion(`DEBES INGRESAR UN NOMBRE VALIDO`);
+                                mostrarNotificacion(`DEBES INGRESAR UN NOMBRE VALIDO`, `error`);
                                 return;
                             }
                             const eventoEditarEstudiante = new CustomEvent('alumnoEditado', {
@@ -316,11 +320,11 @@ class RouteCard extends HTMLElement {
             if (nuevaHora === null) return;
 
             if (!nuevoTitulo.trim() || !nuevoConductor.trim() || !nuevaHora.trim()) {
-                mostrarNotificacion(`TODOS LOS CAMPOS SON OBLIGARIOS PARA EDITAR LA RUTA`);
+                mostrarNotificacion(`TODOS LOS CAMPOS SON OBLIGARIOS PARA EDITAR LA RUTA`, `error`);
                 return;
             }
             if (!isNaN(nuevoTitulo) || !isNaN(nuevoConductor)) {
-                mostrarNotificacion(`EL NOMBRE DE LA RUTA Y DEL CONDUCTOR DEBEN SER TEXTO VÁLIDO, NO NÚMEROS.`);
+                mostrarNotificacion(`EL NOMBRE DE LA RUTA Y DEL CONDUCTOR DEBEN SER TEXTO VÁLIDO, NO NÚMEROS.`, `error`);
                 return;
             }
 
@@ -604,15 +608,22 @@ document.addEventListener('rutaEditada', (e) => {
     }
 });
 
-function mostrarNotificacion(mensaje){
+function mostrarNotificacion(mensaje, tipo="info"){
     const noti=document.getElementById("notificacionKiddo");
     const texto=document.getElementById("textoNotificacion"); 
-    texto.innerHTML=mensaje;
-    noti.classList.remove("mostrar");
-    setTimeout(()=>{
-        noti.classList.add("mostrar");
-    },100);
-    
+    const icono=document.getElementById("iconoNotificacion");
+
+    if (tipo === "exito"){
+        icono.src="img/rosa.png";
+    } else if (tipo === "error"){
+        icono.src="img/azulito.png";
+    } else {
+        icono.src="img/amarillito.png";
+    }
+
+    texto.textContent=mensaje;
+    noti.classList.add("mostrar");
+
     setTimeout(()=>{
         noti.classList.remove("mostrar");
     },6500);
@@ -671,21 +682,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         const nombre = document.getElementById("InputNombreEstudiante").value.trim();
 
         if (!nombre) {
-            mostrarNotificacion(`INGRESE UN NOMBRE VÁLIDO.`);
+            mostrarNotificacion(`INGRESE UN NOMBRE VÁLIDO.`, `error`);
             return;
         }
         if (!isNaN(nombre)) {
-            mostrarNotificacion(`LOS NOMBRES NO PUEDEN SER SOLO NÚMEROS`);
+            mostrarNotificacion(`LOS NOMBRES NO PUEDEN SER SOLO NÚMEROS.`, `error`);
             return;
         }
     
         if (/\d/.test(nombre)) {
-            mostrarNotificacion(`EL NOMBRE NO DEBE TENER NÚMEROS, SOLO LETRAS POR FAVOR.`);
+            mostrarNotificacion(`EL NOMBRE NO DEBE TENER NÚMEROS, SOLO LETRAS POR FAVOR.`, `error`);
             return;
         }
     
         agregarPendiente(nombre);
-        mostrarNotificacion(`¡ESTUDIANTE AGREGADO EXITOSAMENTE! ${nombre} AHORA HACE PARTE DE KIDDO ROUTES 🚌💖 LISTO PARA UNA NUEVA AVENTURA ESCOLAR.`);
+        mostrarNotificacion(`¡ESTUDIANTE AGREGADO EXITOSAMENTE! ${nombre} AHORA HACE PARTE DE KIDDO ROUTES 🚌💖 LISTO PARA UNA NUEVA AVENTURA ESCOLAR.`, `exito`);
         formuEstudiante.reset();   
     });
 
@@ -698,12 +709,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             const conductorRuta = document.getElementById("InputConductorRuta").value.trim();
             const horaRuta = document.getElementById("InputHoraRuta").value;
             if (!nombreRuta || !conductorRuta || !horaRuta) {
-                mostrarNotificacion(`TODOS LOS CAMPOS SON OBLIGATORIOS PARA CREAR UNA RUTA.`);
+                mostrarNotificacion(`TODOS LOS CAMPOS SON OBLIGATORIOS PARA CREAR UNA RUTA.`, `error`);
                 return;
             }
 
             if (!isNaN(nombreRuta) || !isNaN(conductorRuta)) {
-                mostrarNotificacion(`EL NOMBRE DE LA RUTA Y DEL CONDUCTOR DEBEN SER TEXTO VÁLIDO, NO NÚMEROS.`);
+                mostrarNotificacion(`EL NOMBRE DE LA RUTA Y DEL CONDUCTOR DEBEN SER TEXTO VÁLIDO, NO NÚMEROS.`, `error`);
                 return;
             }
 
@@ -723,7 +734,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             guardarEnLocalStorage();
-            mostrarNotificacion(`PERFECTO, RUTA CREADA EXITOSAMENTE!`);
+            mostrarNotificacion(`PERFECTO, RUTA CREADA EXITOSAMENTE!`, `exito`);
             FormuRuta.reset();
             renderizarRutas();
         });
@@ -780,7 +791,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         
         const opcion=parseInt(prompt(mensaje));
         if(isNaN(opcion)){
-            mostrarNotificacion("DEBES INGRESAR UN NÚMERO PARA SELECCIONAR LA RUTA");
+            mostrarNotificacion("DEBES INGRESAR UN NÚMERO PARA SELECCIONAR LA RUTA", "error");
             return;
         }
         if(opcion>=1 && opcion<=misRutas.length){
@@ -799,10 +810,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             renderizarRutas();
             actualizarDashboard();
         
-            mostrarNotificacion(` ${nombre} FUE ASIGNADO CORRECTAMENTE`);
+            mostrarNotificacion(` ${nombre} FUE ASIGNADO CORRECTAMENTE`, `exito`);
         }
         else{
-            mostrarNotificacion("SELECCIONA UNA RUTA VÁLIDA");
+            mostrarNotificacion("SELECCIONA UNA RUTA VÁLIDA", "error");
         }
         
     });

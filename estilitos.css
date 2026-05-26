@@ -104,10 +104,10 @@ body {
 .Tablerito {
     display: grid;
     grid-template-columns: 90px 1fr;
-    /* Barra lateral compacta tipo icono + Área de contenido */
     gap: 24px;
     width: 100%;
-    max-width: 1400px;
+    margin: 0 auto;
+    max-width: 1200px;
     height: calc(100vh - 48px);
 }
 
@@ -125,26 +125,16 @@ body {
 .Encabezado{
     display:flex;
     align-items:center;
-    gap:20px;
+    gap:69px;
     padding:22px;
     background:white;
     border-radius:30px;
     margin-bottom:25px;
 }
 
-.logoBuscador{
-    width:80px !important;
-    height:80px !important;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    overflow:hidden;
-    border-radius:50%;
-}
-
 .LogoDashboard{
-    width:70px !important;
-    height:70px !important;
+    width:100px !important;
+    height:100px !important;
     min-width:70px !important;
     object-fit:cover !important;
     border-radius:50%;
@@ -163,8 +153,9 @@ body {
     outline:none;
     padding:0 25px;
     border-radius:50px;
-    background:#f4f4f4;
+    background:var(--bg-soft);
     font-size:15px;
+    border: var(--pastel-pink) 3px solid;
 }
 
 .Cajitaestados{
@@ -173,6 +164,7 @@ body {
     gap:18px;
     margin-top:20px;
     width: 100%;
+    height: 100%;
     align-items: stretch;
 }
 
@@ -194,20 +186,59 @@ body {
     transform:translateY(-6px);
 }
 
+.ContenidoCajita {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: flex-start; 
+    flex-grow: 1;
+    width: 100%;
+}
+
+.Cajitatitulo {
+    font-size: .95rem;
+    font-weight: 700;
+    margin-top: 15px; 
+    margin-bottom: 2px; 
+}
+
+.Cajitanumero {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #2d2d2d;
+    margin-top: 0; 
+    margin-bottom: auto; 
+}
+
+.botonCrear {
+    width: 100%; 
+    margin-top: 15px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, .65);
+    backdrop-filter: blur(10px);
+    font-size: .75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .3s;
+}
+
 .circuloIcono{
-    width:55px;
-    height:55px;
+    width:80px;
+    height:80px;
     border-radius:50%;
     background:rgba(255,255,255,.7);
     display:flex;
     justify-content:center;
     align-items:center;
     box-shadow:0 8px 20px rgba(0,0,0,.08);
+    margin-bottom: 10px;
 }
 
 .circuloIcono img{
-    width: 35px;
-    height: 35px;
+    width: 130%;
+    height: auto;
     object-fit: contain;
 }
 
@@ -222,6 +253,25 @@ body {
     margin-top: auto;
 }
 
+.btnRosa {
+    background-color: var(--pastel-pink);
+}
+
+.btnRosa:hover {
+    background-color: #f9afbf;
+    transform: translateY(-2px);
+}
+
+.btnAmarillo {
+    background-color: var(--pastel-yellow);
+}
+
+.btnAmarillo:hover {
+    background-color: #fce074;
+    transform: translateY(-2px);
+}
+
+
 .Grid-rutas {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -231,24 +281,29 @@ body {
 }
 
 .TablaHistorial {
+   grid-column: 1/-1;
    width: 100%;
    min-width: 0;
-   background: white;
+   background: var(--white-pure);
    border-radius: 30px;
    display:flex;
    flex-direction: column;
    gap: 20px;
    padding: 25px;
    box-shadow: 0 8px 20px rgba(0,0,0,.06);
+   overflow: hidden;
+   border: var(--pastel-purple) 12px solid;
 }
 
 .PanelAlumnosRegistrados{
-    width:100%;
-    min-width: 0;
-    background:white;
-    border-radius:30px;
-    padding:25px;
-    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    background-color: var(--white-pure);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    border: var(--pastel-yellow) 5px solid;
+    width: 100%;
 }
 
 .capa-modal-flotante {
@@ -287,6 +342,10 @@ body {
     transform: translateY(0);
 }
 
+#modalNinosPendientes{
+    background-color: var(--pastel-blue);
+}
+
 .notificacion-kiddo{
     position: fixed;
     top:20px;
@@ -303,7 +362,7 @@ body {
     z-index:99999;
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:12px;
     transform:translateX(150%);
     opacity:0;
     transition:transform .6s ease,opacity .6s ease;
@@ -311,15 +370,31 @@ body {
     overflow-wrap:break-word;
 }
 
+#iconoNotificacion {
+    display: inline-block !important; 
+    width: 85px !important;           
+    height: 85px !important;
+    min-width: 85px !important;       
+    object-fit: contain !important;   
+    margin-right: 15px;              
+}
 
 .notificacion-kiddo.mostrar{
     transform:translateX(0);
     opacity:1;
 }
 
+.notificacion-kiddo img{
+    width:35px !important; 
+    height:35px !important;
+    object-fit:cover !important;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
 
 .notificacion-kiddo::before{
-    content:"🚌✨";
+    content:"";
     font-size:24px;
     flex-shrink:0;
 }
@@ -327,7 +402,7 @@ body {
 .Menu-barrita {
     display: flex;
     flex-direction: column;
-    gap: 70px;
+    gap: 110px;
     list-style: none;
     flex-grow: 1;
     justify-content: center;
@@ -410,31 +485,9 @@ body {
     background:#ffd4ac;
 }
 
-.Cajitanumero{
-    font-size:2rem;
-    font-weight:900;
-    color:#2d2d2d;
-    margin:5px 0;
-}
-
-.botonCrear{
-    margin-top: 12px;
-    padding:10px 14px;
-    border:none;
-    border-radius:30px;
-    background:rgba(255,255,255,.65);
-    backdrop-filter:blur(10px);
-    font-size:.75rem;
-    font-weight:700;
-    cursor:pointer;
-    transition:.3s;
-}
-
 .botonCrear:hover{
-
-transform:scale(1.05);
-background:white;
-
+    transform:scale(1.05);
+    background:white;
 }
 
 .Tarjetaruta {
@@ -632,7 +685,7 @@ background:white;
     justify-content: space-between;
     align-items: center;
     padding: 10px 14px;
-    background-color: #fafbfc;
+    background-color: var(--white-pure);
     border: 1px solid #eef1f0;
     border-radius: 14px;
     transition: all 0.2s ease;
@@ -657,7 +710,7 @@ background:white;
     font-family: 'KGPerfectPenmanship', sans-serif;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #0369a1;
+    color: #85c2e2;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -685,34 +738,36 @@ background:white;
 
 .Gestion{
     display:grid;
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 340px 1fr;
     align-items: start;
     width: 100%;
-    gap:20px;
+    gap:24px;
 }
 
 .ListaAlumnosRegistrados{
     display:flex;
     flex-direction:column;
-    gap:12px;
-    margin-top:20px;
-    max-height:450px;
-    overflow-y:auto;
+    gap:10px;
+    width: 100%;
+    margin-top: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: 350px;
 }
-
 .AlumnoCard{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:14px;
+    padding:14px 20px;
     border-radius:18px;
-    background:#fafafa;
+    background: var(--pastel-yellow);
     transition:.3s;
+    width: auto;
 }
 
 .AlumnoCard:hover{
     transform:translateX(5px);
-    background:#fff0f7;
+    background: #f8b9c7;
 }
 
 .NombreAlumno{
@@ -722,7 +777,7 @@ background:white;
 .EstadoAlumno{
     font-size:.75rem;
     background:#dff6e6;
-    color:#159947;
+    color:#3a6149;
     padding:6px 12px;
     border-radius:30px;
 }
@@ -770,8 +825,8 @@ background:white;
 .Formularios input, .Formularios select {
     padding: 10px 16px;
     border-radius: 14px;
-    border: 2px solid #eef1f0;
-    background-color: #fafbfc;
+    border: 2px solid var(--pastel-purple);
+    background-color: var(--pastel-purple);
     font-size: 0.9rem;
     color: var(--text-main);
     outline: none;
@@ -799,24 +854,6 @@ background:white;
     cursor: pointer;
     transition: all 0.2s ease;
     margin-top: 5px;
-}
-
-.btnRosa {
-    background-color: var(--pastel-pink);
-}
-
-.btnRosa:hover {
-    background-color: #f9afbf;
-    transform: translateY(-2px);
-}
-
-.btnAmarillo {
-    background-color: var(--pastel-yellow);
-}
-
-.btnAmarillo:hover {
-    background-color: #fce074;
-    transform: translateY(-2px);
 }
 
 .TablaEncabezado {
@@ -934,6 +971,10 @@ background:white;
         margin:auto;
     }
 
+    .BarritaBusqueda input{
+        width:1400px;
+    }
+
 }
 
 @media (max-width:1200px){
@@ -1030,6 +1071,10 @@ background:white;
         gap:15px;
     }
 
+    .BarritaBusqueda{
+        width: 100%;
+    }
+
     .menu-item{
         width:45px;
         height:45px;
@@ -1091,7 +1136,7 @@ background:white;
         grid-template-columns: 1fr;
     }
         
-    .TablaHistorial, .PanelAlumnosRegistrados{
+    .TablaHistorial{
         width: 100%;
         max-width: 100%;
     }
@@ -1110,11 +1155,6 @@ background:white;
     .Encabezado{
         flex-direction: column;
     }
-
-    .logoBuscador{
-        width: 55px;
-        height: 55px;
-    } 
 }
 
 @media (max-width:480px){
