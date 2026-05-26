@@ -54,6 +54,24 @@ Este proyecto está construido puramente con tecnologías nativas de la web (Van
 
 ---
 
+🎀 Un vistazo a Kiddo Routes
+
+¡Mira qué lindo luce el tablero en acción! Aquí te muestro cómo se vive la experiencia:
+Pantalla de Bienvenida: El punto de partida lleno de color y alegría.
+![Pantalla de bienvenida](img/pantallaInicio.png)
+Buscador Mágico: Encuentra cualquier ruta al instante con un diseño limpio.
+![Barra de búsqueda](img/busqueda.png)
+Panel de Estadísticas: Control total con el clima en tiempo real de Bucaramanga y el resumen de tus buses.
+![Panel de estadísticas](img/cajitas.png)
+Tarjetas de Rutas: Gestiona tus rutas, conductores y estudiantes con un solo clic.
+![Tarjetas de rutas](img/tarjetas.png)
+Gestión de Estudiantes: Listado organizado y tierno para ver quiénes están a bordo.
+![Alumnos registrados](img/alumnosRegistrados.png)
+Historial de Operaciones: Todo bajo control y bien registrado en una tabla clara.
+![Historial de actividades](img/historial.png)
+
+---
+
 ## 🚀 Guía de Instalación (Cualquier persona puede ejecutar este proyecto.)
 
 **1. Clona el repositorio:**
