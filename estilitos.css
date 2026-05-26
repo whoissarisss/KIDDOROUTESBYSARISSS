@@ -157,13 +157,14 @@ body {
 }
 
 .BarritaBusqueda input{
-    width:100%;
+    width:640px;
     height:55px; 
     border:none;
     outline:none;
     padding:0 25px;
     border-radius:50px;
     background:#f4f4f4;
+    font-size:15px;
 }
 
 .Cajitaestados{
