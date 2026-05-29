@@ -485,7 +485,7 @@ function renderizarAlumnosRegistrados(){
                 <button class="botonAsistencia" id="Asistió">SI ASISTIÓ</button>
                 <button class="botonAsistencia" id="NoAsistió">NO ASISTIÓ</button>
             </div>
-        `;
+        `; //se supone que deberia ser un select 
         lista.appendChild(div);
 
     });
