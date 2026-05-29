@@ -773,15 +773,25 @@ body {
 .NombreAlumno{
     font-weight:600;
 }
+.botonAsistencia {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    gap: 9px;
+    padding: 6px 12px;
+    background: var(--white-pure);
+    border-radius: 30px;
 
-.EstadoAlumno{
-    font-size:.75rem;
-    background:#dff6e6;
-    color:#3a6149;
-    padding:6px 12px;
-    border-radius:30px;
 }
 
+#Asistió:hover{
+    transform:translateX(5px);
+    background: #98e0a1
+}
+#NoAsistió:hover{
+    transform:translateX(5px);
+    background:rgb(131, 48, 48)
+}
 .PanelFormularios {
     display: flex;
     flex-direction: column;

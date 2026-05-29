@@ -481,9 +481,10 @@ function renderizarAlumnosRegistrados(){
                 <small>${alumno.ruta}</small>
             </div>
 
-            <span class="EstadoAlumno">
-                REGISTRADO
-            </span>
+            <div class="Btn-gestionar">
+                <button class="botonAsistencia" id="Asistió">SI ASISTIÓ</button>
+                <button class="botonAsistencia" id="NoAsistió">NO ASISTIÓ</button>
+            </div>
         `;
         lista.appendChild(div);
 
